@@ -8,6 +8,10 @@ const Wrapper = styled.main`
     height: var(--nav-height);
     display: flex;
     align-items: center;
+
+    img {
+      width: 10%;
+    }
   }
   .page {
     min-height: calc(100vh - var(--nav-height));
