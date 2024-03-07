@@ -17,7 +17,7 @@ const LandingPage = () => {
           <h1>
             job <span>tracking</span> app
           </h1>
-          <p>some text</p>
+          <p>Here You can find job announcements</p>
           <Link to="/register" className="btn btn-hero">
             Login / Register
           </Link>

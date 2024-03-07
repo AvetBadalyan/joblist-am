@@ -3,9 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import { useEffect } from "react";
-import { clearValues, createJob, editJob, handleChange } from "../../../features/jobSlice/jobSlice";
-import FormRow from './../../../components/FormRow/FormRow';
+import {
+  clearValues,
+  createJob,
+  editJob,
+  handleChange,
+} from "../../../features/jobSlice/jobSlice";
+import FormRow from "./../../../components/FormRow/FormRow";
 import FormRowSelect from "../../../components/FormRow/FormRowSelect";
+
 const AddJob = () => {
   const {
     isLoading,
