@@ -4,7 +4,7 @@ A full-stack two-sided job marketplace connecting talented professionals with to
 
 > Portfolio project demonstrating React + Redux Toolkit + Supabase with role-based authentication and Row Level Security.
 
-**GitHub:** [github.com/AvetBadalyan/WorkList-am](https://github.com/AvetBadalyan/WorkList-am)
+**Live Demo:** [joblist-am.vercel.app](https://joblist-am.vercel.app) | **GitHub:** [github.com/AvetBadalyan/joblist-am](https://github.com/AvetBadalyan/joblist-am)
 
 ---
 
@@ -58,8 +58,8 @@ A full-stack two-sided job marketplace connecting talented professionals with to
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/AvetBadalyan/WorkList-am.git
-cd WorkList-am
+git clone https://github.com/AvetBadalyan/joblist-am.git
+cd joblist-am
 npm install
 ```
 
