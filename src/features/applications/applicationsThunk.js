@@ -1,0 +1,177 @@
+/**
+ * applicationsThunk - Async thunk handlers for candidate job applications
+ *
+ * Requirements: 6.2, 6.3, 6.4, 7.1, 7.2, 7.5
+ * - submitApplicationThunk: Submit a new job application
+ * - getMyApplicationsThunk: Fetch all applications for the candidate
+ * - checkAppliedJobsThunk: Get list of job IDs user has applied to
+ */
+
+import { supabase } from "../../utils/supabase";
+import { handleSupabaseError } from "../../utils/errorHandler";
+import { mapApplicationFromDB } from "../../utils/mappers";
+
+/**
+ * Submit a new job application
+ * @param {Object} data - Application data { jobId, cover_letter, resume_url }
+ * @param {Object} thunkAPI - Redux Toolkit thunk API
+ * @returns {Object} { application } - The created application
+ *
+ * Requirements:
+ * - 6.2: Create Application record with status "applied"
+ * - 6.3: Handle unique constraint error (already applied)
+ * - 6.4: Display success message (handled in slice)
+ */
+export const submitApplicationThunk = async (
+  { jobId, cover_letter, resume_url },
+  thunkAPI
+) => {
+  try {
+    // Get current authenticated user
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return thunkAPI.rejectWithValue("Please log in to apply for jobs");
+    }
+
+    // Insert application with status 'applied'
+    const { data, error } = await supabase
+      .from("applications")
+      .insert({
+        job_id: jobId,
+        candidate_id: user.id,
+        cover_letter: cover_letter,
+        resume_url: resume_url || null,
+        status: "applied",
+      })
+      .select(
+        `
+        *,
+        jobs (
+          title,
+          company_name
+        )
+      `
+      )
+      .single();
+
+    if (error) {
+      // Handle unique constraint violation (already applied)
+      if (
+        error.code === "23505" ||
+        error.message?.includes("duplicate key") ||
+        error.message?.includes("unique constraint")
+      ) {
+        return thunkAPI.rejectWithValue("You have already applied to this job");
+      }
+      return handleSupabaseError(error, thunkAPI);
+    }
+
+    // Map the application from DB format
+    const application = mapApplicationFromDB(data);
+
+    return { application };
+  } catch (error) {
+    return handleSupabaseError(error, thunkAPI);
+  }
+};
+
+/**
+ * Fetch all applications for the current candidate
+ * @param {undefined} _ - Unused argument
+ * @param {Object} thunkAPI - Redux Toolkit thunk API
+ * @returns {Object} { applications, totalApplications }
+ *
+ * Requirements:
+ * - 7.1: Fetch list of all candidate's Applications
+ * - 7.2: Include job_title and company_name from joined jobs table
+ * - 7.5: Order by applied_at DESC (most recent first)
+ */
+export const getMyApplicationsThunk = async (_, thunkAPI) => {
+  try {
+    // Get current authenticated user
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return thunkAPI.rejectWithValue("Please log in to view your applications");
+    }
+
+    // Fetch applications for current user with joined job data
+    const { data, error, count } = await supabase
+      .from("applications")
+      .select(
+        `
+        *,
+        jobs (
+          title,
+          company_name
+        )
+      `,
+        { count: "exact" }
+      )
+      .eq("candidate_id", user.id)
+      .order("applied_at", { ascending: false });
+
+    if (error) {
+      return handleSupabaseError(error, thunkAPI);
+    }
+
+    // Map applications from DB format
+    const applications = (data || []).map(mapApplicationFromDB);
+
+    return {
+      applications,
+      totalApplications: count || 0,
+    };
+  } catch (error) {
+    return handleSupabaseError(error, thunkAPI);
+  }
+};
+
+/**
+ * Check which jobs the candidate has already applied to
+ * Used to prevent duplicate applications and show "Already Applied" state
+ * @param {undefined} _ - Unused argument
+ * @param {Object} thunkAPI - Redux Toolkit thunk API
+ * @returns {Object} { appliedJobIds }
+ *
+ * Requirements:
+ * - 6.3: Prevent duplicate applications
+ */
+export const checkAppliedJobsThunk = async (_, thunkAPI) => {
+  try {
+    // Get current authenticated user
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      // Silent failure - user might not be logged in
+      return { appliedJobIds: [] };
+    }
+
+    // Fetch only job_id column for efficiency
+    const { data, error } = await supabase
+      .from("applications")
+      .select("job_id")
+      .eq("candidate_id", user.id);
+
+    if (error) {
+      return handleSupabaseError(error, thunkAPI);
+    }
+
+    // Extract job IDs into an array
+    const appliedJobIds = (data || []).map((app) => app.job_id);
+
+    return { appliedJobIds };
+  } catch (error) {
+    return handleSupabaseError(error, thunkAPI);
+  }
+};
