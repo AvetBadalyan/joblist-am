@@ -1,38 +1,50 @@
-# Joblist
+# JobList.am
 
-A full-stack job application tracker built with React and Supabase. Log and manage your job search — add applications, track their status through the interview pipeline, and visualize your progress with charts.
+A full-stack two-sided job marketplace connecting talented professionals with top Armenian employers. Candidates can browse jobs, apply instantly, and track applications. Employers can post openings and manage their hiring pipeline.
 
-> Built as a portfolio project demonstrating React + Redux Toolkit + Supabase integration.
+> Portfolio project demonstrating React + Redux Toolkit + Supabase with role-based authentication and Row Level Security.
+
+**GitHub:** [github.com/AvetBadalyan/WorkList-am](https://github.com/AvetBadalyan/WorkList-am)
 
 ---
 
 ## Features
 
-- **Authentication** — Register and log in with email/password via Supabase Auth; sessions persist across page refreshes
-- **Job CRUD** — Create, view, edit, and delete job applications with full Supabase backend persistence
-- **Status tracking** — Each job is tagged as `pending`, `interview`, or `declined`
-- **Filtering** — Filter applications by status and job type (full-time, part-time, remote, internship)
-- **Search with debounce** — Live search across job titles with a 300ms debounce to minimize requests
-- **Sorting** — Sort by newest, oldest, or alphabetically (A–Z / Z–A)
-- **Pagination** — Browse jobs 10 per page with wrap-around navigation
-- **Statistics dashboard** — View application counts by status and a monthly applications chart powered by Recharts
-- **Loading skeletons** — Skeleton placeholders during data fetches for a smooth perceived performance
-- **Delete confirmation modal** — Prevents accidental deletions with a confirm/cancel dialog
-- **Password strength indicator** — Real-time feedback (Weak / Medium / Strong) during registration
-- **Responsive design** — Works across desktop and mobile viewports
+### For Job Seekers (Candidates)
+
+- **Browse Jobs** — Search and filter open positions by title, company, location, and job type
+- **One-Click Apply** — Submit applications with cover letter and optional resume
+- **Track Applications** — Monitor status through the hiring pipeline (Applied → Reviewing → Interview → Offer)
+- **Save Jobs** — Bookmark interesting positions for later
+- **Profile Management** — Update skills, location, and resume URL
+
+### For Employers
+
+- **Post Jobs** — Create listings with title, description, requirements, and salary range
+- **Manage Listings** — Edit, close, or delete job postings
+- **Review Applicants** — View cover letters and update application status
+- **Company Profile** — Maintain company information across all postings
+
+### Core Platform
+
+- **Role-Based Auth** — Secure registration/login with Supabase Auth
+- **Route Protection** — Candidates and employers see only relevant pages
+- **Optimistic UI** — Bookmarks and applications update instantly, with rollback on failure
+- **Responsive Design** — Mobile-first, works across all devices
+- **Loading States** — Skeleton placeholders during data fetches
 
 ---
 
 ## Tech Stack
 
-| Technology        | Version | Purpose                           |
-| ----------------- | ------- | --------------------------------- |
-| React             | 18      | UI framework                      |
-| Redux Toolkit     | latest  | Global state management           |
-| Supabase          | latest  | Auth + PostgreSQL database (BaaS) |
-| styled-components | latest  | Component-scoped CSS-in-JS        |
-| Recharts          | latest  | Statistics charts                 |
-| React Router      | v6      | Client-side routing               |
+| Technology        | Purpose                    |
+| ----------------- | -------------------------- |
+| React 18          | UI framework               |
+| Redux Toolkit     | Global state management    |
+| Supabase          | Auth + PostgreSQL database |
+| styled-components | Component-scoped CSS-in-JS |
+| React Router v6   | Client-side routing        |
+| React Toastify    | Toast notifications        |
 
 ---
 
@@ -41,58 +53,65 @@ A full-stack job application tracker built with React and Supabase. Log and mana
 ### Prerequisites
 
 - Node.js 16+
-- A free [Supabase](https://supabase.com) account
+- [Supabase](https://supabase.com) account (free tier works)
 
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/your-username/joblist-am.git
-cd joblist-am
-```
-
-### 2. Install dependencies
+### 1. Clone and install
 
 ```bash
+git clone https://github.com/AvetBadalyan/WorkList-am.git
+cd WorkList-am
 npm install
 ```
 
-### 3. Configure environment variables
-
-Copy the example env file and fill in your Supabase credentials:
+### 2. Configure environment
 
 ```bash
 cp .env.example .env
 ```
 
-Open `.env` and set:
+Edit `.env` with your Supabase credentials (found in Supabase Dashboard → Settings → API):
 
 ```
 REACT_APP_SUPABASE_URL=your_supabase_project_url
 REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-You can find these values in your Supabase project under **Settings → API**.
+### 3. Set up database
 
-### 4. Set up the database
+In Supabase SQL Editor, run migrations in order:
 
-In your Supabase project, open the **SQL Editor** and run the migration scripts in order:
+1. `src/sql/001_profiles.sql`
+2. `src/sql/002_jobs.sql`
+3. `src/sql/003_applications.sql`
+4. `src/sql/004_saved_jobs.sql`
 
-1. `supabase/migrations/001_create_jobs_table.sql` — creates the jobs table
-2. `supabase/migrations/002_rls_policies.sql` — enables Row Level Security policies
+To load demo data (optional), first create the 5 demo users in **Authentication → Users**, then run `src/sql/005_seed.sql`. See [`src/sql/README.md`](src/sql/README.md) for the exact emails and steps.
 
-### 5. Start the development server
+### 4. Start development server
 
 ```bash
 npm start
 ```
 
-The app runs at [http://localhost:3000](http://localhost:3000).
+App runs at [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## Screenshots
+## Project Structure
 
-_Screenshots coming soon. Run the app locally to see the full UI._
+```
+src/
+├── Pages/              # Route-level components
+│   ├── BrowseJobs/     # Public job listing
+│   ├── JobDetail/      # Job details + apply form
+│   ├── Candidate/      # Candidate dashboard, applications, saved jobs
+│   └── Employer/       # Employer dashboard, post/edit jobs, view applicants
+├── components/         # Reusable UI components
+├── features/           # Redux slices and thunks
+├── assets/wrappers/    # styled-components for each page/component
+├── utils/              # Supabase client, helpers, mappers
+└── sql/                # Database migrations
+```
 
 ---
 
