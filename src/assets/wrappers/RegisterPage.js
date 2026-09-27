@@ -3,11 +3,13 @@ import styled from "styled-components";
 const Wrapper = styled.section`
   display: grid;
   align-items: center;
+
   .logo {
     display: block;
     margin: 0 auto;
     margin-bottom: 1.38rem;
   }
+
   .form {
     max-width: 400px;
     border-top: 5px solid var(--primary-500);
@@ -16,14 +18,17 @@ const Wrapper = styled.section`
   h3 {
     text-align: center;
   }
+
   p {
     margin: 0;
-    margin-top: 1rem;
+    margin-top: var(--space-4);
     text-align: center;
   }
+
   .btn {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
   }
+
   .member-btn {
     background: transparent;
     border: transparent;
@@ -32,19 +37,18 @@ const Wrapper = styled.section`
     letter-spacing: var(--letterSpacing);
   }
 
-  /* Role selection styling */
   .role-selection {
     display: flex;
-    gap: 1.5rem;
-    margin-top: 0.5rem;
+    gap: var(--space-6);
+    margin-top: var(--space-2);
   }
 
   .radio-label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: var(--fs-base);
     color: var(--grey-700);
   }
 
@@ -59,26 +63,25 @@ const Wrapper = styled.section`
     user-select: none;
   }
 
-  /* Role-specific fields section */
   .role-fields {
-    margin-top: 1rem;
-    padding-top: 1rem;
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
     border-top: 1px solid var(--grey-200);
   }
 
   .fields-note {
-    font-size: 0.85rem;
+    font-size: var(--fs-sm);
     color: var(--grey-500);
-    margin-bottom: 0.75rem;
+    margin-bottom: var(--space-3);
     text-align: left;
   }
 
-  /* Responsive adjustments */
   @media (max-width: 480px) {
     .role-selection {
       flex-direction: column;
-      gap: 0.75rem;
+      gap: var(--space-3);
     }
   }
 `;
+
 export default Wrapper;

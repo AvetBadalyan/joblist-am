@@ -5,22 +5,26 @@ const Wrapper = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-1);
+  background: var(--white);
+
   .logo {
     display: flex;
     align-items: center;
     width: 100px;
   }
+
   .nav-center {
     display: flex;
     width: 90vw;
     align-items: center;
     justify-content: space-between;
   }
+
   .toggle-btn {
     background: transparent;
     border-color: transparent;
-    font-size: 1.75rem;
+    font-size: var(--fs-2xl);
     color: var(--primary-500);
     cursor: pointer;
     display: flex;
@@ -28,17 +32,24 @@ const Wrapper = styled.nav`
     justify-content: center;
     min-width: 44px;
     min-height: 44px;
-    padding: 0.5rem;
+    padding: var(--space-2);
+    border-radius: var(--borderRadius);
+    transition: var(--transition);
+
+    &:hover {
+      background: var(--grey-100);
+    }
   }
-  background: var(--white);
+
   .btn-container {
     position: relative;
   }
+
   .btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0 0.5rem;
+    gap: 0 var(--space-2);
     position: relative;
     box-shadow: var(--shadow-2);
   }
@@ -50,14 +61,16 @@ const Wrapper = styled.nav`
     width: 100%;
     background: var(--primary-100);
     box-shadow: var(--shadow-2);
-    padding: 0.5rem;
+    padding: var(--space-2);
     text-align: center;
     visibility: hidden;
     border-radius: var(--borderRadius);
   }
+
   .show-dropdown {
     visibility: visible;
   }
+
   .dropdown-btn {
     background: transparent;
     border-color: transparent;
@@ -66,24 +79,30 @@ const Wrapper = styled.nav`
     text-transform: capitalize;
     cursor: pointer;
     min-height: 44px;
-    padding: 0.5rem 1rem;
+    padding: var(--space-2) var(--space-4);
     width: 100%;
+    transition: var(--transition);
+
+    &:hover {
+      color: var(--primary-700);
+    }
   }
+
   .logo-text {
     display: none;
     margin: 0;
     text-transform: capitalize;
   }
 
-  /* Auth buttons for unauthenticated users */
   .auth-buttons {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
+
   .auth-buttons .btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--fs-sm);
     text-decoration: none;
     min-height: 44px;
     min-width: 44px;
@@ -91,12 +110,14 @@ const Wrapper = styled.nav`
     align-items: center;
     justify-content: center;
   }
+
   .auth-buttons .btn-outline {
     background: transparent;
     color: var(--primary-500);
     border: 1px solid var(--primary-500);
     box-shadow: none;
   }
+
   .auth-buttons .btn-outline:hover {
     background: var(--primary-50);
   }
@@ -104,20 +125,25 @@ const Wrapper = styled.nav`
   @media (min-width: 768px) {
     position: sticky;
     top: 0;
+    z-index: 100;
 
     .nav-center {
       width: 90%;
     }
+
     .logo {
       display: none;
     }
+
     .logo-text {
       display: block;
     }
+
     .auth-buttons .btn {
-      padding: 0.75rem 1.25rem;
-      font-size: 1rem;
+      padding: var(--space-3) var(--space-5);
+      font-size: var(--fs-base);
     }
   }
 `;
+
 export default Wrapper;

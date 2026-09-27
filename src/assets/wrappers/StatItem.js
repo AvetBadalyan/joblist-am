@@ -1,33 +1,39 @@
 import styled from "styled-components";
 
 const Wrapper = styled.article`
-  padding: 2rem;
+  padding: var(--space-8);
   background: var(--white);
   border-radius: var(--borderRadius);
   border-bottom: 5px solid ${(props) => props.color};
-  transition: all 0.3s ease;
+  transition: var(--transition);
+
   &:hover {
     transform: scale(1.02);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-3);
   }
+
   header {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+
   .count {
     display: block;
     font-weight: 700;
-    font-size: 50px;
+    font-size: var(--fs-stat);
     color: ${(props) => props.color};
   }
+
   .title {
     margin: 0;
     text-transform: capitalize;
     letter-spacing: var(--letterSpacing);
     text-align: left;
-    margin-top: 0.5rem;
+    margin-top: var(--space-2);
+    color: var(--grey-600);
   }
+
   .icon {
     width: 70px;
     height: 60px;
@@ -36,8 +42,9 @@ const Wrapper = styled.article`
     display: flex;
     align-items: center;
     justify-content: center;
+
     svg {
-      font-size: 2rem;
+      font-size: var(--fs-3xl);
       color: ${(props) => props.color};
     }
   }

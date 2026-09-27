@@ -18,12 +18,12 @@ const Wrapper = styled.article`
   }
 
   header {
-    padding: 1rem 1.5rem;
+    padding: var(--space-4) var(--space-6);
     border-bottom: 1px solid var(--grey-100);
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .company-icon {
@@ -33,7 +33,7 @@ const Wrapper = styled.article`
     place-items: center;
     background: var(--primary-500);
     border-radius: var(--borderRadius);
-    font-size: 1.25rem;
+    font-size: var(--fs-lg);
     font-weight: 700;
     text-transform: uppercase;
     color: var(--white);
@@ -41,14 +41,14 @@ const Wrapper = styled.article`
 
   .header-info {
     h4 {
-      margin-bottom: 0.25rem;
-      font-size: 1.1rem;
+      margin-bottom: var(--space-1);
+      font-size: var(--fs-md);
       letter-spacing: 0;
     }
     p {
       margin: 0;
       color: var(--grey-500);
-      font-size: 0.9rem;
+      font-size: var(--fs-sm);
       letter-spacing: var(--letterSpacing);
     }
   }
@@ -57,7 +57,7 @@ const Wrapper = styled.article`
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: var(--space-2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,7 +76,7 @@ const Wrapper = styled.article`
     }
 
     svg {
-      font-size: 1.25rem;
+      font-size: var(--fs-lg);
       color: var(--grey-400);
     }
 
@@ -86,13 +86,13 @@ const Wrapper = styled.article`
   }
 
   .content {
-    padding: 1rem 1.5rem;
+    padding: var(--space-4) var(--space-6);
   }
 
   .job-details {
     display: grid;
     grid-template-columns: 1fr;
-    row-gap: 0.5rem;
+    row-gap: var(--space-2);
 
     @media (min-width: 576px) {
       grid-template-columns: 1fr 1fr;
@@ -102,13 +102,13 @@ const Wrapper = styled.article`
   .detail-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
+    gap: var(--space-2);
+    font-size: var(--fs-sm);
     color: var(--grey-600);
 
     svg {
       color: var(--grey-400);
-      font-size: 1rem;
+      font-size: var(--fs-base);
     }
 
     .text {
@@ -119,32 +119,32 @@ const Wrapper = styled.article`
 
   .job-type {
     display: inline-block;
-    padding: 0.25rem 0.75rem;
+    padding: var(--space-1) var(--space-3);
     border-radius: var(--borderRadius);
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     font-weight: 500;
     text-transform: capitalize;
     letter-spacing: var(--letterSpacing);
   }
 
   .job-type.full-time {
-    background: #e0f2fe;
-    color: #0369a1;
+    background: var(--job-fulltime-bg);
+    color: var(--job-fulltime-text);
   }
 
   .job-type.part-time {
-    background: #fef3c7;
-    color: #b45309;
+    background: var(--job-parttime-bg);
+    color: var(--job-parttime-text);
   }
 
   .job-type.remote {
-    background: #d1fae5;
-    color: #047857;
+    background: var(--job-remote-bg);
+    color: var(--job-remote-text);
   }
 
   .job-type.internship {
-    background: #ede9fe;
-    color: #6d28d9;
+    background: var(--job-internship-bg);
+    color: var(--job-internship-text);
   }
 
   .salary {
@@ -153,10 +153,10 @@ const Wrapper = styled.article`
   }
 
   .posted-date {
-    font-size: 0.85rem;
+    font-size: var(--fs-sm);
     color: var(--grey-400);
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
     border-top: 1px solid var(--grey-100);
   }
 `;

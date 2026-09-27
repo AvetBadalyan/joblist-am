@@ -1,59 +1,68 @@
 import styled from "styled-components";
 
 const Wrapper = styled.section`
-  height: 6rem;
-  margin-top: 2rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: end;
-  flex-wrap: wrap;
-  gap: 1rem;
+  margin-top: var(--space-8);
+  gap: var(--space-4);
+
   .page-indicator {
-    font-size: 1rem;
+    font-size: var(--fs-base);
     color: var(--grey-500);
     margin-right: auto;
   }
+
   .btn-container {
-    background: var(--primary-100);
-    border-radius: var(--borderRadius);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
   }
+
   .pageBtn {
-    background: transparent;
+    background: var(--primary-100);
     border-color: transparent;
-    width: 50px;
+    width: 40px;
     height: 40px;
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: var(--fs-lg);
     color: var(--primary-500);
     transition: var(--transition);
     border-radius: var(--borderRadius);
     cursor: pointer;
   }
+
+  .pageBtn:hover {
+    background: var(--primary-500);
+    color: var(--white);
+  }
+
   .active {
     background: var(--primary-500);
     color: var(--white);
   }
+
   .prev-btn,
   .next-btn {
-    width: 100px;
-    height: 40px;
     background: var(--white);
     border-color: transparent;
     border-radius: var(--borderRadius);
-    color: var(--primary-500);
-    text-transform: capitalize;
-    letter-spacing: var(--letterSpacing);
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
     cursor: pointer;
     transition: var(--transition);
+    padding: var(--space-2) var(--space-4);
+    min-height: 44px;
+    min-width: 44px;
   }
+
   .prev-btn:hover,
   .next-btn:hover {
     background: var(--primary-500);
     color: var(--white);
   }
 `;
+
 export default Wrapper;

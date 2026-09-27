@@ -1,26 +1,22 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.div`
-  margin-top: 0.25rem;
-  font-size: 0.85rem;
+  margin-top: var(--space-1);
+  font-size: var(--fs-sm);
   font-weight: 600;
   letter-spacing: var(--letterSpacing);
 
-  .strength-label {
-    display: inline-block;
-  }
-
   &.weak .strength-label {
-    color: #e12d39;
+    color: var(--red-dark);
   }
 
   &.medium .strength-label {
-    color: #e9b949;
+    color: var(--yellow-dark);
   }
 
   &.strong .strength-label {
-    color: #27ae60;
+    color: var(--green-dark);
   }
-`
+`;
 
-export default Wrapper
+export default Wrapper;

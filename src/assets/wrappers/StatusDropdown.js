@@ -1,24 +1,19 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Wrapper = styled.div`
-  position: relative;
-  display: inline-block;
-
   .status-select {
-    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    appearance: none;
+    background-color: var(--white);
+    border: 1px solid var(--grey-200);
+    padding: var(--space-2) var(--space-8) var(--space-2) var(--space-3);
     border-radius: var(--borderRadius);
-    font-size: 0.875rem;
+    font-size: var(--fs-sm);
     font-weight: 500;
     text-transform: capitalize;
-    letter-spacing: var(--letterSpacing);
     cursor: pointer;
-    border: 1px solid transparent;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     background-repeat: no-repeat;
     background-position: right 0.5rem center;
-    background-size: 0.75rem;
+    background-size: 1rem;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     min-width: 120px;
     transition: var(--transition);
@@ -26,7 +21,8 @@ const Wrapper = styled.div`
 
   .status-select:focus {
     outline: none;
-    box-shadow: 0 0 0 2px var(--primary-200);
+    border-color: var(--primary-500);
+    box-shadow: var(--focus-ring);
   }
 
   .status-select:disabled {
@@ -34,35 +30,34 @@ const Wrapper = styled.div`
     cursor: not-allowed;
   }
 
-  /* Status-specific colors */
   .status-applied {
-    background-color: #dbeafe;
-    color: #1d4ed8;
-    border-color: #93c5fd;
+    background-color: var(--status-applied-bg);
+    color: var(--status-applied-text);
+    border-color: var(--status-applied-border);
   }
 
   .status-reviewing {
-    background-color: #fef3c7;
-    color: #b45309;
-    border-color: #fcd34d;
+    background-color: var(--status-reviewing-bg);
+    color: var(--status-reviewing-text);
+    border-color: var(--status-reviewing-border);
   }
 
   .status-interview {
-    background-color: #ede9fe;
-    color: #7c3aed;
-    border-color: #c4b5fd;
+    background-color: var(--status-interview-bg);
+    color: var(--status-interview-text);
+    border-color: var(--status-interview-border);
   }
 
   .status-offer {
-    background-color: #d1fae5;
-    color: #047857;
-    border-color: #6ee7b7;
+    background-color: var(--status-offer-bg);
+    color: var(--status-offer-text);
+    border-color: var(--status-offer-border);
   }
 
   .status-rejected {
-    background-color: #fee2e2;
-    color: #b91c1c;
-    border-color: #fca5a5;
+    background-color: var(--status-rejected-bg);
+    color: var(--status-rejected-text);
+    border-color: var(--status-rejected-border);
   }
 `;
 

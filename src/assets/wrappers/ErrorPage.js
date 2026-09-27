@@ -1,24 +1,29 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Wrapper = styled.main`
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
   text-align: center;
+  padding: var(--space-8);
+
   img {
-    width: 90vw;
     max-width: 600px;
     display: block;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-8);
   }
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   h3 {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
   }
+
   p {
     margin-top: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-6);
     color: var(--grey-500);
+    max-width: 500px;
   }
+
   a {
     color: var(--primary-500);
     text-decoration: underline;

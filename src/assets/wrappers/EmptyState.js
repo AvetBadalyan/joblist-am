@@ -1,21 +1,28 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.div`
   text-align: center;
-  margin-top: 4rem;
+  padding: var(--space-16) var(--space-4);
 
   h2 {
-    font-size: 1.5rem;
+    font-size: var(--fs-xl);
     color: var(--grey-500);
-    margin-bottom: 1.5rem;
-    text-transform: none;
+    margin-bottom: var(--space-6);
   }
 
-  .btn {
-    display: inline-block;
-    width: auto;
-    padding: 0.75rem 2rem;
+  p {
+    color: var(--grey-400);
+    margin-bottom: var(--space-6);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }
-`
 
-export default Wrapper
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+`;
+
+export default Wrapper;

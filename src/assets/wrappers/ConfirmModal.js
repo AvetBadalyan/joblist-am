@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -7,63 +7,72 @@ export const Backdrop = styled.div`
   display: grid;
   place-items: center;
   z-index: 1000;
-`
+  padding: var(--space-4);
+`;
 
 export const ModalBox = styled.div`
   background: var(--white);
+  padding: var(--space-8);
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-4);
-  padding: 2rem;
-  width: 90%;
-  max-width: 420px;
+  max-width: 400px;
+  width: 100%;
 
   h4 {
-    margin-bottom: 0.75rem;
-    font-size: 1.25rem;
+    margin-bottom: var(--space-3);
+    font-size: var(--fs-lg);
     color: var(--grey-900);
   }
 
   p {
-    margin-bottom: 1.5rem;
-    color: var(--grey-500);
+    color: var(--grey-600);
+    margin-bottom: var(--space-6);
     line-height: 1.6;
   }
 
   .modal-actions {
     display: flex;
+    gap: var(--space-3);
     justify-content: flex-end;
-    gap: 0.75rem;
   }
 
   .cancel-btn {
-    background: var(--grey-100);
+    background: var(--grey-200);
     color: var(--grey-700);
-    border: transparent;
+    border: none;
+    padding: var(--space-2) var(--space-4);
     border-radius: var(--borderRadius);
-    padding: 0.375rem 0.75rem;
     letter-spacing: var(--letterSpacing);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    min-height: 44px;
 
     &:hover {
-      background: var(--grey-200);
+      background: var(--grey-300);
     }
   }
 
   .confirm-btn {
-    background: var(--red-light);
-    color: var(--red-dark);
-    border: transparent;
+    background: var(--red-dark);
+    color: var(--white);
+    border: none;
+    padding: var(--space-2) var(--space-4);
     border-radius: var(--borderRadius);
-    padding: 0.375rem 0.75rem;
     letter-spacing: var(--letterSpacing);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     font-weight: 600;
+    min-height: 44px;
 
     &:hover {
-      background: var(--red-dark);
-      color: var(--white);
+      background: color-mix(in srgb, var(--red-dark) 85%, black);
     }
   }
-`
+`;
+
+const Wrapper = styled.div`
+  ${Backdrop}
+  ${ModalBox}
+`;
+
+export default Wrapper;
