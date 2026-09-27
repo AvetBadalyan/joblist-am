@@ -13,6 +13,7 @@ import Wrapper from "../../assets/wrappers/JobDetail";
 import ApplicationForm from "../../components/ApplicationForm/ApplicationForm";
 import BookmarkButton from "../../components/BookmarkButton/BookmarkButton";
 import Loading from "../../components/Loading/Loading";
+import PublicNav from "../../components/PublicNav/PublicNav";
 import { submitApplication } from "../../features/applications/applicationsSlice";
 import {
   clearCurrentJob,
@@ -210,32 +211,38 @@ const JobDetail = () => {
   // Loading state
   if (currentJobLoading) {
     return (
-      <Wrapper>
-        <div className="loading-container">
-          <Loading center />
-        </div>
-      </Wrapper>
+      <>
+        <PublicNav />
+        <Wrapper>
+          <div className="loading-container">
+            <Loading center />
+          </div>
+        </Wrapper>
+      </>
     );
   }
 
   // Error state - job not found
   if (!currentJob) {
     return (
-      <Wrapper>
-        <Link to="/jobs" className="back-link">
-          <FaArrowLeft />
-          <span>Back to Jobs</span>
-        </Link>
-        <div className="error-container">
-          <h3>Job Not Found</h3>
-          <p>
-            The job you're looking for doesn't exist or may have been removed.
-          </p>
-          <Link to="/jobs" className="btn">
-            Browse Jobs
+      <>
+        <PublicNav />
+        <Wrapper>
+          <Link to="/jobs" className="back-link">
+            <FaArrowLeft />
+            <span>Back to Jobs</span>
           </Link>
-        </div>
-      </Wrapper>
+          <div className="error-container">
+            <h3>Job Not Found</h3>
+            <p>
+              The job you're looking for doesn't exist or may have been removed.
+            </p>
+            <Link to="/jobs" className="btn">
+              Browse Jobs
+            </Link>
+          </div>
+        </Wrapper>
+      </>
     );
   }
 
@@ -255,105 +262,110 @@ const JobDetail = () => {
   const salaryDisplay = formatSalary(salary_min, salary_max);
 
   return (
-    <Wrapper>
-      {/* Back navigation */}
-      <Link to="/jobs" className="back-link">
-        <FaArrowLeft />
-        <span>Back to Jobs</span>
-      </Link>
+    <>
+      <PublicNav />
+      <Wrapper>
+        {/* Back navigation */}
+        <Link to="/jobs" className="back-link">
+          <FaArrowLeft />
+          <span>Back to Jobs</span>
+        </Link>
 
-      <div className="job-detail-container">
-        {/* Main Content */}
-        <div className="job-main">
-          {/* Header */}
-          <header className="job-header">
-            <div className="company-icon">{company_name?.charAt(0) || "C"}</div>
-            <div className="job-title-section">
-              <h2>{title}</h2>
-              <p className="company-name">{company_name}</p>
-            </div>
-            {/* Bookmark button for authenticated candidates (Requirement 8.1) */}
-            {isCandidate && (
-              <BookmarkButton
-                isSaved={isSaved}
-                onClick={handleBookmarkClick}
-                disabled={false}
-              />
-            )}
-          </header>
-
-          {/* Job Meta Info */}
-          <div className="job-meta">
-            <div className="meta-item">
-              <FaMapMarkerAlt />
-              <span className="text">{location}</span>
-            </div>
-            <div className="meta-item">
-              <span className={`job-type-badge ${job_type}`}>{job_type}</span>
-            </div>
-            {salaryDisplay && (
-              <div className="meta-item">
-                <FaMoneyBillWave />
-                <span className="salary">{salaryDisplay}</span>
+        <div className="job-detail-container">
+          {/* Main Content */}
+          <div className="job-main">
+            {/* Header */}
+            <header className="job-header">
+              <div className="company-icon">
+                {company_name?.charAt(0) || "C"}
               </div>
-            )}
-            {status === "closed" && (
-              <div className="meta-item">
-                <FaBriefcase />
-                <span className="text" style={{ color: "var(--red-dark)" }}>
-                  Closed
-                </span>
+              <div className="job-title-section">
+                <h2>{title}</h2>
+                <p className="company-name">{company_name}</p>
               </div>
-            )}
-          </div>
-
-          {/* Job Content */}
-          <div className="job-content">
-            {/* Description */}
-            <section className="content-section">
-              <h3>Job Description</h3>
-              <p style={{ whiteSpace: "pre-wrap" }}>{description}</p>
-            </section>
-
-            {/* Requirements */}
-            {requirements && (
-              <section className="content-section">
-                <h3>Requirements</h3>
-                <p style={{ whiteSpace: "pre-wrap" }}>{requirements}</p>
-              </section>
-            )}
-          </div>
-        </div>
-
-        {/* Sidebar */}
-        <aside className="job-sidebar">
-          <div className="sidebar-header">
-            <h3>Apply for this Job</h3>
-          </div>
-
-          {/* Sidebar Action (Apply button, Applied badge, or Closed badge) */}
-          {renderSidebarAction()}
-
-          {/* Application Form - shown inline when candidate clicks Apply */}
-          {showApplicationForm &&
-            isCandidate &&
-            !isJobClosed &&
-            !hasApplied && (
-              <div className="application-section">
-                <ApplicationForm
-                  jobId={jobId}
-                  onSubmit={handleApplicationSubmit}
-                  onCancel={handleApplicationCancel}
-                  isLoading={isSubmitting}
+              {/* Bookmark button for authenticated candidates (Requirement 8.1) */}
+              {isCandidate && (
+                <BookmarkButton
+                  isSaved={isSaved}
+                  onClick={handleBookmarkClick}
+                  disabled={false}
                 />
-              </div>
-            )}
+              )}
+            </header>
 
-          {/* Posted date */}
-          <p className="posted-date">Posted on {formatDate(created_at)}</p>
-        </aside>
-      </div>
-    </Wrapper>
+            {/* Job Meta Info */}
+            <div className="job-meta">
+              <div className="meta-item">
+                <FaMapMarkerAlt />
+                <span className="text">{location}</span>
+              </div>
+              <div className="meta-item">
+                <span className={`job-type-badge ${job_type}`}>{job_type}</span>
+              </div>
+              {salaryDisplay && (
+                <div className="meta-item">
+                  <FaMoneyBillWave />
+                  <span className="salary">{salaryDisplay}</span>
+                </div>
+              )}
+              {status === "closed" && (
+                <div className="meta-item">
+                  <FaBriefcase />
+                  <span className="text" style={{ color: "var(--red-dark)" }}>
+                    Closed
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Job Content */}
+            <div className="job-content">
+              {/* Description */}
+              <section className="content-section">
+                <h3>Job Description</h3>
+                <p style={{ whiteSpace: "pre-wrap" }}>{description}</p>
+              </section>
+
+              {/* Requirements */}
+              {requirements && (
+                <section className="content-section">
+                  <h3>Requirements</h3>
+                  <p style={{ whiteSpace: "pre-wrap" }}>{requirements}</p>
+                </section>
+              )}
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <aside className="job-sidebar">
+            <div className="sidebar-header">
+              <h3>Apply for this Job</h3>
+            </div>
+
+            {/* Sidebar Action (Apply button, Applied badge, or Closed badge) */}
+            {renderSidebarAction()}
+
+            {/* Application Form - shown inline when candidate clicks Apply */}
+            {showApplicationForm &&
+              isCandidate &&
+              !isJobClosed &&
+              !hasApplied && (
+                <div className="application-section">
+                  <ApplicationForm
+                    jobId={jobId}
+                    onSubmit={handleApplicationSubmit}
+                    onCancel={handleApplicationCancel}
+                    isLoading={isSubmitting}
+                  />
+                </div>
+              )}
+
+            {/* Posted date */}
+            <p className="posted-date">Posted on {formatDate(created_at)}</p>
+          </aside>
+        </div>
+      </Wrapper>
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import SearchWrapper from "../../assets/wrappers/SearchContainer";
 import EmptyState from "../../components/EmptyState/EmptyState.jsx";
 import JobCard from "../../components/JobCard/JobCard.jsx";
 import JobCardSkeleton from "../../components/LoadingSkeleton/JobCardSkeleton.jsx";
+import PublicNav from "../../components/PublicNav/PublicNav.jsx";
 import {
   clearFilters,
   getAllPublicJobs,
@@ -160,145 +161,148 @@ const BrowseJobs = () => {
   const hasActiveFilters = search !== "" || searchType !== "all";
 
   return (
-    <main className="dashboard">
-      <div className="dashboard-page">
-        {/* Search and Filter Section */}
-        <SearchWrapper>
-          <form className="form">
-            <h5>Search Jobs</h5>
-            <div className="form-center">
-              {/* Search Input - Requirement 2.1 */}
-              <div className="form-row">
-                <label htmlFor="search" className="form-label">
-                  Search
-                </label>
-                <input
-                  type="text"
-                  id="search"
-                  name="search"
-                  value={search}
-                  onChange={handleSearchChange}
-                  placeholder="Search by title, company, or location"
-                  className="form-input"
-                />
-              </div>
+    <>
+      <PublicNav />
+      <main className="dashboard">
+        <div className="dashboard-page">
+          {/* Search and Filter Section */}
+          <SearchWrapper>
+            <form className="form">
+              <h5>Search Jobs</h5>
+              <div className="form-center">
+                {/* Search Input - Requirement 2.1 */}
+                <div className="form-row">
+                  <label htmlFor="search" className="form-label">
+                    Search
+                  </label>
+                  <input
+                    type="text"
+                    id="search"
+                    name="search"
+                    value={search}
+                    onChange={handleSearchChange}
+                    placeholder="Search by title, company, or location"
+                    className="form-input"
+                  />
+                </div>
 
-              {/* Job Type Filter - Requirement 2.2 */}
-              <div className="form-row">
-                <label htmlFor="searchType" className="form-label">
-                  Job Type
-                </label>
-                <select
-                  id="searchType"
-                  name="searchType"
-                  value={searchType}
-                  onChange={handleJobTypeChange}
-                  className="form-select"
-                >
-                  {JOB_TYPE_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Clear Filters Button - Requirement 2.5 */}
-              <button
-                type="button"
-                className="btn btn-block btn-danger"
-                onClick={handleClearFilters}
-                disabled={!hasActiveFilters}
-              >
-                Clear Filters
-              </button>
-            </div>
-          </form>
-        </SearchWrapper>
-
-        {/* Jobs List Section */}
-        <Wrapper>
-          {/* Jobs count header */}
-          <h5>
-            {totalJobs} job{totalJobs !== 1 ? "s" : ""} found
-          </h5>
-
-          {/* Loading State - Requirement 22.1 */}
-          {isLoading && (
-            <div className="jobs">
-              <JobCardSkeleton count={6} />
-            </div>
-          )}
-
-          {/* Empty State */}
-          {!isLoading && jobs.length === 0 && (
-            <EmptyState
-              message={
-                hasActiveFilters
-                  ? "No jobs match your search criteria"
-                  : "No jobs available at the moment"
-              }
-              actionText={hasActiveFilters ? "Clear Filters" : undefined}
-              onAction={hasActiveFilters ? handleClearFilters : undefined}
-            />
-          )}
-
-          {/* Jobs Grid - Requirements 1.1, 1.2 */}
-          {!isLoading && jobs.length > 0 && (
-            <div className="jobs">
-              {jobs.map((job) => (
-                <JobCard
-                  key={job.id}
-                  job={job}
-                  showBookmark={canBookmark}
-                  isSaved={savedJobIdsSet.has(job.id)}
-                  onBookmarkClick={handleBookmarkClick}
-                />
-              ))}
-            </div>
-          )}
-
-          {/* Pagination Controls - Requirement 1.3 */}
-          {!isLoading && numOfPages > 1 && (
-            <PageButtonsWrapper>
-              <p className="page-indicator">
-                Page {page} of {numOfPages}
-              </p>
-              <button
-                type="button"
-                className="prev-btn"
-                onClick={handlePrevPage}
-              >
-                <HiChevronDoubleLeft />
-                prev
-              </button>
-              <div className="btn-container">
-                {pages.map((pageNumber) => (
-                  <button
-                    type="button"
-                    key={pageNumber}
-                    className={
-                      pageNumber === page ? "pageBtn active" : "pageBtn"
-                    }
-                    onClick={() => handlePageChange(pageNumber)}
+                {/* Job Type Filter - Requirement 2.2 */}
+                <div className="form-row">
+                  <label htmlFor="searchType" className="form-label">
+                    Job Type
+                  </label>
+                  <select
+                    id="searchType"
+                    name="searchType"
+                    value={searchType}
+                    onChange={handleJobTypeChange}
+                    className="form-select"
                   >
-                    {pageNumber}
-                  </button>
+                    {JOB_TYPE_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Clear Filters Button - Requirement 2.5 */}
+                <button
+                  type="button"
+                  className="btn btn-block btn-danger"
+                  onClick={handleClearFilters}
+                  disabled={!hasActiveFilters}
+                >
+                  Clear Filters
+                </button>
+              </div>
+            </form>
+          </SearchWrapper>
+
+          {/* Jobs List Section */}
+          <Wrapper>
+            {/* Jobs count header */}
+            <h5>
+              {totalJobs} job{totalJobs !== 1 ? "s" : ""} found
+            </h5>
+
+            {/* Loading State - Requirement 22.1 */}
+            {isLoading && (
+              <div className="jobs">
+                <JobCardSkeleton count={6} />
+              </div>
+            )}
+
+            {/* Empty State */}
+            {!isLoading && jobs.length === 0 && (
+              <EmptyState
+                message={
+                  hasActiveFilters
+                    ? "No jobs match your search criteria"
+                    : "No jobs available at the moment"
+                }
+                actionText={hasActiveFilters ? "Clear Filters" : undefined}
+                onAction={hasActiveFilters ? handleClearFilters : undefined}
+              />
+            )}
+
+            {/* Jobs Grid - Requirements 1.1, 1.2 */}
+            {!isLoading && jobs.length > 0 && (
+              <div className="jobs">
+                {jobs.map((job) => (
+                  <JobCard
+                    key={job.id}
+                    job={job}
+                    showBookmark={canBookmark}
+                    isSaved={savedJobIdsSet.has(job.id)}
+                    onBookmarkClick={handleBookmarkClick}
+                  />
                 ))}
               </div>
-              <button
-                type="button"
-                className="next-btn"
-                onClick={handleNextPage}
-              >
-                next
-                <HiChevronDoubleRight />
-              </button>
-            </PageButtonsWrapper>
-          )}
-        </Wrapper>
-      </div>
-    </main>
+            )}
+
+            {/* Pagination Controls - Requirement 1.3 */}
+            {!isLoading && numOfPages > 1 && (
+              <PageButtonsWrapper>
+                <p className="page-indicator">
+                  Page {page} of {numOfPages}
+                </p>
+                <button
+                  type="button"
+                  className="prev-btn"
+                  onClick={handlePrevPage}
+                >
+                  <HiChevronDoubleLeft />
+                  prev
+                </button>
+                <div className="btn-container">
+                  {pages.map((pageNumber) => (
+                    <button
+                      type="button"
+                      key={pageNumber}
+                      className={
+                        pageNumber === page ? "pageBtn active" : "pageBtn"
+                      }
+                      onClick={() => handlePageChange(pageNumber)}
+                    >
+                      {pageNumber}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className="next-btn"
+                  onClick={handleNextPage}
+                >
+                  next
+                  <HiChevronDoubleRight />
+                </button>
+              </PageButtonsWrapper>
+            )}
+          </Wrapper>
+        </div>
+      </main>
+    </>
   );
 };
 

@@ -2,7 +2,7 @@ import { FaBriefcase, FaRocket, FaUsers } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import FeaturedJobs from "../../components/FeaturedJobs/FeaturedJobs";
-import Logo from "../../components/Logo/Logo";
+import PublicNav from "../../components/PublicNav/PublicNav";
 import mainImage from "./../../assets/images/main.jpg";
 import Wrapper from "./../../assets/wrappers/LandingPage";
 
@@ -63,9 +63,7 @@ const LandingPage = () => {
 
   return (
     <Wrapper>
-      <nav>
-        <Logo />
-      </nav>
+      <PublicNav />
       <div className="container page">
         {/* Hero section - marketplace concept */}
         <div className="info">
