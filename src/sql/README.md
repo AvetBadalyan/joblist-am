@@ -20,13 +20,23 @@ This directory contains SQL migration files for setting up the Supabase database
 
 ## Migration Files
 
-| File | Description | Requirements |
-|------|-------------|--------------|
-| `001_profiles.sql` | Creates profiles table with role support | Req 19.1 |
-| `002_jobs.sql` | Creates jobs table for job listings | Req 19.2 |
-| `003_applications.sql` | Creates applications table | Req 19.3 |
-| `004_saved_jobs.sql` | Creates saved_jobs table | Req 19.4 |
-| `005_seed.sql` | Seed data for testing | Req 20 |
+| File                   | Description                              | Requirements |
+| ---------------------- | ---------------------------------------- | ------------ |
+| `001_profiles.sql`     | Creates profiles table with role support | Req 19.1     |
+| `002_jobs.sql`         | Creates jobs table for job listings      | Req 19.2     |
+| `003_applications.sql` | Creates applications table               | Req 19.3     |
+| `004_saved_jobs.sql`   | Creates saved_jobs table                 | Req 19.4     |
+| `005_seed.sql`         | Seed data for testing (see note below)   | Req 20       |
+
+### Seeding (005_seed.sql)
+
+The seed links profiles to real Supabase Auth users, so run it in two steps:
+
+1. In **Authentication > Users**, create these 5 users (Add user > Create new user, with "Auto Confirm User" enabled):
+   - Employers: `hr@picsart.com`, `careers@teamviewer.am`, `jobs@servicetitan.com`
+   - Candidates: `armen@example.com`, `anna@example.com`
+   - Password for all: `TestPassword123!`
+2. Run `005_seed.sql` in the SQL Editor. It resolves each user's UUID by email automatically (no manual UUID editing) and inserts profiles, 15 jobs, 7 applications, and 5 saved jobs. The script is safe to re-run and will raise a clear error if any user is missing.
 
 ## Rollback
 
