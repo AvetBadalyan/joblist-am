@@ -22,11 +22,10 @@ function Register() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-
+    const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     const { name, email, password, isMember } = values;
@@ -35,28 +34,27 @@ function Register() {
       return;
     }
     if (isMember) {
-      dispatch(loginUser({ email: email, password: password }));
-      return;
+      dispatch(loginUser({ email, password }));
+    } else {
+      dispatch(registerUser({ name, email, password }));
     }
-    dispatch(registerUser({ name, email, password }));
   };
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
+
   useEffect(() => {
     if (user) {
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
+      setTimeout(() => navigate("/"), 2000);
     }
   }, [user]);
+
   return (
     <Wrapper className="full-page">
       <form className="form" onSubmit={onSubmit}>
         <Logo />
         <h3>{values.isMember ? "Login" : "Register"}</h3>
-
         {!values.isMember && (
           <FormRow
             type="text"
@@ -65,14 +63,12 @@ function Register() {
             handleChange={handleChange}
           />
         )}
-
         <FormRow
           type="email"
           name="email"
           value={values.email}
           handleChange={handleChange}
         />
-
         <FormRow
           type="password"
           name="password"
