@@ -1,33 +1,12 @@
-import { FaLocationArrow, FaDollarSign, FaRegBookmark, FaBookmark } from "react-icons/fa";
+import {
+  FaBookmark,
+  FaLocationArrow,
+  FaMoneyBillWave,
+  FaRegBookmark,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Wrapper from "../../assets/wrappers/JobCard";
-
-/**
- * Format salary range for display
- * @param {number|null|undefined} salaryMin - Minimum salary
- * @param {number|null|undefined} salaryMax - Maximum salary
- * @returns {string|null} - Formatted salary string or null if no salary data
- */
-const formatSalary = (salaryMin, salaryMax) => {
-  if (!salaryMin && !salaryMax) return null;
-  
-  const formatNumber = (num) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(num);
-  };
-
-  if (salaryMin && salaryMax) {
-    return `${formatNumber(salaryMin)} - ${formatNumber(salaryMax)}`;
-  }
-  if (salaryMin) {
-    return `${formatNumber(salaryMin)}+`;
-  }
-  return formatNumber(salaryMax);
-};
+import { formatSalary } from "../../utils/format";
 
 /**
  * Format date as relative time (e.g., "3 days ago")
@@ -39,7 +18,7 @@ const formatRelativeDate = (dateString) => {
   const now = new Date();
   const diffInMs = now - date;
   const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-  
+
   if (diffInDays === 0) {
     const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
     if (diffInHours === 0) {
@@ -56,13 +35,13 @@ const formatRelativeDate = (dateString) => {
   if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
   if (diffInDays < 60) return "1 month ago";
   if (diffInDays < 365) return `${Math.floor(diffInDays / 30)} months ago`;
-  return `${Math.floor(diffInDays / 365)} year${Math.floor(diffInDays / 365) > 1 ? 's' : ''} ago`;
+  return `${Math.floor(diffInDays / 365)} year${Math.floor(diffInDays / 365) > 1 ? "s" : ""} ago`;
 };
 
 /**
  * JobCard Component
  * Displays a job listing card with key information
- * 
+ *
  * @param {Object} props
  * @param {Object} props.job - Job data object
  * @param {string} props.job.id - Job ID
@@ -77,14 +56,23 @@ const formatRelativeDate = (dateString) => {
  * @param {boolean} [props.isSaved=false] - Whether job is saved/bookmarked
  * @param {Function} [props.onBookmarkClick] - Callback when bookmark is clicked
  */
-const JobCard = ({ 
-  job, 
-  showBookmark = false, 
-  isSaved = false, 
-  onBookmarkClick 
+const JobCard = ({
+  job,
+  showBookmark = false,
+  isSaved = false,
+  onBookmarkClick,
 }) => {
-  const { id, title, company_name, location, job_type, salary_min, salary_max, created_at } = job;
-  
+  const {
+    id,
+    title,
+    company_name,
+    location,
+    job_type,
+    salary_min,
+    salary_max,
+    created_at,
+  } = job;
+
   const salary = formatSalary(salary_min, salary_max);
   const postedDate = formatRelativeDate(created_at);
 
@@ -106,9 +94,9 @@ const JobCard = ({
             <p>{company_name}</p>
           </div>
           {showBookmark && (
-            <button 
+            <button
               type="button"
-              className={`bookmark-btn ${isSaved ? 'saved' : ''}`}
+              className={`bookmark-btn ${isSaved ? "saved" : ""}`}
               onClick={handleBookmarkClick}
               aria-label={isSaved ? "Remove from saved jobs" : "Save job"}
             >
@@ -124,12 +112,12 @@ const JobCard = ({
             </div>
             <div className="detail-item">
               <span className={`job-type ${job_type}`}>
-                {job_type?.replace('-', ' ')}
+                {job_type?.replace("-", " ")}
               </span>
             </div>
             {salary && (
               <div className="detail-item salary">
-                <FaDollarSign />
+                <FaMoneyBillWave />
                 <span className="text">{salary}</span>
               </div>
             )}

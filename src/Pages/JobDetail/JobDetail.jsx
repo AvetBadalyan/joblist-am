@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   FaArrowLeft,
   FaBriefcase,
@@ -6,24 +6,25 @@ import {
   FaLock,
   FaMapMarkerAlt,
   FaMoneyBillWave,
-} from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import Wrapper from '../../assets/wrappers/JobDetail'
-import ApplicationForm from '../../components/ApplicationForm/ApplicationForm'
-import BookmarkButton from '../../components/BookmarkButton/BookmarkButton'
-import Loading from '../../components/Loading/Loading'
-import { submitApplication } from '../../features/applications/applicationsSlice'
+} from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Wrapper from "../../assets/wrappers/JobDetail";
+import ApplicationForm from "../../components/ApplicationForm/ApplicationForm";
+import BookmarkButton from "../../components/BookmarkButton/BookmarkButton";
+import Loading from "../../components/Loading/Loading";
+import { submitApplication } from "../../features/applications/applicationsSlice";
 import {
   clearCurrentJob,
   getJobById,
-} from '../../features/publicJobs/publicJobsSlice'
+} from "../../features/publicJobs/publicJobsSlice";
 import {
   optimisticSave,
   optimisticUnsave,
   saveJob,
   unsaveJob,
-} from '../../features/savedJobs/savedJobsSlice'
+} from "../../features/savedJobs/savedJobsSlice";
+import { formatSalary } from "../../utils/format";
 
 /**
  * JobDetail Page
@@ -47,76 +48,58 @@ import {
  * Format date to human-readable string
  */
 const formatDate = (dateString) => {
-  if (!dateString) return ''
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
-
-/**
- * Format salary range for display
- */
-const formatSalary = (salaryMin, salaryMax) => {
-  if (!salaryMin && !salaryMax) return null
-
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0,
-  })
-
-  if (salaryMin && salaryMax) {
-    return `${formatter.format(salaryMin)} - ${formatter.format(salaryMax)}`
-  }
-  if (salaryMin) {
-    return `From ${formatter.format(salaryMin)}`
-  }
-  return `Up to ${formatter.format(salaryMax)}`
-}
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
 
 const JobDetail = () => {
-  const { jobId } = useParams()
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { jobId } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Local state for showing application form
-  const [showApplicationForm, setShowApplicationForm] = useState(false)
+  const [showApplicationForm, setShowApplicationForm] = useState(false);
 
   // Redux state
   const { currentJob, currentJobLoading } = useSelector(
-    (store) => store.publicJobs
-  )
-  const { user } = useSelector((store) => store.user)
+    (store) => store.publicJobs,
+  );
+  const { user } = useSelector((store) => store.user);
   const { appliedJobIds, isSubmitting } = useSelector(
-    (store) => store.applications
-  )
-  const { savedJobIds } = useSelector((store) => store.savedJobs)
+    (store) => store.applications,
+  );
+  const { savedJobIds } = useSelector((store) => store.savedJobs);
 
   // Derived state
-  const isAuthenticated = Boolean(user)
-  const isCandidate = user?.role === 'candidate'
-  const isEmployer = user?.role === 'employer'
+  const isAuthenticated = Boolean(user);
+  const isCandidate = user?.role === "candidate";
+  const isEmployer = user?.role === "employer";
   const hasApplied = useMemo(
     () => appliedJobIds.includes(jobId),
-    [appliedJobIds, jobId]
-  )
-  const isSaved = useMemo(() => savedJobIds.includes(jobId), [savedJobIds, jobId])
-  const isJobClosed = currentJob?.status === 'closed'
+    [appliedJobIds, jobId],
+  );
+  const isSaved = useMemo(
+    () => savedJobIds.includes(jobId),
+    [savedJobIds, jobId],
+  );
+  const isJobClosed = currentJob?.status === "closed";
 
   // Fetch job on mount and when jobId changes
   useEffect(() => {
     if (jobId) {
-      dispatch(getJobById(jobId))
+      dispatch(getJobById(jobId));
     }
 
     // Cleanup: clear current job when leaving the page
     return () => {
-      dispatch(clearCurrentJob())
-    }
-  }, [dispatch, jobId])
+      dispatch(clearCurrentJob());
+    };
+  }, [dispatch, jobId]);
 
   /**
    * Handle Apply Now button click
@@ -126,15 +109,15 @@ const JobDetail = () => {
   const handleApplyClick = useCallback(() => {
     if (!isAuthenticated) {
       // Redirect to register with return URL (Requirement 3.4)
-      navigate(`/register?returnUrl=/jobs/${jobId}`)
-      return
+      navigate(`/register?returnUrl=/jobs/${jobId}`);
+      return;
     }
 
     if (isCandidate) {
       // Show application form (Requirement 3.5)
-      setShowApplicationForm(true)
+      setShowApplicationForm(true);
     }
-  }, [isAuthenticated, isCandidate, navigate, jobId])
+  }, [isAuthenticated, isCandidate, navigate, jobId]);
 
   /**
    * Handle application form submission
@@ -146,41 +129,41 @@ const JobDetail = () => {
           jobId,
           cover_letter: formData.cover_letter,
           resume_url: formData.resume_url,
-        })
-      )
+        }),
+      );
 
       if (submitApplication.fulfilled.match(result)) {
         // Success - hide the form (UI will show "Application Submitted")
-        setShowApplicationForm(false)
+        setShowApplicationForm(false);
       }
       // Error handling is done in the slice via toast
     },
-    [dispatch, jobId]
-  )
+    [dispatch, jobId],
+  );
 
   /**
    * Handle application form cancel
    */
   const handleApplicationCancel = useCallback(() => {
-    setShowApplicationForm(false)
-  }, [])
+    setShowApplicationForm(false);
+  }, []);
 
   /**
    * Handle bookmark toggle
    */
   const handleBookmarkClick = useCallback(() => {
-    if (!isCandidate) return
+    if (!isCandidate) return;
 
     if (isSaved) {
       // Optimistic update then dispatch
-      dispatch(optimisticUnsave(jobId))
-      dispatch(unsaveJob(jobId))
+      dispatch(optimisticUnsave(jobId));
+      dispatch(unsaveJob(jobId));
     } else {
       // Optimistic update then dispatch
-      dispatch(optimisticSave(jobId))
-      dispatch(saveJob(jobId))
+      dispatch(optimisticSave(jobId));
+      dispatch(saveJob(jobId));
     }
-  }, [dispatch, isCandidate, isSaved, jobId])
+  }, [dispatch, isCandidate, isSaved, jobId]);
 
   /**
    * Determine what to show in the sidebar action area
@@ -188,7 +171,7 @@ const JobDetail = () => {
   const renderSidebarAction = () => {
     // Hide Apply button for employers (Requirement 3.6)
     if (isEmployer) {
-      return null
+      return null;
     }
 
     // Show "Position Closed" badge for closed jobs (Requirement 6.5)
@@ -198,7 +181,7 @@ const JobDetail = () => {
           <FaLock />
           <span>Position Closed</span>
         </div>
-      )
+      );
     }
 
     // Show "Application Submitted" badge if already applied (Requirement 6.3, 6.4)
@@ -208,7 +191,7 @@ const JobDetail = () => {
           <FaCheck />
           <span>Application Submitted</span>
         </div>
-      )
+      );
     }
 
     // Show Apply button for unauthenticated and candidates (Requirement 3.3)
@@ -221,8 +204,8 @@ const JobDetail = () => {
       >
         Apply Now
       </button>
-    )
-  }
+    );
+  };
 
   // Loading state
   if (currentJobLoading) {
@@ -232,7 +215,7 @@ const JobDetail = () => {
           <Loading center />
         </div>
       </Wrapper>
-    )
+    );
   }
 
   // Error state - job not found
@@ -253,7 +236,7 @@ const JobDetail = () => {
           </Link>
         </div>
       </Wrapper>
-    )
+    );
   }
 
   const {
@@ -267,9 +250,9 @@ const JobDetail = () => {
     requirements,
     created_at,
     status,
-  } = currentJob
+  } = currentJob;
 
-  const salaryDisplay = formatSalary(salary_min, salary_max)
+  const salaryDisplay = formatSalary(salary_min, salary_max);
 
   return (
     <Wrapper>
@@ -284,7 +267,7 @@ const JobDetail = () => {
         <div className="job-main">
           {/* Header */}
           <header className="job-header">
-            <div className="company-icon">{company_name?.charAt(0) || 'C'}</div>
+            <div className="company-icon">{company_name?.charAt(0) || "C"}</div>
             <div className="job-title-section">
               <h2>{title}</h2>
               <p className="company-name">{company_name}</p>
@@ -314,10 +297,10 @@ const JobDetail = () => {
                 <span className="salary">{salaryDisplay}</span>
               </div>
             )}
-            {status === 'closed' && (
+            {status === "closed" && (
               <div className="meta-item">
                 <FaBriefcase />
-                <span className="text" style={{ color: 'var(--red-dark)' }}>
+                <span className="text" style={{ color: "var(--red-dark)" }}>
                   Closed
                 </span>
               </div>
@@ -329,14 +312,14 @@ const JobDetail = () => {
             {/* Description */}
             <section className="content-section">
               <h3>Job Description</h3>
-              <p style={{ whiteSpace: 'pre-wrap' }}>{description}</p>
+              <p style={{ whiteSpace: "pre-wrap" }}>{description}</p>
             </section>
 
             {/* Requirements */}
             {requirements && (
               <section className="content-section">
                 <h3>Requirements</h3>
-                <p style={{ whiteSpace: 'pre-wrap' }}>{requirements}</p>
+                <p style={{ whiteSpace: "pre-wrap" }}>{requirements}</p>
               </section>
             )}
           </div>
@@ -352,23 +335,26 @@ const JobDetail = () => {
           {renderSidebarAction()}
 
           {/* Application Form - shown inline when candidate clicks Apply */}
-          {showApplicationForm && isCandidate && !isJobClosed && !hasApplied && (
-            <div className="application-section">
-              <ApplicationForm
-                jobId={jobId}
-                onSubmit={handleApplicationSubmit}
-                onCancel={handleApplicationCancel}
-                isLoading={isSubmitting}
-              />
-            </div>
-          )}
+          {showApplicationForm &&
+            isCandidate &&
+            !isJobClosed &&
+            !hasApplied && (
+              <div className="application-section">
+                <ApplicationForm
+                  jobId={jobId}
+                  onSubmit={handleApplicationSubmit}
+                  onCancel={handleApplicationCancel}
+                  isLoading={isSubmitting}
+                />
+              </div>
+            )}
 
           {/* Posted date */}
           <p className="posted-date">Posted on {formatDate(created_at)}</p>
         </aside>
       </div>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default JobDetail
+export default JobDetail;
