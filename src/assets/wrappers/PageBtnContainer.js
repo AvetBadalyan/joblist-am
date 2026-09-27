@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.section`
   height: 6rem;
@@ -8,6 +8,11 @@ const Wrapper = styled.section`
   justify-content: end;
   flex-wrap: wrap;
   gap: 1rem;
+  .page-indicator {
+    font-size: 1rem;
+    color: var(--grey-500);
+    margin-right: auto;
+  }
   .btn-container {
     background: var(--primary-100);
     border-radius: var(--borderRadius);
@@ -50,5 +55,5 @@ const Wrapper = styled.section`
     background: var(--primary-500);
     color: var(--white);
   }
-`
-export default Wrapper
+`;
+export default Wrapper;
