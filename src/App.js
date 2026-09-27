@@ -1,38 +1,86 @@
+import { useEffect } from "react";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import RegisterPage from "./Pages/RegisterPage/RegisterPage";
-import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SharedLayout from "./Pages/Dashboard/SharedLayout/SharedLayout";
-import Stats from "./Pages/Dashboard/Stats/Stats";
-import AllJobs from "./Pages/Dashboard/AllJobs/AllJobs";
-import Profile from "./Pages/Dashboard/Profile/Profile";
-import AddJob from "./Pages/Dashboard/AddJob/AddJob";
+import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
+import RegisterPage from "./Pages/RegisterPage/RegisterPage";
+import { setupAuthListener } from "./utils/authListener";
+// Public pages
+import BrowseJobs from "./Pages/BrowseJobs/BrowseJobs";
+import JobDetail from "./Pages/JobDetail/JobDetail";
+// Candidate imports
+import CandidateDashboard from "./Pages/Candidate/CandidateDashboard/CandidateDashboard";
+import CandidateLayout from "./Pages/Candidate/CandidateLayout/CandidateLayout";
+import CandidateProfile from "./Pages/Candidate/CandidateProfile/CandidateProfile";
+import MyApplications from "./Pages/Candidate/MyApplications/MyApplications";
+import SavedJobs from "./Pages/Candidate/SavedJobs/SavedJobs";
+// Employer imports
+import EditJob from "./Pages/Employer/EditJob/EditJob";
+import EmployerDashboard from "./Pages/Employer/EmployerDashboard/EmployerDashboard";
+import EmployerLayout from "./Pages/Employer/EmployerLayout/EmployerLayout";
+import EmployerProfile from "./Pages/Employer/EmployerProfile/EmployerProfile";
+import PostJob from "./Pages/Employer/PostJob/PostJob";
+import ViewApplicants from "./Pages/Employer/ViewApplicants/ViewApplicants";
+// Role-based redirect
+import RoleRedirect from "./components/RoleRedirect/RoleRedirect";
 
 function App() {
+  useEffect(() => {
+    const subscription = setupAuthListener();
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
   return (
     <>
       <ToastContainer />
       <BrowserRouter>
         <Routes>
+          {/* Public Routes */}
+          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/jobs" element={<BrowseJobs />} />
+          <Route path="/jobs/:jobId" element={<JobDetail />} />
+          <Route path="/register" element={<RegisterPage />} />
+
+          {/* Candidate Routes */}
           <Route
-            path="/"
+            path="/candidate"
             element={
-              <ProtectedRoute>
-                <SharedLayout />
+              <ProtectedRoute allowedRoles={["candidate"]}>
+                <CandidateLayout />
               </ProtectedRoute>
             }
           >
-            <Route index element={<Stats />} />
-            <Route path="all-jobs" element={<AllJobs />} />
-            <Route path="add-job" element={<AddJob />} />
-            <Route path="profile" element={<Profile />} />
+            <Route index element={<CandidateDashboard />} />
+            <Route path="applications" element={<MyApplications />} />
+            <Route path="saved" element={<SavedJobs />} />
+            <Route path="profile" element={<CandidateProfile />} />
           </Route>
-          <Route path="landing" element={<LandingPage />} />
-          <Route path="register" element={<RegisterPage />} />
+
+          {/* Employer Routes */}
+          <Route
+            path="/employer"
+            element={
+              <ProtectedRoute allowedRoles={["employer"]}>
+                <EmployerLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<EmployerDashboard />} />
+            <Route path="post-job" element={<PostJob />} />
+            <Route path="edit-job/:id" element={<EditJob />} />
+            <Route path="jobs/:id/applicants" element={<ViewApplicants />} />
+            <Route path="profile" element={<EmployerProfile />} />
+          </Route>
+
+          {/* Root path - Role-based redirect */}
+          <Route path="/" element={<RoleRedirect />} />
+
+          {/* 404 Error Page */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>

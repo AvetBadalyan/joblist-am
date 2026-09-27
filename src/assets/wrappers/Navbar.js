@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.nav`
   height: var(--nav-height);
@@ -25,6 +25,10 @@ const Wrapper = styled.nav`
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem;
   }
   background: var(--white);
   .btn-container {
@@ -61,12 +65,43 @@ const Wrapper = styled.nav`
     letter-spacing: var(--letterSpacing);
     text-transform: capitalize;
     cursor: pointer;
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    width: 100%;
   }
   .logo-text {
     display: none;
     margin: 0;
+    text-transform: capitalize;
   }
-  @media (min-width: 992px) {
+
+  /* Auth buttons for unauthenticated users */
+  .auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .auth-buttons .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .auth-buttons .btn-outline {
+    background: transparent;
+    color: var(--primary-500);
+    border: 1px solid var(--primary-500);
+    box-shadow: none;
+  }
+  .auth-buttons .btn-outline:hover {
+    background: var(--primary-50);
+  }
+
+  @media (min-width: 768px) {
     position: sticky;
     top: 0;
 
@@ -79,6 +114,10 @@ const Wrapper = styled.nav`
     .logo-text {
       display: block;
     }
+    .auth-buttons .btn {
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+    }
   }
-`
-export default Wrapper
+`;
+export default Wrapper;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.section`
   border-radius: var(--borderRadius);
@@ -39,6 +39,12 @@ const Wrapper = styled.section`
       height: 35px;
     }
   }
+  .field-error {
+    color: var(--red-dark);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+  }
   .clear-btn {
     background: var(--grey-500);
   }
@@ -63,6 +69,6 @@ const Wrapper = styled.section`
       margin-top: 0;
     }
   }
-`
+`;
 
-export default Wrapper
+export default Wrapper;

@@ -3,7 +3,13 @@ import Wrapper from "../../../assets/wrappers/SharedLayout";
 import SmallSidebar from "../../../components/SmallSidebar/SmallSidebar";
 import BigSidebar from "../../../components/BigSliderBar/BigSliderBar";
 import Navbar from "../../../components/Navbar/Navbar";
-const SharedLayout = () => {
+
+/**
+ * EmployerLayout component - Wraps all /employer/* routes with shared layout
+ * Includes Navbar with employer links, BigSidebar/SmallSidebar (role-based), and Outlet for nested routes
+ * @see Requirements: 17.3
+ */
+const EmployerLayout = () => {
   return (
     <Wrapper>
       <main className="dashboard">
@@ -19,4 +25,5 @@ const SharedLayout = () => {
     </Wrapper>
   );
 };
-export default SharedLayout;
+
+export default EmployerLayout;

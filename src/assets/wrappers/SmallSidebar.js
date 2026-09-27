@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.aside`
-  @media (min-width: 992px) {
+  @media (min-width: 768px) {
     display: none;
   }
   .sidebar-container {
@@ -39,6 +39,11 @@ const Wrapper = styled.aside`
     font-size: 2rem;
     color: var(--red-dark);
     cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .nav-links {
     padding-top: 2rem;
@@ -52,6 +57,7 @@ const Wrapper = styled.aside`
     padding: 1rem 0;
     text-transform: capitalize;
     transition: var(--transition);
+    min-height: 44px;
   }
   .nav-link:hover {
     color: var(--grey-900);
@@ -72,5 +78,5 @@ const Wrapper = styled.aside`
   .active .icon {
     color: var(--primary-500);
   }
-`
-export default Wrapper
+`;
+export default Wrapper;

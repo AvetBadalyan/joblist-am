@@ -1,7 +1,14 @@
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import links from "../../utils/links";
+import { candidateLinks, employerLinks } from "../../utils/links";
 
-const NavLinks = ({ toggleSidebar }) => {
+const NavLinks = ({ toggleSidebar, links: linksProp }) => {
+  const { user } = useSelector((store) => store.user);
+
+  // Use provided links prop, or determine from user role
+  const links =
+    linksProp || (user?.role === "employer" ? employerLinks : candidateLinks);
+
   return (
     <div className="nav-links">
       {links.map((link) => {
