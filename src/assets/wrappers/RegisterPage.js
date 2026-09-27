@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.section`
   display: grid;
@@ -31,5 +31,54 @@ const Wrapper = styled.section`
     cursor: pointer;
     letter-spacing: var(--letterSpacing);
   }
-`
-export default Wrapper
+
+  /* Role selection styling */
+  .role-selection {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--grey-700);
+  }
+
+  .radio-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-500);
+    cursor: pointer;
+  }
+
+  .radio-label span {
+    user-select: none;
+  }
+
+  /* Role-specific fields section */
+  .role-fields {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--grey-200);
+  }
+
+  .fields-note {
+    font-size: 0.85rem;
+    color: var(--grey-500);
+    margin-bottom: 0.75rem;
+    text-align: left;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .role-selection {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+`;
+export default Wrapper;

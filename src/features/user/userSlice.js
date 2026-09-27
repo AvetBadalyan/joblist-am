@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import {
   addUserToLocalStorage,
@@ -12,6 +12,22 @@ import {
   updateUserThunk,
 } from "./userThunk";
 
+// User shape stored in Redux state (Supabase):
+// {
+//   id: 'uuid',
+//   email: 'user@example.com',
+//   name: 'John Doe',
+//   role: 'candidate' | 'employer',
+//   location: 'Yerevan',
+//   // Candidate-specific fields
+//   skills: 'React, Node.js',
+//   resume_url: 'https://...',
+//   // Employer-specific fields
+//   company_name: 'TechCorp',
+//   company_description: '...',
+//   company_logo_url: 'https://...'
+// }
+// Session management is handled by Supabase client — no token stored here.
 const initialState = {
   isLoading: false,
   isSidebarOpen: false,
@@ -21,22 +37,22 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (user, thunkAPI) => {
-    return registerUserThunk("/auth/register", user, thunkAPI);
-  }
+    return registerUserThunk(user, thunkAPI);
+  },
 );
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (user, thunkAPI) => {
-    return loginUserThunk("/auth/login", user, thunkAPI);
-  }
+    return loginUserThunk(user, thunkAPI);
+  },
 );
 
 export const updateUser = createAsyncThunk(
   "user/updateUser",
   async (user, thunkAPI) => {
-    return updateUserThunk("/auth/updateUser", user, thunkAPI);
-  }
+    return updateUserThunk(user, thunkAPI);
+  },
 );
 export const clearStore = createAsyncThunk("user/clearStore", clearStoreThunk);
 const userSlice = createSlice({
@@ -49,9 +65,27 @@ const userSlice = createSlice({
     logoutUser: (state, { payload }) => {
       state.user = null;
       state.isSidebarOpen = false;
+      // Supabase session is managed by the Supabase client;
+      // here we only clear the cached user profile from localStorage.
       removeUserFromLocalStorage();
       if (payload) {
         toast.success(payload);
+      }
+    },
+    // Set user profile directly (used by auth listener on session restore)
+    setUser: (state, { payload }) => {
+      state.user = payload;
+      if (payload) {
+        addUserToLocalStorage(payload);
+      } else {
+        removeUserFromLocalStorage();
+      }
+    },
+    // Update specific fields in the user profile
+    updateUserProfile: (state, { payload }) => {
+      if (state.user) {
+        state.user = { ...state.user, ...payload };
+        addUserToLocalStorage(state.user);
       }
     },
   },
@@ -107,5 +141,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { toggleSidebar, logoutUser } = userSlice.actions;
+export const { toggleSidebar, logoutUser, setUser, updateUserProfile } =
+  userSlice.actions;
 export default userSlice.reducer;
