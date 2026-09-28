@@ -187,7 +187,7 @@ const PostJob = () => {
           </div>
 
           {/* Description - Required (textarea, spans full width) */}
-          <div style={{ gridColumn: "1 / -1" }}>
+          <div className="form-full-width">
             <FormRowTextArea
               name="description"
               labelText="Job Description *"
@@ -198,7 +198,7 @@ const PostJob = () => {
           </div>
 
           {/* Requirements - Optional (textarea, spans full width) */}
-          <div style={{ gridColumn: "1 / -1" }}>
+          <div className="form-full-width">
             <FormRowTextArea
               name="requirements"
               labelText="Requirements"

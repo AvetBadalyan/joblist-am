@@ -3,7 +3,12 @@ import styled from "styled-components";
 export const FinalCTAWrapper = styled.section`
   position: relative;
   /* Deep gradient using accent colors: cyan → indigo → deeper purple */
-  background: linear-gradient(135deg, #0891b2 0%, #4f46e5 60%, #3730a3 100%);
+  background: linear-gradient(
+    135deg,
+    var(--accent-600) 0%,
+    var(--primary-600) 60%,
+    var(--primary-800) 100%
+  );
   padding-top: calc(var(--space-20) + 4rem);
   padding-bottom: var(--space-20);
   overflow: hidden;

@@ -199,7 +199,7 @@ export const TestimonialCardWrapper = styled.article`
     position: absolute;
     top: var(--space-5);
     right: var(--space-6);
-    font-size: 4rem;
+    font-size: var(--space-16);
     line-height: 1;
     color: var(--primary-100);
     font-family: Georgia, serif;

@@ -136,7 +136,7 @@ export const FeatureCardWrapper = styled.article`
     background: var(--gradient-accent);
     display: grid;
     place-items: center;
-    font-size: 1.5rem;
+    font-size: var(--fs-xl);
     flex-shrink: 0;
     /* Hint browser for GPU compositing in later hover animation task */
     will-change: transform;

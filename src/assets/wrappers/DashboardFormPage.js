@@ -38,6 +38,11 @@ const Wrapper = styled.section`
     row-gap: var(--space-4);
   }
 
+  /* Full-width form fields (e.g., textareas, descriptions) */
+  .form-full-width {
+    grid-column: 1 / -1;
+  }
+
   .field-error {
     color: var(--red-dark);
     font-size: var(--fs-xs);

@@ -36,7 +36,7 @@ const CandidateProfile = () => {
   // Track field-level validation errors
   const [fieldErrors, setFieldErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name } = userData;
 
@@ -56,13 +56,13 @@ const CandidateProfile = () => {
     setFieldErrors({});
 
     // Dispatch updateUser thunk - success toast is handled by the thunk
-    dispatch(
+    await dispatch(
       updateUser({
         name: userData.name.trim(),
         location: userData.location.trim(),
         skills: userData.skills.trim(),
         resume_url: userData.resume_url.trim(),
-      })
+      }),
     );
   };
 
@@ -107,11 +107,6 @@ const CandidateProfile = () => {
                 value={userData.email}
                 className="form-input"
                 disabled
-                style={{
-                  backgroundColor: "var(--grey-100)",
-                  cursor: "not-allowed",
-                  color: "var(--grey-500)",
-                }}
               />
             </div>
           </div>

@@ -37,7 +37,7 @@ const EmployerProfile = () => {
   // Track field-level validation errors
   const [fieldErrors, setFieldErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, company_name } = userData;
 
@@ -60,13 +60,13 @@ const EmployerProfile = () => {
     setFieldErrors({});
 
     // Dispatch updateUser thunk - success toast is handled by the thunk
-    dispatch(
+    await dispatch(
       updateUser({
         name: userData.name.trim(),
         company_name: userData.company_name.trim(),
         company_description: userData.company_description.trim(),
         company_logo_url: userData.company_logo_url.trim(),
-      })
+      }),
     );
   };
 
@@ -112,11 +112,6 @@ const EmployerProfile = () => {
                 value={userData.email}
                 className="form-input"
                 disabled
-                style={{
-                  backgroundColor: "var(--grey-100)",
-                  cursor: "not-allowed",
-                  color: "var(--grey-500)",
-                }}
               />
             </div>
           </div>
@@ -158,7 +153,7 @@ const EmployerProfile = () => {
           </div>
 
           {/* Company Description field - optional, using textarea for longer content */}
-          <div style={{ gridColumn: "1 / -1" }}>
+          <div className="form-full-width">
             <FormRowTextArea
               name="company_description"
               labelText="Company Description"
