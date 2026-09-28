@@ -14,6 +14,7 @@ const Wrapper = styled.nav`
   /* Match .dashboard-page container: same max-width and side padding so the
      nav (logo / actions) lines up with the page content below it. */
   .nav-center {
+    position: relative;
     width: 100%;
     max-width: var(--max-width);
     margin: 0 auto;
@@ -31,22 +32,44 @@ const Wrapper = styled.nav`
     object-fit: contain;
   }
 
-  @media (min-width: 768px) {
-    .nav-center {
-      padding: 0 var(--space-6);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .nav-center {
-      padding: 0 var(--space-8);
-    }
-  }
-
-  .nav-links {
+  /* Hamburger toggle: mobile only */
+  .menu-toggle {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--grey-700);
+    font-size: var(--fs-xl);
+    border-radius: var(--borderRadius);
+    transition: var(--transition);
+
+    &:hover {
+      background: var(--grey-100);
+    }
+  }
+
+  /* Mobile: links collapse into a dropdown panel below the navbar */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
     gap: var(--space-2);
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: var(--white);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-3);
+    border-top: 1px solid var(--grey-100);
+  }
+
+  .nav-links.open {
+    display: flex;
   }
 
   .nav-link {
@@ -78,21 +101,34 @@ const Wrapper = styled.nav`
     box-shadow: var(--shadow-2);
   }
 
-  .btn-outline {
-    background: transparent;
-    color: var(--primary-500);
-    border: 1px solid var(--primary-500);
-    box-shadow: none;
+  /* Desktop (>=576px): show inline links, hide the toggle */
+  @media (min-width: 576px) {
+    .menu-toggle {
+      display: none;
+    }
 
-    &:hover {
-      background: var(--primary-50);
-      color: var(--primary-500);
+    .nav-links {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-2);
+      position: static;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+      border-top: none;
     }
   }
 
-  @media (max-width: 480px) {
-    .nav-link {
-      padding: var(--space-2);
+  @media (min-width: 768px) {
+    .nav-center {
+      padding: 0 var(--space-6);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .nav-center {
+      padding: 0 var(--space-8);
     }
   }
 `;
