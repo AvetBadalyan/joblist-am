@@ -27,8 +27,8 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(clearStore("Logging out...")).then(() => {
-      // Redirect to landing page after logout completes
-      navigate("/landing");
+      // Redirect to the landing page (served at "/") after logout completes
+      navigate("/");
     });
   };
 

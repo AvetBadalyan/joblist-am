@@ -1,38 +1,27 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import LandingPage from "../../Pages/LandingPage/LandingPage";
 
 /**
- * RoleRedirect Component
+ * RoleRedirect (root route "/")
  *
- * Redirects users to appropriate pages based on their authentication status and role.
- *
- * Requirements implemented:
- * - 5.2: Redirect candidates to /candidate dashboard, employers to /employer dashboard
- *
- * Behavior:
- * - Unauthenticated users → /landing
- * - Authenticated candidates → /candidate
- * - Authenticated employers → /employer
+ * - Unauthenticated users: show the public landing page (served at "/")
+ * - Authenticated candidates: redirect to /candidate
+ * - Authenticated employers: redirect to /employer
  */
 const RoleRedirect = () => {
   const { user } = useSelector((store) => store.user);
 
-  // If user is not authenticated, redirect to landing page
-  if (!user) {
-    return <Navigate to="/landing" replace />;
-  }
-
-  // Redirect based on user role
-  if (user.role === "candidate") {
+  if (user?.role === "candidate") {
     return <Navigate to="/candidate" replace />;
   }
 
-  if (user.role === "employer") {
+  if (user?.role === "employer") {
     return <Navigate to="/employer" replace />;
   }
 
-  // Fallback to landing if role is somehow undefined
-  return <Navigate to="/landing" replace />;
+  // Unauthenticated (or unknown role): public landing page
+  return <LandingPage />;
 };
 
 export default RoleRedirect;

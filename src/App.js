@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import LandingPage from "./Pages/LandingPage/LandingPage";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
@@ -41,7 +40,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* Public Routes */}
-          <Route path="/landing" element={<LandingPage />} />
+          {/* Legacy path — the landing page now lives at "/" */}
+          <Route path="/landing" element={<Navigate to="/" replace />} />
           <Route path="/jobs" element={<BrowseJobs />} />
           <Route path="/jobs/:jobId" element={<JobDetail />} />
           <Route path="/register" element={<RegisterPage />} />

@@ -187,7 +187,7 @@ export const updateUserThunk = async (user, thunkAPI) => {
  * 2. Dispatch logout actions to clear all user-specific Redux state
  * 3. Clear localStorage user data (handled by logoutUser reducer)
  *
- * Note: Navigation to /landing is handled by the component dispatching this action.
+ * Note: Navigation to "/" is handled by the component dispatching this action.
  *
  * @param {string} message - Optional message to show on logout
  */

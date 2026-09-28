@@ -45,8 +45,8 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
         // Employer trying to access candidate routes → redirect to employer dashboard
         return <Navigate to="/employer" replace />;
       }
-      // Fallback: redirect to landing if role is unexpected
-      return <Navigate to="/landing" replace />;
+      // Fallback: redirect to the landing page (served at "/") if role is unexpected
+      return <Navigate to="/" replace />;
     }
   }
 
