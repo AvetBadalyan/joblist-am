@@ -178,7 +178,7 @@ export const TrackWrapper = styled.div`
      Delay matches the step's slideUp delay so the pulse kicks in
      just as the badge lands in its final position. */
   .step-badge.animate {
-    animation: badgePulse 800ms var(--ease) forwards;
+    animation: badgePulse var(--duration-pulse) var(--ease) forwards;
   }
 
   /* ── Gradient connector line between steps ── */

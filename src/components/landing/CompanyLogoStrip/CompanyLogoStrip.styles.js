@@ -55,7 +55,7 @@ export const LogoStripWrapper = styled.section`
     display: flex;
     width: fit-content;
     align-items: center;
-    animation: scroll 30s linear infinite;
+    animation: scroll var(--duration-scroll) linear infinite;
 
     &:hover {
       animation-play-state: paused;

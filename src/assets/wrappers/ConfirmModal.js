@@ -6,7 +6,7 @@ export const Backdrop = styled.div`
   background: rgba(0, 0, 0, 0.5);
   display: grid;
   place-items: center;
-  z-index: 1000;
+  z-index: var(--z-modal);
   padding: var(--space-4);
 `;
 

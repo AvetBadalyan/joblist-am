@@ -80,12 +80,12 @@ REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 In Supabase SQL Editor, run migrations in order:
 
-1. `src/sql/001_profiles.sql`
-2. `src/sql/002_jobs.sql`
-3. `src/sql/003_applications.sql`
-4. `src/sql/004_saved_jobs.sql`
+1. `db/001_profiles.sql`
+2. `db/002_jobs.sql`
+3. `db/003_applications.sql`
+4. `db/004_saved_jobs.sql`
 
-To load demo data (optional), first create the 5 demo users in **Authentication → Users**, then run `src/sql/005_seed.sql`. See [`src/sql/README.md`](src/sql/README.md) for the exact emails and steps.
+To load demo data (optional), first create the 5 demo users in **Authentication → Users**, then run `db/005_seed.sql`. See [`db/README.md`](db/README.md) for the exact emails and steps.
 
 ### 4. Start development server
 
@@ -109,8 +109,10 @@ src/
 ├── components/         # Reusable UI components
 ├── features/           # Redux slices and thunks
 ├── assets/wrappers/    # styled-components for each page/component
+├── hooks/              # Custom React hooks
 ├── utils/              # Supabase client, helpers, mappers
-└── sql/                # Database migrations
+└── data/               # Static data for landing page
+db/                     # Database migrations (SQL files for Supabase)
 ```
 
 ---

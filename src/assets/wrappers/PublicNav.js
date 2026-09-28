@@ -9,7 +9,7 @@ const Wrapper = styled.nav`
   box-shadow: var(--shadow-1);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--z-sticky);
 
   /* Match .dashboard-page container: same max-width and side padding so the
      nav (logo / actions) lines up with the page content below it. */
@@ -58,7 +58,7 @@ const Wrapper = styled.nav`
     background: rgba(15, 23, 42, 0.45);
     border: none;
     cursor: pointer;
-    z-index: 90;
+    z-index: var(--z-scrim);
     animation: nav-fade-in var(--transition-fast);
   }
 
@@ -81,7 +81,7 @@ const Wrapper = styled.nav`
     top: var(--nav-height);
     left: 0;
     right: 0;
-    z-index: 110;
+    z-index: var(--z-nav-links);
     background: var(--white);
     padding: var(--space-4);
     box-shadow: var(--shadow-3);
@@ -209,7 +209,7 @@ const Wrapper = styled.nav`
       box-shadow: var(--shadow-3);
       border: 1px solid var(--grey-100);
       border-radius: var(--borderRadius);
-      z-index: 120;
+      z-index: var(--z-nav-dropdown);
     }
   }
 `;

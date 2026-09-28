@@ -1,5 +1,5 @@
-import { FaBookmark, FaRegBookmark } from 'react-icons/fa'
-import styled from 'styled-components'
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import styled from "styled-components";
 
 const Button = styled.button`
   background: transparent;
@@ -9,7 +9,8 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${(props) => (props.$isSaved ? 'var(--primary-500)' : 'var(--grey-400)')};
+  color: ${(props) =>
+    props.$isSaved ? "var(--primary-500)" : "var(--grey-400)"};
   transition: var(--transition);
   border-radius: var(--borderRadius);
   min-width: 44px;
@@ -26,9 +27,9 @@ const Button = styled.button`
   }
 
   svg {
-    font-size: 1.25rem;
+    font-size: var(--fs-lg);
   }
-`
+`;
 
 const BookmarkButton = ({ isSaved, onClick, disabled = false }) => {
   return (
@@ -37,12 +38,12 @@ const BookmarkButton = ({ isSaved, onClick, disabled = false }) => {
       onClick={onClick}
       disabled={disabled}
       $isSaved={isSaved}
-      aria-label={isSaved ? 'Remove from saved jobs' : 'Save job'}
-      title={isSaved ? 'Remove from saved jobs' : 'Save job'}
+      aria-label={isSaved ? "Remove from saved jobs" : "Save job"}
+      title={isSaved ? "Remove from saved jobs" : "Save job"}
     >
       {isSaved ? <FaBookmark /> : <FaRegBookmark />}
     </Button>
-  )
-}
+  );
+};
 
-export default BookmarkButton
+export default BookmarkButton;

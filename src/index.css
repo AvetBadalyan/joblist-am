@@ -156,10 +156,20 @@ html {
   --duration-fast: 150ms;
   --duration-base: 300ms;
   --duration-entrance: 600ms;
+  --duration-spinner: 800ms;
+  --duration-pulse: 800ms;
+  --duration-scroll: 30s;
   /* Ready-made `transition` values (duration + easing). */
   --transition-fast: var(--duration-fast) var(--ease);
   --transition-base: var(--duration-base) var(--ease);
   --transition: var(--transition-base);
+
+  /* ===== Z-INDEX ===== */
+  --z-scrim: 90;
+  --z-sticky: 100;
+  --z-nav-links: 110;
+  --z-nav-dropdown: 120;
+  --z-modal: 1000;
 
   /* ===== MISC ===== */
   --letterSpacing: -0.01em;
@@ -467,7 +477,7 @@ ul {
   border: 3px solid var(--grey-200);
   border-radius: var(--radius-full);
   border-top-color: var(--primary-500);
-  animation: spinner 0.8s linear infinite;
+  animation: spinner var(--duration-spinner) linear infinite;
 }
 
 .loading-center {
