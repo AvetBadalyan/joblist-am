@@ -91,7 +91,7 @@ const Wrapper = styled.section`
     }
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: 575.98px) {
     .page-title {
       font-size: var(--fs-xl);
     }

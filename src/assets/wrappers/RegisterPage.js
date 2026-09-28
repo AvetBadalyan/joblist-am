@@ -19,7 +19,7 @@ const Wrapper = styled.section`
     overflow: hidden;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
@@ -115,7 +115,7 @@ const Wrapper = styled.section`
     font-weight: 500;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 575.98px) {
     .role-selection {
       flex-direction: column;
     }

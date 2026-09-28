@@ -68,7 +68,7 @@ const Wrapper = styled.section`
     background: var(--grey-200);
     color: var(--grey-700);
     box-shadow: none;
-    
+
     &:hover {
       background: var(--grey-300);
       color: var(--grey-800);
@@ -85,13 +85,13 @@ const Wrapper = styled.section`
 
   @media (min-width: 768px) {
     padding: var(--space-10);
-    
+
     h3 {
       margin-bottom: var(--space-8);
     }
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: 1024px) {
     .form-center {
       grid-template-columns: 1fr 1fr;
       align-items: center;
@@ -100,12 +100,6 @@ const Wrapper = styled.section`
 
     .btn-container {
       margin-top: 0;
-    }
-  }
-
-  @media (min-width: 1120px) {
-    .form-center {
-      grid-template-columns: 1fr 1fr 1fr;
     }
 
     .form-center button {

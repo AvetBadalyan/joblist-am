@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { mapJobFromDB } from "../../utils/mappers";
+import { supabase } from "../../utils/supabase";
 import JobCard from "../JobCard/JobCard";
 import Loading from "../Loading/Loading";
-import { supabase } from "../../utils/supabase";
-import { mapJobFromDB } from "../../utils/mappers";
 
 // Number of featured jobs to display (Requirement 18.2)
 const FEATURED_JOBS_COUNT = 6;
@@ -183,7 +183,7 @@ const Wrapper = styled.section`
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @media (min-width: 1120px) {
+    @media (min-width: 1024px) {
       grid-template-columns: repeat(3, 1fr);
     }
   }

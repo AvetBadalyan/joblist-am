@@ -74,7 +74,7 @@ const Wrapper = styled.article`
     }
   }
 
-  @media (max-width: 359px) {
+  @media (max-width: 575.98px) {
     padding: var(--space-4);
 
     .count {

@@ -92,7 +92,7 @@ const Wrapper = styled.main`
     }
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: 1024px) {
     .page {
       grid-template-columns: 1fr 1fr;
       column-gap: var(--space-16);
@@ -178,11 +178,17 @@ const Wrapper = styled.main`
 
   @media (min-width: 768px) {
     .features-grid {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .features-heading {
       font-size: var(--fs-3xl);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 `;

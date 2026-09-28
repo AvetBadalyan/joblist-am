@@ -31,7 +31,7 @@ const Wrapper = styled.article`
     text-transform: uppercase;
     color: var(--primary-600);
 
-    @media (max-width: 576px) {
+    @media (max-width: 575.98px) {
       width: 44px;
       height: 44px;
       font-size: var(--fs-md);
