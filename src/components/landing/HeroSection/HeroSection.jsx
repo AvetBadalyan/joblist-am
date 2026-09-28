@@ -71,8 +71,8 @@ function FloatingElements({ animate }) {
 /**
  * HeroSection
  *
- * Implements requirement 1.1 (staggered headline), 1.2 (gradient tagline),
- * 1.3 / 1.4 (CTA buttons), 1.5 / 1.6 (floating elements), and 1.7 (min-height 90vh).
+ * The hero: staggered headline, gradient tagline, CTA buttons, and
+ * decorative floating shapes. Entrance animations respect reduced motion.
  */
 function HeroSection() {
   const prefersReducedMotion = useReducedMotion();
@@ -117,7 +117,7 @@ function HeroSection() {
             <span className="gradient-text">growing companies</span>
           </p>
 
-          {/* ── CTA buttons — req 1.3, 1.4 ── */}
+          {/* CTA buttons */}
           <div className={`hero-cta${started ? " animate" : ""}`}>
             <Link to="/jobs" className="btn-hero-primary">
               Browse Jobs

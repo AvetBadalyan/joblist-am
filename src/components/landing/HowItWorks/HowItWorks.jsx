@@ -1,6 +1,6 @@
-import { howItWorksData } from '../../../data/landingData';
-import StepTrack from './StepTrack';
-import { HowItWorksWrapper, TrackWrapper } from './HowItWorks.styles';
+import { howItWorksData } from "../../../data/landingData";
+import { HowItWorksWrapper, TrackWrapper } from "./HowItWorks.styles";
+import StepTrack from "./StepTrack";
 
 /**
  * HowItWorks
@@ -11,10 +11,6 @@ import { HowItWorksWrapper, TrackWrapper } from './HowItWorks.styles';
  * Desktop: side-by-side two-column grid.
  * Mobile:  stacked vertically, Job Seekers track first.
  *
- * Animation (hover states, scroll-triggered badge pulses, animated connector
- * lines) will be added in task 10.2.
- *
- * Requirements: 5.1
  */
 function HowItWorks() {
   return (

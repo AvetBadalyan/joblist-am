@@ -29,9 +29,6 @@ const Wrapper = styled.nav`
 
   .logo {
     height: calc(var(--nav-height) - var(--space-4));
-    width: auto;
-    display: block;
-    object-fit: contain;
   }
 
   /* Hamburger toggle: mobile only */

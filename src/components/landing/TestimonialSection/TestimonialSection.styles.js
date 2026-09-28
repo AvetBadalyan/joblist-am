@@ -114,8 +114,8 @@ export const TestimonialWrapper = styled.section`
     /* Ensure minimum 44×44px touch target */
     position: relative;
     transition:
-      background 200ms ease,
-      transform 200ms ease;
+      background var(--transition-fast),
+      transform var(--transition-fast);
   }
 
   /* Expand the touch target without affecting visual size */

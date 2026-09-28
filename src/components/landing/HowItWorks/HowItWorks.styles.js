@@ -144,7 +144,7 @@ export const TrackWrapper = styled.div`
   }
 
   .step-item.animate {
-    animation: slideUp 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: slideUp var(--duration-entrance) var(--ease) forwards;
   }
 
   /* ── Left column: badge + connector ── */
@@ -178,7 +178,7 @@ export const TrackWrapper = styled.div`
      Delay matches the step's slideUp delay so the pulse kicks in
      just as the badge lands in its final position. */
   .step-badge.animate {
-    animation: badgePulse 800ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: badgePulse 800ms var(--ease) forwards;
   }
 
   /* ── Gradient connector line between steps ── */

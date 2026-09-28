@@ -18,7 +18,6 @@ export const StatsWrapper = styled.section`
     );
     background-size: 28px 28px;
     pointer-events: none;
-    aria-hidden: true;
   }
 `;
 

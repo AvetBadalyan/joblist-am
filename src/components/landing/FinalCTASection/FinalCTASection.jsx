@@ -14,14 +14,8 @@ import {
  *
  * The closing call-to-action section displayed before the footer.
  * Features a visually striking gradient background with a prominent
- * headline and two action buttons.
- *
- * Task 13.2: Adds zoom-and-fade entrance animation on viewport entry
- * and contrasting button styles (white-on-gradient).
- *
- * Task 13.3 adds the WaveDivider decoration at the top edge.
- *
- * Requirements: 8.1, 8.2, 8.3, 8.4, 8.5
+ * headline and two action buttons, with a zoom-and-fade entrance animation
+ * and a WaveDivider at the top edge.
  */
 function FinalCTASection() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });

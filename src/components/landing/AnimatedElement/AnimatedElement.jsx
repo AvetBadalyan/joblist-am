@@ -1,33 +1,34 @@
-import useScrollAnimation from '../../../hooks/useScrollAnimation';
+import useScrollAnimation from "../../../hooks/useScrollAnimation";
 
 /**
  * Maps an animation type to the CSS keyframe name defined in index.css
  * and the initial (pre-animation) transform/opacity state.
  */
 const ANIMATION_CONFIG = {
-  'fade-in': {
-    keyframe: 'fadeIn',
-    hiddenStyle: { opacity: 0, transform: 'none' },
+  "fade-in": {
+    keyframe: "fadeIn",
+    hiddenStyle: { opacity: 0, transform: "none" },
   },
-  'slide-up': {
-    keyframe: 'slideUp',
-    hiddenStyle: { opacity: 0, transform: 'translateY(30px)' },
+  "slide-up": {
+    keyframe: "slideUp",
+    hiddenStyle: { opacity: 0, transform: "translateY(30px)" },
   },
-  'slide-left': {
-    keyframe: 'slideLeft',
-    hiddenStyle: { opacity: 0, transform: 'translateX(30px)' },
+  "slide-left": {
+    keyframe: "slideLeft",
+    hiddenStyle: { opacity: 0, transform: "translateX(30px)" },
   },
-  'slide-right': {
-    keyframe: 'slideRight',
-    hiddenStyle: { opacity: 0, transform: 'translateX(-30px)' },
+  "slide-right": {
+    keyframe: "slideRight",
+    hiddenStyle: { opacity: 0, transform: "translateX(-30px)" },
   },
-  'scale-up': {
-    keyframe: 'scaleUp',
-    hiddenStyle: { opacity: 0, transform: 'scale(0.9)' },
+  "scale-up": {
+    keyframe: "scaleUp",
+    hiddenStyle: { opacity: 0, transform: "scale(0.9)" },
   },
 };
 
-const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
+// Shared easing token defined in index.css (:root --ease)
+const EASING = "var(--ease)";
 
 /**
  * AnimatedElement
@@ -47,17 +48,20 @@ const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
  */
 function AnimatedElement({
   children,
-  animation = 'fade-in',
+  animation = "fade-in",
   delay = 0,
   duration = 600,
   threshold = 0.2,
   className,
-  as: Tag = 'div',
+  as: Tag = "div",
   ...rest
 }) {
-  const { ref, isVisible } = useScrollAnimation({ threshold, triggerOnce: true });
+  const { ref, isVisible } = useScrollAnimation({
+    threshold,
+    triggerOnce: true,
+  });
 
-  const config = ANIMATION_CONFIG[animation] ?? ANIMATION_CONFIG['fade-in'];
+  const config = ANIMATION_CONFIG[animation] ?? ANIMATION_CONFIG["fade-in"];
 
   const style = isVisible
     ? {
@@ -69,12 +73,7 @@ function AnimatedElement({
       };
 
   return (
-    <Tag
-      ref={ref}
-      className={className}
-      style={style}
-      {...rest}
-    >
+    <Tag ref={ref} className={className} style={style} {...rest}>
       {children}
     </Tag>
   );

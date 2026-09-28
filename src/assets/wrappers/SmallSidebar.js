@@ -39,6 +39,10 @@ const Wrapper = styled.aside`
     overflow-y: auto;
   }
 
+  .logo {
+    margin-bottom: var(--space-4);
+  }
+
   .close-btn {
     position: absolute;
     top: var(--space-4);

@@ -63,7 +63,7 @@ export const CTAContent = styled.div`
   opacity: ${({ $isVisible }) => ($isVisible ? undefined : 0)};
   animation: ${({ $isVisible }) =>
     $isVisible
-      ? "zoomFade 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards"
+      ? "zoomFade var(--duration-entrance) var(--ease) forwards"
       : "none"};
 
   .cta-headline {
@@ -101,14 +101,14 @@ const ctaBtnBase = `
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 0.75rem 1.75rem;
+  padding: var(--space-3) var(--space-8);
   border-radius: var(--radius-xl);
   font-size: var(--fs-md);
   font-weight: 600;
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-fast);
   white-space: nowrap;
 
   &:active {
@@ -122,11 +122,11 @@ export const CTABtnPrimary = styled.a`
   color: var(--primary-700, #3730a3);
   border: 2px solid transparent;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-2);
 
   &:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-3);
     filter: brightness(0.97);
   }
 
@@ -147,7 +147,7 @@ export const CTABtnSecondary = styled.a`
     transform: scale(1.05);
     border-color: rgba(255, 255, 255, 0.9);
     background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-3);
   }
 
   &:focus-visible {

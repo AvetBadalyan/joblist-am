@@ -60,7 +60,7 @@ export const HeroWrapper = styled.section`
   }
 
   .word.animate {
-    animation: textReveal 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: textReveal var(--duration-entrance) var(--ease) forwards;
   }
 
   /* ── Gradient tagline ── */
@@ -75,7 +75,7 @@ export const HeroWrapper = styled.section`
   }
 
   .hero-tagline.animate {
-    animation: fadeIn 600ms cubic-bezier(0.4, 0, 0.2, 1) 400ms forwards;
+    animation: fadeIn var(--duration-entrance) var(--ease) 400ms forwards;
   }
 
   .gradient-text {
@@ -96,7 +96,7 @@ export const HeroWrapper = styled.section`
   }
 
   .hero-cta.animate {
-    animation: slideUp 600ms cubic-bezier(0.4, 0, 0.2, 1) 600ms forwards;
+    animation: slideUp var(--duration-entrance) var(--ease) 600ms forwards;
   }
 
   /* ── CTA Buttons ── */
@@ -106,7 +106,7 @@ export const HeroWrapper = styled.section`
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
-    padding: 0.75rem 1.75rem;
+    padding: var(--space-3) var(--space-8);
     min-height: 44px;
     min-width: 44px;
     border-radius: var(--radius-xl);
@@ -117,7 +117,7 @@ export const HeroWrapper = styled.section`
     cursor: pointer;
     text-decoration: none;
     border: 2px solid transparent;
-    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--transition-fast);
     white-space: nowrap;
   }
 
@@ -202,7 +202,7 @@ export const HeroWrapper = styled.section`
     animation:
       float var(--float-duration, 3s) ease-in-out var(--float-delay, 0ms)
         infinite,
-      fadeIn 600ms cubic-bezier(0.4, 0, 0.2, 1) var(--fade-delay, 800ms)
+      fadeIn var(--duration-entrance) var(--ease) var(--fade-delay, 800ms)
         forwards;
   }
 

@@ -1,6 +1,6 @@
-import { featuresData } from '../../../data/landingData';
-import FeatureCard from './FeatureCard';
-import { FeatureWrapper } from './FeatureShowcase.styles';
+import { featuresData } from "../../../data/landingData";
+import FeatureCard from "./FeatureCard";
+import { FeatureWrapper } from "./FeatureShowcase.styles";
 
 /**
  * FeatureShowcase
@@ -8,11 +8,6 @@ import { FeatureWrapper } from './FeatureShowcase.styles';
  * Displays exactly 6 feature cards organised into two groups:
  *   - "For Job Seekers"  (3 cards)
  *   - "For Employers"   (3 cards)
- *
- * Requirements: 3.1, 3.3
- *
- * Staggered entrance animations and interactive card hover effects are
- * added in tasks 8.2 and 8.3.
  */
 function FeatureShowcase() {
   return (
@@ -25,7 +20,8 @@ function FeatureShowcase() {
             Why Choose JobList.am
           </h2>
           <p className="section-subtitle">
-            Everything you need — whether you're launching your career or building your team.
+            Everything you need — whether you're launching your career or
+            building your team.
           </p>
         </header>
 
