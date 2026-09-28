@@ -64,22 +64,22 @@ const CandidateDashboard = () => {
       title: "Total Applications",
       count: totalApplications,
       icon: <FaBriefcase />,
-      color: "#2ecc71",
-      bcg: "#d5f5e3",
+      color: "var(--primary-600)",
+      bcg: "var(--primary-100)",
     },
     {
       title: "Under Review",
       count: statusCounts.reviewing,
       icon: <FaEye />,
-      color: "#f39c12",
-      bcg: "#fef9e7",
+      color: "var(--yellow-dark)",
+      bcg: "var(--yellow-light)",
     },
     {
       title: "Interviews",
       count: statusCounts.interview,
       icon: <FaUserTie />,
-      color: "#9b59b6",
-      bcg: "#f5eef8",
+      color: "var(--purple-dark)",
+      bcg: "var(--purple-light)",
     },
   ];
 
