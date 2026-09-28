@@ -1,17 +1,24 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaCalendarAlt, FaPaperPlane, FaSearch, FaComments, FaHandshake, FaTimesCircle } from 'react-icons/fa';
+import { useEffect } from "react";
+import {
+  FaCalendarAlt,
+  FaComments,
+  FaHandshake,
+  FaPaperPlane,
+  FaSearch,
+  FaTimesCircle,
+} from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
-import Wrapper from '../../../assets/wrappers/MyApplications';
-import Loading from '../../../components/Loading/Loading';
-import EmptyState from '../../../components/EmptyState/EmptyState';
-import { getMyApplications } from '../../../features/applications/applicationsSlice';
+import Wrapper from "../../../assets/wrappers/MyApplications";
+import EmptyState from "../../../components/EmptyState/EmptyState";
+import Loading from "../../../components/Loading/Loading";
+import { getMyApplications } from "../../../features/applications/applicationsSlice";
 
 /**
  * MyApplications Component
  * Displays all job applications submitted by the candidate
- * 
+ *
  * Requirements: 7.1, 7.2, 7.3, 7.4, 7.5
  * - 7.1: Display a list of all candidate's Applications
  * - 7.2: Display job title, company name, application date, and status
@@ -22,8 +29,8 @@ import { getMyApplications } from '../../../features/applications/applicationsSl
 const MyApplications = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { applications, isLoading, totalApplications } = useSelector(
-    (store) => store.applications
+  const { applications, isLoading, isError, totalApplications } = useSelector(
+    (store) => store.applications,
   );
 
   // Fetch applications on component mount
@@ -38,15 +45,15 @@ const MyApplications = () => {
    */
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'applied':
+      case "applied":
         return <FaPaperPlane />;
-      case 'reviewing':
+      case "reviewing":
         return <FaSearch />;
-      case 'interview':
+      case "interview":
         return <FaComments />;
-      case 'offer':
+      case "offer":
         return <FaHandshake />;
-      case 'rejected':
+      case "rejected":
         return <FaTimesCircle />;
       default:
         return <FaPaperPlane />;
@@ -60,10 +67,10 @@ const MyApplications = () => {
    */
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
@@ -71,12 +78,23 @@ const MyApplications = () => {
    * Navigates to the browse jobs page
    */
   const handleBrowseJobs = () => {
-    navigate('/jobs');
+    navigate("/jobs");
   };
 
   // Show loading state while fetching applications
   if (isLoading) {
     return <Loading center />;
+  }
+
+  // Show error state (distinct from an empty list)
+  if (isError) {
+    return (
+      <EmptyState
+        message="We couldn't load your applications. Please try again."
+        actionText="Retry"
+        onAction={() => dispatch(getMyApplications())}
+      />
+    );
   }
 
   // Show empty state if no applications
@@ -95,7 +113,8 @@ const MyApplications = () => {
       <div className="page-header">
         <h2 className="page-title">My Applications</h2>
         <p className="applications-count">
-          {totalApplications} application{totalApplications !== 1 ? 's' : ''} submitted
+          {totalApplications} application{totalApplications !== 1 ? "s" : ""}{" "}
+          submitted
         </p>
       </div>
 
@@ -105,15 +124,15 @@ const MyApplications = () => {
             <div className="card-header">
               <div className="job-info">
                 <h4 className="job-title">
-                  <Link 
-                    to={`/jobs/${application.job_id}`} 
+                  <Link
+                    to={`/jobs/${application.job_id}`}
                     className="job-title-link"
                   >
-                    {application.job_title || 'Job Title'}
+                    {application.job_title || "Job Title"}
                   </Link>
                 </h4>
                 <p className="company-name">
-                  {application.company_name || 'Company'}
+                  {application.company_name || "Company"}
                 </p>
               </div>
               <span className={`status-badge status-${application.status}`}>

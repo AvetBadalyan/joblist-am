@@ -52,8 +52,16 @@ const BrowseJobs = () => {
   const dispatch = useDispatch();
 
   // Public jobs state
-  const { isLoading, jobs, totalJobs, numOfPages, page, search, searchType } =
-    useSelector((store) => store.publicJobs);
+  const {
+    isLoading,
+    isError,
+    jobs,
+    totalJobs,
+    numOfPages,
+    page,
+    search,
+    searchType,
+  } = useSelector((store) => store.publicJobs);
 
   // User state for bookmark functionality
   const { user } = useSelector((store) => store.user);
@@ -233,8 +241,17 @@ const BrowseJobs = () => {
               </div>
             )}
 
+            {/* Error State — distinct from "no results" */}
+            {!isLoading && isError && (
+              <EmptyState
+                message="We couldn't load jobs right now. Please try again."
+                actionText="Retry"
+                onAction={() => dispatch(getAllPublicJobs())}
+              />
+            )}
+
             {/* Empty State */}
-            {!isLoading && jobs.length === 0 && (
+            {!isLoading && !isError && jobs.length === 0 && (
               <EmptyState
                 message={
                   hasActiveFilters
@@ -247,7 +264,7 @@ const BrowseJobs = () => {
             )}
 
             {/* Jobs Grid - Requirements 1.1, 1.2 */}
-            {!isLoading && jobs.length > 0 && (
+            {!isLoading && !isError && jobs.length > 0 && (
               <div className="jobs">
                 {jobs.map((job) => (
                   <JobCard

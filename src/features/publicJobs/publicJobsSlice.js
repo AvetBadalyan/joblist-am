@@ -1,6 +1,10 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { getAllPublicJobsThunk, getJobByIdThunk } from "./publicJobsThunk";
+import {
+  getAllPublicJobsThunk,
+  getFeaturedJobsThunk,
+  getJobByIdThunk,
+} from "./publicJobsThunk";
 
 /**
  * publicJobsSlice manages public job browsing state
@@ -17,6 +21,7 @@ const initialFiltersState = {
 
 const initialState = {
   isLoading: false,
+  isError: false,
   jobs: [],
   totalJobs: 0,
   numOfPages: 1,
@@ -26,17 +31,26 @@ const initialState = {
   // Single job detail
   currentJob: null,
   currentJobLoading: false,
+  // Landing page "Featured Jobs" section
+  featuredJobs: [],
+  featuredLoading: false,
+  featuredError: null,
 };
 
 // Async thunks - implementation in publicJobsThunk.js
 export const getAllPublicJobs = createAsyncThunk(
   "publicJobs/getAllPublicJobs",
-  getAllPublicJobsThunk
+  getAllPublicJobsThunk,
 );
 
 export const getJobById = createAsyncThunk(
   "publicJobs/getJobById",
-  getJobByIdThunk
+  getJobByIdThunk,
+);
+
+export const getFeaturedJobs = createAsyncThunk(
+  "publicJobs/getFeaturedJobs",
+  getFeaturedJobsThunk,
 );
 
 const publicJobsSlice = createSlice({
@@ -92,15 +106,18 @@ const publicJobsSlice = createSlice({
       // getAllPublicJobs cases
       .addCase(getAllPublicJobs.pending, (state) => {
         state.isLoading = true;
+        state.isError = false;
       })
       .addCase(getAllPublicJobs.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        state.isError = false;
         state.jobs = payload.jobs;
         state.totalJobs = payload.totalJobs;
         state.numOfPages = payload.numOfPages;
       })
       .addCase(getAllPublicJobs.rejected, (state, { payload }) => {
         state.isLoading = false;
+        state.isError = true;
         toast.error(payload || "Failed to load jobs. Please try again.");
       })
       // getJobById cases
@@ -115,6 +132,19 @@ const publicJobsSlice = createSlice({
         state.currentJobLoading = false;
         state.currentJob = null;
         toast.error(payload || "Failed to load job details. Please try again.");
+      })
+      // getFeaturedJobs cases (landing page; errors shown inline, no toast)
+      .addCase(getFeaturedJobs.pending, (state) => {
+        state.featuredLoading = true;
+        state.featuredError = null;
+      })
+      .addCase(getFeaturedJobs.fulfilled, (state, { payload }) => {
+        state.featuredLoading = false;
+        state.featuredJobs = payload;
+      })
+      .addCase(getFeaturedJobs.rejected, (state, { payload }) => {
+        state.featuredLoading = false;
+        state.featuredError = payload || "Failed to load featured jobs.";
       });
   },
 });

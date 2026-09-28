@@ -1,10 +1,10 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import {
+  getSavedJobIdsThunk,
   getSavedJobsThunk,
   saveJobThunk,
   unsaveJobThunk,
-  getSavedJobIdsThunk,
 } from "./savedJobsThunk";
 
 /**
@@ -20,6 +20,7 @@ import {
 
 const initialState = {
   isLoading: false,
+  isError: false,
   savedJobs: [],
   // Quick lookup for bookmark UI
   savedJobIds: [],
@@ -28,19 +29,19 @@ const initialState = {
 // Async thunks
 export const getSavedJobs = createAsyncThunk(
   "savedJobs/getSavedJobs",
-  getSavedJobsThunk
+  getSavedJobsThunk,
 );
 
 export const saveJob = createAsyncThunk("savedJobs/saveJob", saveJobThunk);
 
 export const unsaveJob = createAsyncThunk(
   "savedJobs/unsaveJob",
-  unsaveJobThunk
+  unsaveJobThunk,
 );
 
 export const getSavedJobIds = createAsyncThunk(
   "savedJobs/getSavedJobIds",
-  getSavedJobIdsThunk
+  getSavedJobIdsThunk,
 );
 
 const savedJobsSlice = createSlice({
@@ -71,7 +72,9 @@ const savedJobsSlice = createSlice({
     optimisticUnsave: (state, { payload: jobId }) => {
       state.savedJobIds = state.savedJobIds.filter((id) => id !== jobId);
       // Also remove from savedJobs array if present
-      state.savedJobs = state.savedJobs.filter((saved) => saved.job_id !== jobId);
+      state.savedJobs = state.savedJobs.filter(
+        (saved) => saved.job_id !== jobId,
+      );
     },
   },
   extraReducers: (builder) => {
@@ -79,15 +82,18 @@ const savedJobsSlice = createSlice({
       // getSavedJobs
       .addCase(getSavedJobs.pending, (state) => {
         state.isLoading = true;
+        state.isError = false;
       })
       .addCase(getSavedJobs.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        state.isError = false;
         state.savedJobs = payload.savedJobs;
         // Sync savedJobIds with fetched data
         state.savedJobIds = payload.savedJobs.map((saved) => saved.job_id);
       })
       .addCase(getSavedJobs.rejected, (state, { payload }) => {
         state.isLoading = false;
+        state.isError = true;
         toast.error(payload);
       })
       // saveJob
@@ -117,9 +123,11 @@ const savedJobsSlice = createSlice({
       })
       .addCase(unsaveJob.fulfilled, (state, { payload }) => {
         // Ensure job is removed (backup in case optimistic update missed)
-        state.savedJobIds = state.savedJobIds.filter((id) => id !== payload.jobId);
+        state.savedJobIds = state.savedJobIds.filter(
+          (id) => id !== payload.jobId,
+        );
         state.savedJobs = state.savedJobs.filter(
-          (saved) => saved.job_id !== payload.jobId
+          (saved) => saved.job_id !== payload.jobId,
         );
         toast.success("Job removed from saved");
       })

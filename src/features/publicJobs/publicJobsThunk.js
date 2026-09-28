@@ -10,6 +10,35 @@ import { supabase } from "../../utils/supabase";
 // Number of jobs per page for pagination (Requirement 1.3)
 const JOBS_PER_PAGE = 10;
 
+// Number of jobs shown in the landing page "Featured Jobs" section
+const FEATURED_JOBS_COUNT = 6;
+
+/**
+ * Fetch the most recent open jobs for the landing page's Featured section.
+ * @returns {Array} up to FEATURED_JOBS_COUNT mapped job objects
+ */
+export const getFeaturedJobsThunk = async (_, thunkAPI) => {
+  try {
+    const { data, error } = await supabase
+      .from("jobs")
+      .select("*")
+      .eq("status", "open")
+      .order("created_at", { ascending: false })
+      .limit(FEATURED_JOBS_COUNT);
+
+    if (error) {
+      throw error;
+    }
+
+    return (data || []).map(mapJobFromDB);
+  } catch (error) {
+    console.error("Error fetching featured jobs:", error);
+    return thunkAPI.rejectWithValue(
+      error.message || "Failed to load featured jobs.",
+    );
+  }
+};
+
 /**
  * Fetch all public jobs with search, filter, and pagination
  * Uses Supabase client without auth for public access

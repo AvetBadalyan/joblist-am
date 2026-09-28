@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 import {
-  FaMapMarkerAlt,
   FaBriefcase,
   FaCalendarAlt,
-  FaUsers,
   FaEdit,
-  FaTrash,
+  FaMapMarkerAlt,
   FaPlus,
+  FaTrash,
+  FaUsers,
 } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import Wrapper from "../../../assets/wrappers/EmployerDashboard";
+import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
+import EmptyState from "../../../components/EmptyState/EmptyState";
+import Loading from "../../../components/Loading/Loading";
 import { getEmployerJobs } from "../../../features/employerJobs/employerJobsSlice";
 import { deleteJob } from "../../../features/jobSlice/jobSlice";
-import Loading from "../../../components/Loading/Loading";
-import EmptyState from "../../../components/EmptyState/EmptyState";
-import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
 
 /**
  * EmployerDashboard Component
@@ -36,8 +36,8 @@ const EmployerDashboard = () => {
   const navigate = useNavigate();
 
   // Redux state
-  const { jobs, isLoading, totalJobs } = useSelector(
-    (store) => store.employerJobs
+  const { jobs, isLoading, isError, totalJobs } = useSelector(
+    (store) => store.employerJobs,
   );
 
   // Local state for delete confirmation modal
@@ -135,13 +135,38 @@ const EmployerDashboard = () => {
           <div className="header-content">
             <div>
               <h2 className="page-title">My Job Listings</h2>
-              <p className="subtitle">Manage your posted jobs and view applicants</p>
+              <p className="subtitle">
+                Manage your posted jobs and view applicants
+              </p>
             </div>
           </div>
         </div>
         <div className="loading-container">
           <Loading center />
         </div>
+      </Wrapper>
+    );
+  }
+
+  // Render error state (distinct from an empty list)
+  if (isError) {
+    return (
+      <Wrapper>
+        <div className="dashboard-header">
+          <div className="header-content">
+            <div>
+              <h2 className="page-title">My Job Listings</h2>
+              <p className="subtitle">
+                Manage your posted jobs and view applicants
+              </p>
+            </div>
+          </div>
+        </div>
+        <EmptyState
+          message="We couldn't load your job listings. Please try again."
+          actionText="Retry"
+          onAction={() => dispatch(getEmployerJobs())}
+        />
       </Wrapper>
     );
   }
@@ -154,7 +179,9 @@ const EmployerDashboard = () => {
           <div className="header-content">
             <div>
               <h2 className="page-title">My Job Listings</h2>
-              <p className="subtitle">Manage your posted jobs and view applicants</p>
+              <p className="subtitle">
+                Manage your posted jobs and view applicants
+              </p>
             </div>
             <Link to="/employer/post-job" className="post-job-btn">
               <FaPlus />
@@ -178,7 +205,9 @@ const EmployerDashboard = () => {
         <div className="header-content">
           <div>
             <h2 className="page-title">My Job Listings</h2>
-            <p className="subtitle">Manage your posted jobs and view applicants</p>
+            <p className="subtitle">
+              Manage your posted jobs and view applicants
+            </p>
           </div>
           <Link to="/employer/post-job" className="post-job-btn">
             <FaPlus />

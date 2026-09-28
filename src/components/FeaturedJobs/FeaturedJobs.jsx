@@ -1,66 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { mapJobFromDB } from "../../utils/mappers";
-import { supabase } from "../../utils/supabase";
+import { getFeaturedJobs } from "../../features/publicJobs/publicJobsSlice";
 import JobCard from "../JobCard/JobCard";
 import AnimatedElement from "../landing/AnimatedElement/AnimatedElement";
 import Loading from "../Loading/Loading";
 
-// Number of featured jobs to display (Requirement 18.2)
-const FEATURED_JOBS_COUNT = 6;
-
 /**
  * FeaturedJobs Component
  * Displays up to 6 most recent open jobs on the landing page.
- *
- * Requirements implemented:
- * - 7.1: Enhanced section styling integration
- * - 7.2: Animated section header with gradient text heading
- * - 7.3: Staggered fade-and-slide animation for job cards on viewport entry
- * - 7.4: Subtle decorative background pattern / gradient
- * - 7.5: "View All Jobs" button matches Hero CTA hover animation
- * - 18.2: Display featured Job_Listings (up to 6 most recent open jobs)
+ * Data comes from the publicJobs slice (getFeaturedJobs thunk), matching
+ * the app's Redux-thunk data-fetching pattern.
  *
  * @param {Object} props
  * @param {boolean} [props.showBookmark=false] - Whether to show bookmark buttons (disabled for landing page)
  */
 const FeaturedJobs = ({ showBookmark = false }) => {
-  const [jobs, setJobs] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const {
+    featuredJobs: jobs,
+    featuredLoading: isLoading,
+    featuredError: error,
+  } = useSelector((store) => store.publicJobs);
 
   useEffect(() => {
-    const fetchFeaturedJobs = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-
-        // Fetch most recent open jobs, sorted by created_at descending
-        const { data, error: fetchError } = await supabase
-          .from("jobs")
-          .select("*")
-          .eq("status", "open")
-          .order("created_at", { ascending: false })
-          .limit(FEATURED_JOBS_COUNT);
-
-        if (fetchError) {
-          throw fetchError;
-        }
-
-        // Map database records to app state shape
-        const mappedJobs = (data || []).map(mapJobFromDB);
-        setJobs(mappedJobs);
-      } catch (err) {
-        console.error("Error fetching featured jobs:", err);
-        setError("Failed to load featured jobs");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchFeaturedJobs();
-  }, []);
+    dispatch(getFeaturedJobs());
+  }, [dispatch]);
 
   // Loading state
   if (isLoading) {
@@ -109,7 +75,6 @@ const FeaturedJobs = ({ showBookmark = false }) => {
 
   return (
     <Wrapper>
-      {/* Section header — animated on scroll entry (Req 7.2) */}
       <AnimatedElement animation="slide-up" threshold={0.15}>
         <div className="section-header">
           <span className="section-label">Opportunities</span>
@@ -120,7 +85,7 @@ const FeaturedJobs = ({ showBookmark = false }) => {
         </div>
       </AnimatedElement>
 
-      {/* Job cards — staggered slide-up animation (Req 7.3) */}
+      {/* Job cards — staggered slide-up on scroll */}
       <div className="jobs-grid">
         {jobs.map((job, index) => (
           <AnimatedElement
@@ -219,7 +184,7 @@ const Wrapper = styled.section`
   /* ── Empty / error ── */
   .empty-state {
     text-align: center;
-    padding: 3rem 1rem;
+    padding: var(--space-12) var(--space-4);
     background: var(--grey-50);
     border-radius: var(--borderRadius);
 
@@ -237,7 +202,7 @@ const Wrapper = styled.section`
     gap: var(--space-6);
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 var(--space-4);
+    padding: 0 var(--container-padding);
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
@@ -260,8 +225,8 @@ const Wrapper = styled.section`
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    padding: 0.75rem 2rem;
-    min-height: 44px; /* Req 10.6: minimum touch target on mobile */
+    padding: var(--space-3) var(--space-8);
+    min-height: 44px;
     background: var(--gradient-accent);
     color: var(--white);
     border-radius: var(--borderRadius);
@@ -269,8 +234,8 @@ const Wrapper = styled.section`
     text-decoration: none;
     cursor: pointer;
     transition:
-      transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
 
     &:hover {
       transform: scale(1.05);

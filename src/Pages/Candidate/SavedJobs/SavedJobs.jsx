@@ -32,7 +32,7 @@ const SavedJobs = () => {
   const navigate = useNavigate();
 
   // Get saved jobs state from Redux
-  const { isLoading, savedJobs, savedJobIds } = useSelector(
+  const { isLoading, isError, savedJobs, savedJobIds } = useSelector(
     (store) => store.savedJobs,
   );
 
@@ -71,6 +71,20 @@ const SavedJobs = () => {
       <Wrapper>
         <h2>Saved Jobs</h2>
         <Loading center />
+      </Wrapper>
+    );
+  }
+
+  // Error state (distinct from an empty list)
+  if (isError) {
+    return (
+      <Wrapper>
+        <h2>Saved Jobs</h2>
+        <EmptyState
+          message="We couldn't load your saved jobs. Please try again."
+          actionText="Retry"
+          onAction={() => dispatch(getSavedJobs())}
+        />
       </Wrapper>
     );
   }

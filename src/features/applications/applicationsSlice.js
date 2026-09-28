@@ -1,9 +1,9 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import {
-  submitApplicationThunk,
-  getMyApplicationsThunk,
   checkAppliedJobsThunk,
+  getMyApplicationsThunk,
+  submitApplicationThunk,
 } from "./applicationsThunk";
 
 /**
@@ -17,6 +17,7 @@ import {
 
 const initialState = {
   isLoading: false,
+  isError: false,
   applications: [],
   totalApplications: 0,
   // Application submission
@@ -28,17 +29,17 @@ const initialState = {
 // Async thunks for application operations
 export const submitApplication = createAsyncThunk(
   "applications/submitApplication",
-  submitApplicationThunk
+  submitApplicationThunk,
 );
 
 export const getMyApplications = createAsyncThunk(
   "applications/getMyApplications",
-  getMyApplicationsThunk
+  getMyApplicationsThunk,
 );
 
 export const checkAppliedJobs = createAsyncThunk(
   "applications/checkAppliedJobs",
-  checkAppliedJobsThunk
+  checkAppliedJobsThunk,
 );
 
 const applicationsSlice = createSlice({
@@ -85,9 +86,11 @@ const applicationsSlice = createSlice({
       // Get My Applications
       .addCase(getMyApplications.pending, (state) => {
         state.isLoading = true;
+        state.isError = false;
       })
       .addCase(getMyApplications.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        state.isError = false;
         state.applications = payload.applications;
         state.totalApplications = payload.totalApplications;
         // Update appliedJobIds from fetched applications
@@ -95,6 +98,7 @@ const applicationsSlice = createSlice({
       })
       .addCase(getMyApplications.rejected, (state, { payload }) => {
         state.isLoading = false;
+        state.isError = true;
         toast.error(payload);
       })
 

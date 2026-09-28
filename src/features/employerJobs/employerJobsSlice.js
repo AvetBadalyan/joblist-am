@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import {
   getEmployerJobsThunk,
@@ -8,6 +8,7 @@ import {
 
 const initialState = {
   isLoading: false,
+  isError: false,
   jobs: [],
   totalJobs: 0,
   numOfPages: 1,
@@ -20,17 +21,17 @@ const initialState = {
 // Async thunks for employer job management
 export const getEmployerJobs = createAsyncThunk(
   "employerJobs/getEmployerJobs",
-  getEmployerJobsThunk
+  getEmployerJobsThunk,
 );
 
 export const getJobApplicants = createAsyncThunk(
   "employerJobs/getJobApplicants",
-  getJobApplicantsThunk
+  getJobApplicantsThunk,
 );
 
 export const updateApplicationStatus = createAsyncThunk(
   "employerJobs/updateApplicationStatus",
-  updateApplicationStatusThunk
+  updateApplicationStatusThunk,
 );
 
 const employerJobsSlice = createSlice({
@@ -57,15 +58,18 @@ const employerJobsSlice = createSlice({
       // getEmployerJobs cases
       .addCase(getEmployerJobs.pending, (state) => {
         state.isLoading = true;
+        state.isError = false;
       })
       .addCase(getEmployerJobs.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        state.isError = false;
         state.jobs = payload.jobs;
         state.totalJobs = payload.totalJobs;
         state.numOfPages = payload.numOfPages;
       })
       .addCase(getEmployerJobs.rejected, (state, { payload }) => {
         state.isLoading = false;
+        state.isError = true;
         toast.error(payload || "Failed to load job listings");
       })
       // getJobApplicants cases
@@ -88,7 +92,7 @@ const employerJobsSlice = createSlice({
         // Update the application status in currentJobApplicants
         const { applicationId, status } = payload;
         const application = state.currentJobApplicants.find(
-          (app) => app.id === applicationId
+          (app) => app.id === applicationId,
         );
         if (application) {
           application.status = status;
