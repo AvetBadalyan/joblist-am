@@ -11,9 +11,13 @@ const Wrapper = styled.nav`
   top: 0;
   z-index: 100;
 
+  /* Match .dashboard-page container: same max-width and side padding so the
+     nav (logo / actions) lines up with the page content below it. */
   .nav-center {
-    width: var(--fluid-width);
+    width: 100%;
     max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21,8 +25,22 @@ const Wrapper = styled.nav`
   }
 
   .logo {
-    width: 90px;
+    height: calc(var(--nav-height) - var(--space-4));
+    width: auto;
     display: block;
+    object-fit: contain;
+  }
+
+  @media (min-width: 768px) {
+    .nav-center {
+      padding: 0 var(--space-6);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .nav-center {
+      padding: 0 var(--space-8);
+    }
   }
 
   .nav-links {

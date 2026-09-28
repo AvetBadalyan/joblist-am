@@ -4,15 +4,16 @@ const Wrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
   margin-top: var(--space-8);
   padding: var(--space-4) 0;
-  gap: var(--space-4);
+  gap: var(--space-2);
 
   .page-indicator {
     font-size: var(--fs-sm);
     color: var(--grey-500);
     font-weight: 500;
+    /* Keep the indicator on the left; cluster the controls together on the right */
+    margin-right: auto;
   }
 
   .btn-container {
@@ -80,11 +81,15 @@ const Wrapper = styled.section`
   }
 
   @media (max-width: 576px) {
-    flex-direction: column;
-    gap: var(--space-4);
+    justify-content: center;
+    gap: var(--space-2);
 
     .page-indicator {
-      order: -1;
+      /* Full-width, centered above the controls on small screens */
+      width: 100%;
+      text-align: center;
+      margin-right: 0;
+      margin-bottom: var(--space-2);
     }
   }
 `;
