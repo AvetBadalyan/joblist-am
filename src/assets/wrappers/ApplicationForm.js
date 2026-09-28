@@ -1,97 +1,51 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  .form-group {
+  h4 {
     margin-bottom: var(--space-4);
   }
 
-  .form-label {
-    display: block;
-    margin-bottom: var(--space-2);
-    font-size: var(--fs-sm);
-    font-weight: 500;
-    color: var(--grey-700);
-  }
-
-  .required {
+  /* FormRow / FormRowTextArea render globally-styled .form-row markup,
+     so this wrapper only handles the form's own error and action row. */
+  .field-error {
     color: var(--red-dark);
+    font-size: var(--fs-sm);
+    margin: calc(var(--space-3) * -1) 0 var(--space-4);
   }
 
-  .form-input,
-  .form-textarea {
-    width: 100%;
-    padding: var(--space-3);
-    border: 1px solid var(--grey-200);
-    border-radius: var(--borderRadius);
-    font-size: var(--fs-base);
-    transition: var(--transition-fast) border-color;
-
-    &:focus {
-      outline: none;
-      border-color: var(--primary-500);
-      box-shadow: var(--focus-ring);
-    }
-
-    &::placeholder {
-      color: var(--grey-400);
-    }
-  }
-
-  .form-textarea {
-    min-height: 150px;
-    resize: vertical;
-  }
-
-  .char-count {
-    font-size: var(--fs-xs);
-    color: var(--grey-400);
-    text-align: right;
-    margin-top: var(--space-1);
-  }
-
-  .form-actions {
+  .btn-container {
     display: flex;
+    flex-direction: column-reverse;
     gap: var(--space-3);
     margin-top: var(--space-6);
   }
 
-  .submit-btn,
-  .cancel-btn {
+  .btn {
     flex: 1;
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--borderRadius);
-    cursor: pointer;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    font-weight: 500;
-    min-height: 44px;
+    min-height: 48px;
   }
 
-  .submit-btn {
-    background: var(--primary-500);
-    color: var(--white);
-    border: none;
-
-    &:hover:not(:disabled) {
-      background: var(--primary-700);
-    }
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-  }
-
-  .cancel-btn {
-    background: var(--grey-200);
+  /* Cancel: neutral, clearly secondary to the gradient submit button */
+  .btn-cancel {
+    background: var(--grey-100);
     color: var(--grey-700);
-    border: none;
+    box-shadow: none;
 
     &:hover {
-      background: var(--grey-300);
+      background: var(--grey-200);
+      color: var(--grey-900);
+      transform: none;
+      box-shadow: none;
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+
+  @media (min-width: 576px) {
+    .btn-container {
+      flex-direction: row;
     }
   }
 `;
