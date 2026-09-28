@@ -13,7 +13,6 @@ import { LogoItem, LogoStripWrapper } from "./CompanyLogoStrip.styles";
  *  - The scrolling logo track is aria-hidden because it is purely decorative
  *    (duplicate names, no interactive purpose).
  *
- * Requirements: 4.1, 4.2, 13.1, 13.7
  */
 function CompanyLogoStrip() {
   // Build one "half" dense enough to fill wide screens, then duplicate it so the

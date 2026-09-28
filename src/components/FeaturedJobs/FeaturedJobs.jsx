@@ -115,7 +115,7 @@ const Wrapper = styled.section`
   position: relative;
   overflow: hidden;
 
-  /* Subtle dot pattern overlay for texture (Req 7.4) */
+  /* Subtle dot pattern overlay for texture */
   &::before {
     content: "";
     position: absolute;
@@ -158,7 +158,7 @@ const Wrapper = styled.section`
     font-weight: 800;
     line-height: 1.15;
     letter-spacing: var(--letterSpacing);
-    /* Gradient text (Req 7.2) */
+    /* Gradient text */
     background: var(--gradient-accent);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -220,7 +220,7 @@ const Wrapper = styled.section`
     margin-top: var(--space-12);
   }
 
-  /* Req 7.5: matches Hero CTA hover animation */
+  /* Matches Hero CTA hover animation */
   .view-all-btn {
     display: inline-flex;
     align-items: center;

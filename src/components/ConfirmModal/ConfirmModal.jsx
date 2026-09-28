@@ -1,4 +1,5 @@
-import { Backdrop, ModalBox } from '../../assets/wrappers/ConfirmModal'
+import { useEffect } from "react";
+import { Backdrop, ModalBox } from "../../assets/wrappers/ConfirmModal";
 
 const ConfirmModal = ({
   isOpen,
@@ -6,15 +7,29 @@ const ConfirmModal = ({
   message,
   onConfirm,
   onCancel,
-  confirmText = 'Delete',
-  cancelText = 'Cancel',
+  confirmText = "Delete",
+  cancelText = "Cancel",
 }) => {
-  if (!isOpen) return null
+  // Close on Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onCancel();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onCancel]);
+
+  if (!isOpen) return null;
 
   return (
-    <Backdrop onClick={onCancel} role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      {/* Stop clicks inside the box from closing the modal */}
-      <ModalBox onClick={(e) => e.stopPropagation()}>
+    <Backdrop onClick={onCancel} aria-hidden="true">
+      <ModalBox
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        onClick={(e) => e.stopPropagation()}
+      >
         <h4 id="modal-title">{title}</h4>
         <p>{message}</p>
         <div className="modal-actions">
@@ -27,7 +42,7 @@ const ConfirmModal = ({
         </div>
       </ModalBox>
     </Backdrop>
-  )
-}
+  );
+};
 
-export default ConfirmModal
+export default ConfirmModal;

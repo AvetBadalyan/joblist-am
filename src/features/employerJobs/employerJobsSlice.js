@@ -38,12 +38,6 @@ const employerJobsSlice = createSlice({
   name: "employerJobs",
   initialState,
   reducers: {
-    showLoading: (state) => {
-      state.isLoading = true;
-    },
-    hideLoading: (state) => {
-      state.isLoading = false;
-    },
     setPage: (state, { payload }) => {
       state.page = payload;
     },
@@ -106,12 +100,7 @@ const employerJobsSlice = createSlice({
   },
 });
 
-export const {
-  showLoading,
-  hideLoading,
-  setPage,
-  clearApplicants,
-  clearEmployerJobsState,
-} = employerJobsSlice.actions;
+export const { setPage, clearApplicants, clearEmployerJobsState } =
+  employerJobsSlice.actions;
 
 export default employerJobsSlice.reducer;

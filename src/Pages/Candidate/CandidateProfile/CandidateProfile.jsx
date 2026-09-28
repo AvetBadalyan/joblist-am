@@ -18,7 +18,6 @@ import { updateUser } from "../../../features/user/userSlice";
  * - Validation for required fields (name)
  * - Loading state during save
  *
- * @see Requirements: 9.1, 9.2, 9.3, 9.4, 9.5
  */
 const CandidateProfile = () => {
   const { isLoading, user } = useSelector((store) => store.user);

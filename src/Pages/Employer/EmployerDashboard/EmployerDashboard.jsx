@@ -29,7 +29,6 @@ import { deleteJob } from "../../../features/jobSlice/jobSlice";
  * - Order by created_at descending
  * - Show empty state "You haven't posted any jobs yet" with link to post job
  *
- * @see Requirements: 11.1, 11.2, 11.3, 11.4, 11.5
  */
 const EmployerDashboard = () => {
   const dispatch = useDispatch();

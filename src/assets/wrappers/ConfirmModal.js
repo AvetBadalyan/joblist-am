@@ -69,10 +69,3 @@ export const ModalBox = styled.div`
     }
   }
 `;
-
-const Wrapper = styled.div`
-  ${Backdrop}
-  ${ModalBox}
-`;
-
-export default Wrapper;

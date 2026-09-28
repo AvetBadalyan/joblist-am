@@ -9,7 +9,6 @@ import {
 /**
  * publicJobsSlice manages public job browsing state
  * Used by: BrowseJobs page, JobDetail page
- * Requirements: 1.1, 2.1, 3.1
  */
 
 const initialFiltersState = {
@@ -57,15 +56,8 @@ const publicJobsSlice = createSlice({
   name: "publicJobs",
   initialState,
   reducers: {
-    showLoading: (state) => {
-      state.isLoading = true;
-    },
-    hideLoading: (state) => {
-      state.isLoading = false;
-    },
     /**
-     * Handle filter/search input changes
-     * Resets pagination to page 1 when filters change (Requirement 2.4)
+     * Handle filter/search input changes — resets pagination to page 1.
      */
     handleChange: (state, { payload: { name, value } }) => {
       state.page = 1;
@@ -77,28 +69,13 @@ const publicJobsSlice = createSlice({
     setPage: (state, { payload }) => {
       state.page = payload;
     },
-    /**
-     * Clear all filters back to default state (Requirement 2.5)
-     */
     clearFilters: (state) => {
       return { ...state, ...initialFiltersState, page: 1 };
     },
-    /**
-     * Clear current job detail (when leaving job detail page)
-     */
     clearCurrentJob: (state) => {
       state.currentJob = null;
       state.currentJobLoading = false;
     },
-    /**
-     * Set current job directly (useful for optimistic updates)
-     */
-    setCurrentJob: (state, { payload }) => {
-      state.currentJob = payload;
-    },
-    /**
-     * Clear all public jobs state (used when logging out or resetting)
-     */
     clearPublicJobsState: () => initialState,
   },
   extraReducers: (builder) => {
@@ -150,13 +127,10 @@ const publicJobsSlice = createSlice({
 });
 
 export const {
-  showLoading,
-  hideLoading,
   handleChange,
   setPage,
   clearFilters,
   clearCurrentJob,
-  setCurrentJob,
   clearPublicJobsState,
 } = publicJobsSlice.actions;
 

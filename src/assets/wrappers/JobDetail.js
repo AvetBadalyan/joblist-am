@@ -140,6 +140,9 @@ const Wrapper = styled.main`
       color: var(--green-dark);
       font-weight: 700;
     }
+    .closed-text {
+      color: var(--red-dark);
+    }
   }
 
   .job-type-badge {

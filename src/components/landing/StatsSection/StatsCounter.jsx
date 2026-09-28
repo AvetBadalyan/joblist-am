@@ -30,7 +30,6 @@ const ICON_MAP = {
  * @param {string} props.label   - Descriptive label shown below the number
  * @param {string} [props.suffix=''] - Suffix appended to count (e.g. '+')
  *
- * Requirements: 2.2, 2.3, 2.4, 2.6, 11.4
  */
 function StatsCounter({ icon, value, label, suffix = "" }) {
   const IconComponent = ICON_MAP[icon] ?? FaBriefcase;

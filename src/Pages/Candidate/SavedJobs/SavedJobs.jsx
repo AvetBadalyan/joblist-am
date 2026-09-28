@@ -25,7 +25,6 @@ import {
  * - Loading state while fetching
  * - Grid layout for multiple saved jobs
  *
- * Requirements: 8.4, 8.5
  */
 const SavedJobs = () => {
   const dispatch = useDispatch();
@@ -50,9 +49,7 @@ const SavedJobs = () => {
    */
   const handleBookmarkClick = useCallback(
     (jobId) => {
-      // Optimistically remove the job from UI
       dispatch(optimisticUnsave(jobId));
-      // Trigger the actual unsave operation
       dispatch(unsaveJob(jobId));
     },
     [dispatch],
@@ -89,7 +86,7 @@ const SavedJobs = () => {
     );
   }
 
-  // Empty state - Requirement 8.5
+  // Empty state — no saved jobs yet
   if (savedJobs.length === 0) {
     return (
       <Wrapper>
@@ -109,7 +106,6 @@ const SavedJobs = () => {
         {savedJobs.length} saved job{savedJobs.length !== 1 ? "s" : ""}
       </h5>
 
-      {/* Jobs Grid - Requirement 8.4 */}
       <div className="jobs">
         {savedJobs.map((savedJob) => {
           const { id, job_id, job } = savedJob;

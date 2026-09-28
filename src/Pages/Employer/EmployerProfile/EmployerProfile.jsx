@@ -19,7 +19,6 @@ import { updateUser } from "../../../features/user/userSlice";
  * - Validation for required fields (name, company_name)
  * - Loading state during save
  *
- * @see Requirements: 16.1, 16.2, 16.3, 16.4, 16.5, 16.6
  */
 const EmployerProfile = () => {
   const { isLoading, user } = useSelector((store) => store.user);
@@ -128,15 +127,8 @@ const EmployerProfile = () => {
             {fieldErrors.company_name && (
               <p className="field-error">{fieldErrors.company_name}</p>
             )}
-            {/* Note about company name not updating existing job listings */}
-            <p
-              style={{
-                fontSize: "0.75rem",
-                color: "var(--grey-500)",
-                marginTop: "0.25rem",
-                fontStyle: "italic",
-              }}
-            >
+            {/* Changing company name does not retroactively update existing job listings */}
+            <p className="field-note">
               Note: Changing company name will not update existing job listings
             </p>
           </div>

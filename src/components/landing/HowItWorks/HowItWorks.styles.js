@@ -68,7 +68,7 @@ export const HowItWorksWrapper = styled.section`
       position: relative;
     }
 
-    /* Vertical divider between the two tracks for clear visual separation (Req 5.6) */
+    /* Vertical divider between the two tracks */
     .tracks-container::after {
       content: "";
       position: absolute;

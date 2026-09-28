@@ -18,10 +18,14 @@ import Loading from "../../components/Loading/Loading";
  * 3. If role matches allowedRoles (or allowedRoles is not specified) → render children
  */
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { user, isLoading } = useSelector((store) => store.user);
+  const { user, isLoading, isInitializing } = useSelector(
+    (store) => store.user,
+  );
 
-  // Handle loading state while user is being fetched (session restoration)
-  if (isLoading) {
+  // Wait while the initial Supabase session is resolving or a user fetch is in
+  // flight, so an uncached returning user isn't redirected before their profile
+  // loads.
+  if (isInitializing || isLoading) {
     return <Loading center />;
   }
 

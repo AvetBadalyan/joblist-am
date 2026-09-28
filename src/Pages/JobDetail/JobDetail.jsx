@@ -32,17 +32,6 @@ import { formatSalary } from "../../utils/format";
  *
  * Displays full job details and handles the application flow.
  *
- * Requirements implemented:
- * - 3.1: Navigate to dedicated job detail page
- * - 3.2: Display full job details (title, company_name, location, job_type, salary, description, requirements)
- * - 3.3: Display "Apply Now" button
- * - 3.4: Redirect unauthenticated users to /register with return URL when clicking Apply
- * - 3.5: Show ApplicationForm when authenticated candidate clicks Apply
- * - 3.6: Hide Apply button for employer users
- * - 6.1: ApplicationForm with cover_letter (required), resume_url (optional)
- * - 6.3: Show "You have already applied" if already applied
- * - 6.4: Show "Application Submitted" state after applying
- * - 6.5: Hide Apply button for closed jobs
  */
 
 /**
@@ -109,13 +98,11 @@ const JobDetail = () => {
    */
   const handleApplyClick = useCallback(() => {
     if (!isAuthenticated) {
-      // Redirect to register with return URL (Requirement 3.4)
       navigate(`/register?returnUrl=/jobs/${jobId}`);
       return;
     }
 
     if (isCandidate) {
-      // Show application form (Requirement 3.5)
       setShowApplicationForm(true);
     }
   }, [isAuthenticated, isCandidate, navigate, jobId]);
@@ -170,12 +157,10 @@ const JobDetail = () => {
    * Determine what to show in the sidebar action area
    */
   const renderSidebarAction = () => {
-    // Hide Apply button for employers (Requirement 3.6)
     if (isEmployer) {
       return null;
     }
 
-    // Show "Position Closed" badge for closed jobs (Requirement 6.5)
     if (isJobClosed) {
       return (
         <div className="closed-badge">
@@ -185,7 +170,6 @@ const JobDetail = () => {
       );
     }
 
-    // Show "Application Submitted" badge if already applied (Requirement 6.3, 6.4)
     if (hasApplied) {
       return (
         <div className="applied-badge">
@@ -195,7 +179,6 @@ const JobDetail = () => {
       );
     }
 
-    // Show Apply button for unauthenticated and candidates (Requirement 3.3)
     return (
       <button
         type="button"
@@ -283,7 +266,6 @@ const JobDetail = () => {
                 <h2>{title}</h2>
                 <p className="company-name">{company_name}</p>
               </div>
-              {/* Bookmark button for authenticated candidates (Requirement 8.1) */}
               {isCandidate && (
                 <BookmarkButton
                   isSaved={isSaved}
@@ -311,9 +293,7 @@ const JobDetail = () => {
               {status === "closed" && (
                 <div className="meta-item">
                   <FaBriefcase />
-                  <span className="text" style={{ color: "var(--red-dark)" }}>
-                    Closed
-                  </span>
+                  <span className="text closed-text">Closed</span>
                 </div>
               )}
             </div>

@@ -23,7 +23,6 @@ import { getMyApplications } from "../../../features/applications/applicationsSl
  * - Quick links to Browse Jobs and My Applications
  * - Card-based layout for dashboard stats
  *
- * @see Requirements: 17.2 - Candidate dashboard access
  */
 const CandidateDashboard = () => {
   const dispatch = useDispatch();

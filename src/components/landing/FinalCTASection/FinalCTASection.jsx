@@ -22,8 +22,12 @@ function FinalCTASection() {
 
   return (
     <FinalCTAWrapper>
-      {/* Wave divider at top edge — color matches the section above (#f8fafc / grey-50)
-          so it appears to "dip into" the gradient from the lighter background */}
+      {/*
+        Wave at top edge — fill matches the --grey-50 token value (#f8fafc)
+        so the wave blends with the section above. SVG fill can't use CSS
+        variables directly, so the token value is inlined here intentionally.
+        Update both if the grey-50 token ever changes.
+      */}
       <WaveDivider position="top" color="#f8fafc" />
       <CTAContent ref={ref} $isVisible={isVisible}>
         <h2 className="cta-headline">Ready to Take the Next Step?</h2>

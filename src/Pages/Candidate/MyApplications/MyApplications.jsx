@@ -19,12 +19,6 @@ import { getMyApplications } from "../../../features/applications/applicationsSl
  * MyApplications Component
  * Displays all job applications submitted by the candidate
  *
- * Requirements: 7.1, 7.2, 7.3, 7.4, 7.5
- * - 7.1: Display a list of all candidate's Applications
- * - 7.2: Display job title, company name, application date, and status
- * - 7.3: Use distinct visual indicators (color/icon) for each Application_Status
- * - 7.4: Show empty state with link to browse jobs when no applications
- * - 7.5: Order applications by applied_at DESC (most recent first)
  */
 const MyApplications = () => {
   const dispatch = useDispatch();

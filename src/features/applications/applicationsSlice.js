@@ -9,7 +9,6 @@ import {
 /**
  * applicationsSlice - Manages candidate job applications
  *
- * Requirements: 6.1, 7.1
  * - Tracks all applications for the candidate
  * - Manages submission state for new applications
  * - Tracks which jobs the user has already applied to (for UI state)

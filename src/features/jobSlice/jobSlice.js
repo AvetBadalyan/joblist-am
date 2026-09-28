@@ -9,7 +9,6 @@ import { createJobThunk, deleteJobThunk, editJobThunk } from "./jobThunk";
  * This slice handles the form state for creating and editing job listings.
  * It is used by employers to post new jobs and modify existing ones.
  *
- * Requirements: 10.1, 10.2, 10.3, 12.1, 12.2
  */
 const initialState = {
   isLoading: false,

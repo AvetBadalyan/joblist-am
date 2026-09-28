@@ -78,7 +78,7 @@ export const LogoItem = styled.div`
   border: 1.5px solid var(--grey-200);
   border-radius: var(--radius-lg);
   background: var(--white);
-  /* Grayscale + reduced opacity — hover restores full colour (task 9.3) */
+  /* Grayscale + reduced opacity — hover restores full colour */
   filter: grayscale(100%);
   opacity: 0.6;
   transition:

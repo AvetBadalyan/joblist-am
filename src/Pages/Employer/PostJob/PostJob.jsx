@@ -22,7 +22,6 @@ import {
  * 4. Validates salary_max >= salary_min before submission
  * 5. Redirects to /employer dashboard with success message on submit
  *
- * Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6
  */
 const PostJob = () => {
   const dispatch = useDispatch();
@@ -129,7 +128,7 @@ const PostJob = () => {
         <h3>Post a Job</h3>
 
         {/* Display company name from profile (read-only) */}
-        <p style={{ marginBottom: "1.5rem", color: "var(--grey-600)" }}>
+        <p className="form-subtitle">
           Posting as: <strong>{user?.company_name || "Your Company"}</strong>
         </p>
 

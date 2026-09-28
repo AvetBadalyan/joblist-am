@@ -30,9 +30,17 @@ import {
 //   company_logo_url: 'https://...'
 // }
 // Session management is handled by Supabase client — no token stored here.
+const cachedUser = getUserFromLocalStorage();
+
 const initialState = {
   isLoading: false,
-  user: getUserFromLocalStorage(),
+  // True until Supabase resolves the initial session on first load. When we
+  // already have a cached user there is no redirect flash to guard against,
+  // so we can start ready. Without a cache, ProtectedRoute waits on this so a
+  // returning-but-uncached user isn't bounced to /register before the profile
+  // fetch completes.
+  isInitializing: !cachedUser,
+  user: cachedUser,
 };
 
 export const registerUser = createAsyncThunk(
@@ -98,6 +106,11 @@ const userSlice = createSlice({
         state.user = { ...state.user, ...payload };
         addUserToLocalStorage(state.user);
       }
+    },
+    // Marks the end of initial session resolution (called by the auth listener
+    // once Supabase has reported INITIAL_SESSION, with or without a session).
+    finishInitializing: (state) => {
+      state.isInitializing = false;
     },
   },
   extraReducers: (builder) => {
@@ -172,5 +185,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { logoutUser, setUser, updateUserProfile } = userSlice.actions;
+export const { logoutUser, setUser, updateUserProfile, finishInitializing } =
+  userSlice.actions;
 export default userSlice.reducer;

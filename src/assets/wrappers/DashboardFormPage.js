@@ -49,6 +49,23 @@ const Wrapper = styled.section`
     margin-top: var(--space-1);
     margin-bottom: 0;
   }
+  .field-note {
+    font-size: var(--fs-xs);
+    color: var(--grey-500);
+    margin-top: var(--space-1);
+    font-style: italic;
+  }
+  /* Subtitle below the form heading (e.g. "Posting as: Company") */
+  .form-subtitle {
+    margin-bottom: var(--space-6);
+    color: var(--grey-600);
+    font-size: var(--fs-sm);
+  }
+  /* Error message when a resource fails to load */
+  .fetch-error {
+    color: var(--red-dark);
+    margin-bottom: var(--space-4);
+  }
 
   .form-center button {
     align-self: end;

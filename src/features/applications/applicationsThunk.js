@@ -1,7 +1,6 @@
 /**
  * applicationsThunk - Async thunk handlers for candidate job applications
  *
- * Requirements: 6.2, 6.3, 6.4, 7.1, 7.2, 7.5
  * - submitApplicationThunk: Submit a new job application
  * - getMyApplicationsThunk: Fetch all applications for the candidate
  * - checkAppliedJobsThunk: Get list of job IDs user has applied to
@@ -18,9 +17,6 @@ import { mapApplicationFromDB } from "../../utils/mappers";
  * @returns {Object} { application } - The created application
  *
  * Requirements:
- * - 6.2: Create Application record with status "applied"
- * - 6.3: Handle unique constraint error (already applied)
- * - 6.4: Display success message (handled in slice)
  */
 export const submitApplicationThunk = async (
   { jobId, cover_letter, resume_url },
@@ -86,9 +82,6 @@ export const submitApplicationThunk = async (
  * @returns {Object} { applications, totalApplications }
  *
  * Requirements:
- * - 7.1: Fetch list of all candidate's Applications
- * - 7.2: Include job_title and company_name from joined jobs table
- * - 7.5: Order by applied_at DESC (most recent first)
  */
 export const getMyApplicationsThunk = async (_, thunkAPI) => {
   try {
@@ -142,7 +135,6 @@ export const getMyApplicationsThunk = async (_, thunkAPI) => {
  * @returns {Object} { appliedJobIds }
  *
  * Requirements:
- * - 6.3: Prevent duplicate applications
  */
 export const checkAppliedJobsThunk = async (_, thunkAPI) => {
   try {

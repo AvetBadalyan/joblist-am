@@ -15,7 +15,6 @@ import {
  * Tablet   : 2-column grid  → hidden in favour of carousel
  * Mobile   : CSS scroll-snap horizontal carousel with dot indicators
  *
- * Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 13.2
  */
 function TestimonialSection() {
   const [currentIndex, setCurrentIndex] = useState(0);

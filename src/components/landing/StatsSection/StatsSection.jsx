@@ -10,7 +10,6 @@ import { StatsContainer, StatsWrapper } from "./StatsSection.styles";
  * manages its own animated count via the useStatsCounter hook,
  * triggering on viewport entry.
  *
- * Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6
  */
 function StatsSection() {
   return (

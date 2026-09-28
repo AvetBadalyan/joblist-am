@@ -4,7 +4,6 @@
  * These thunks manage candidate's saved/bookmarked jobs functionality.
  * All operations require an authenticated candidate user.
  *
- * Requirements: 8.2, 8.3, 8.4
  */
 
 import { mapSavedJobFromDB } from "../../utils/mappers";
@@ -16,7 +15,6 @@ import { supabase } from "../../utils/supabase";
  * Fetches from saved_jobs table and joins with jobs table to get full job details.
  * Only returns jobs that are still available (not deleted).
  *
- * Requirements: 8.4
  * @returns {Promise<{ savedJobs: Array }>}
  */
 export const getSavedJobsThunk = async (_, thunkAPI) => {
@@ -79,7 +77,6 @@ export const getSavedJobsThunk = async (_, thunkAPI) => {
  * Inserts a new record into saved_jobs table.
  * Returns the jobId for optimistic UI update confirmation.
  *
- * Requirements: 8.2
  * @param {string} jobId - The job ID to save
  * @returns {Promise<{ jobId: string, savedJob?: object }>}
  */
@@ -151,7 +148,6 @@ export const saveJobThunk = async (jobId, thunkAPI) => {
  *
  * Deletes the saved_jobs record where job_id and candidate_id match.
  *
- * Requirements: 8.3
  * @param {string} jobId - The job ID to unsave
  * @returns {Promise<{ jobId: string }>}
  */
@@ -189,7 +185,6 @@ export const unsaveJobThunk = async (jobId, thunkAPI) => {
  * Used to initialize bookmark state when a candidate logs in,
  * allowing the UI to show the correct saved/unsaved state on job cards.
  *
- * Requirements: 8.4
  * @returns {Promise<{ savedJobIds: string[] }>}
  */
 export const getSavedJobIdsThunk = async (_, thunkAPI) => {

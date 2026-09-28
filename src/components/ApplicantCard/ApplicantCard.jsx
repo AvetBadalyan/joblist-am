@@ -45,7 +45,6 @@ const formatDate = (dateString) => {
  * @param {Function} props.onStatusChange - Callback when status changes (applicationId, newStatus)
  * @param {boolean} [props.isUpdating=false] - Whether status update is in progress
  *
- * @see Requirements: 14.3, 14.4, 15.1, 15.2, 15.3, 15.4, 15.5
  */
 const ApplicantCard = ({ application, onStatusChange, isUpdating = false }) => {
   const [showCoverLetter, setShowCoverLetter] = useState(false);

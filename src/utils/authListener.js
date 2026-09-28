@@ -1,7 +1,11 @@
 import { toast } from "react-toastify";
 import { checkAppliedJobs } from "../features/applications/applicationsSlice";
 import { getSavedJobIds } from "../features/savedJobs/savedJobsSlice";
-import { logoutUser, setUser } from "../features/user/userSlice";
+import {
+  finishInitializing,
+  logoutUser,
+  setUser,
+} from "../features/user/userSlice";
 import { store } from "../store";
 import { mapProfileFromDB } from "./mappers";
 import { supabase } from "./supabase";
@@ -38,9 +42,7 @@ const fetchUserProfile = async (userId) => {
  */
 const initializeCandidateState = (profile) => {
   if (profile?.role === "candidate") {
-    // Initialize saved job IDs for bookmark state (Requirement 8.1)
     store.dispatch(getSavedJobIds());
-    // Initialize applied job IDs for "Already Applied" state
     store.dispatch(checkAppliedJobs());
   }
 };
@@ -71,33 +73,46 @@ export const setupAuthListener = () => {
       return;
     }
 
-    // Handle session restoration on page refresh or initial load
-    // INITIAL_SESSION fires when Supabase client initializes and detects an existing session
-    if (event === "INITIAL_SESSION" && session?.user) {
-      const currentUser = store.getState().user.user;
-
-      // Only fetch profile if we don't have user data in Redux
-      // (localStorage might have stale data, so we re-fetch to ensure consistency)
-      if (!currentUser || currentUser.id !== session.user.id) {
-        const profile = await fetchUserProfile(session.user.id);
-
-        if (profile) {
-          store.dispatch(setUser(profile));
-          // Initialize candidate-specific state (saved jobs, applied jobs)
-          initializeCandidateState(profile);
-        } else {
-          // Profile doesn't exist - this shouldn't happen with proper registration flow
-          // but handle gracefully by logging out
-          console.warn(
-            "No profile found for authenticated user - clearing session",
-          );
-          await supabase.auth.signOut();
-          store.dispatch(logoutUser());
+    // Handle session restoration on page refresh or initial load.
+    // INITIAL_SESSION fires once when the Supabase client initializes, whether
+    // or not an existing session is detected. We must clear isInitializing on
+    // every path so ProtectedRoute stops waiting (otherwise an uncached user
+    // would be redirected to /register before the profile fetch resolves).
+    if (event === "INITIAL_SESSION") {
+      try {
+        if (!session?.user) {
+          // No existing session — nothing to restore.
+          return;
         }
-      } else {
-        // User already in Redux state, but still initialize candidate state
-        // (this handles page refresh where localStorage has user but Redux state needs initialization)
-        initializeCandidateState(currentUser);
+
+        const currentUser = store.getState().user.user;
+
+        // Only fetch profile if we don't have user data in Redux
+        // (localStorage might have stale data, so we re-fetch to ensure consistency)
+        if (!currentUser || currentUser.id !== session.user.id) {
+          const profile = await fetchUserProfile(session.user.id);
+
+          if (profile) {
+            store.dispatch(setUser(profile));
+            // Initialize candidate-specific state (saved jobs, applied jobs)
+            initializeCandidateState(profile);
+          } else {
+            // Profile doesn't exist - this shouldn't happen with proper registration flow
+            // but handle gracefully by logging out
+            console.warn(
+              "No profile found for authenticated user - clearing session",
+            );
+            await supabase.auth.signOut();
+            store.dispatch(logoutUser());
+          }
+        } else {
+          // User already in Redux state, but still initialize candidate state
+          // (this handles page refresh where localStorage has user but Redux state needs initialization)
+          initializeCandidateState(currentUser);
+        }
+      } finally {
+        // Initial session resolution is complete on every path.
+        store.dispatch(finishInitializing());
       }
       return;
     }

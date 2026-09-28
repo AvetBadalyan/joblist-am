@@ -6,7 +6,6 @@ import { clearValues } from "./jobSlice";
 /**
  * Creates a new job listing for an employer
  *
- * Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6
  * - Creates job with employer_id from current user
  * - Auto-populates company_name from employer's profile
  * - Sets initial status to "open"
@@ -57,7 +56,6 @@ export const createJobThunk = async (job, thunkAPI) => {
 /**
  * Deletes a job listing owned by the employer
  *
- * Requirements: 13.1, 13.2, 13.3, 13.5
  * - Deletes job and cascades to applications and saved_jobs via DB
  * - Only deletes if employer owns the job (employer_id match)
  *
@@ -91,7 +89,6 @@ export const deleteJobThunk = async (jobId, thunkAPI) => {
 /**
  * Updates an existing job listing owned by the employer
  *
- * Requirements: 12.1, 12.2, 12.3, 12.4, 12.5
  * - Updates all editable fields including status (open/closed)
  * - Only updates if employer owns the job (employer_id match via RLS)
  *

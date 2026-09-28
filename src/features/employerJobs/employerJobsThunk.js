@@ -1,7 +1,6 @@
 /**
  * employerJobsThunk - Async thunks for employer job management
  * Implementation: Task 3.10
- * Requirements: 11.2, 14.2, 14.3, 15.1, 15.3
  */
 
 import { handleSupabaseError } from "../../utils/errorHandler";
@@ -12,7 +11,6 @@ const PAGE_SIZE = 10;
 
 /**
  * Fetches all jobs posted by the current employer with application counts
- * Requirements: 11.2 (display application count for each job)
  * @param {Object} _ - unused first argument
  * @param {Object} thunkAPI - Redux Toolkit thunk API
  * @returns {Object} { jobs, totalJobs, numOfPages }
@@ -79,7 +77,6 @@ export const getEmployerJobsThunk = async (_, thunkAPI) => {
 
 /**
  * Fetches all applicants for a specific job
- * Requirements: 14.2 (display list of applications), 14.3 (display candidate info)
  * RLS ensures employer can only see applications for their own jobs
  * @param {string} jobId - The job ID to fetch applicants for
  * @param {Object} thunkAPI - Redux Toolkit thunk API
@@ -131,7 +128,6 @@ export const getJobApplicantsThunk = async (jobId, thunkAPI) => {
 
 /**
  * Updates the status of an application
- * Requirements: 15.1 (status dropdown), 15.3 (update application status)
  * Also records updated_at timestamp per requirement 15.5
  * RLS ensures employer can only update applications for their own jobs
  * @param {Object} params - { applicationId, status }

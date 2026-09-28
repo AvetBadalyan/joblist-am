@@ -47,8 +47,6 @@ function AnimatedHeadline({ words, animate }) {
  * motion.  Each shape fades in with a staggered delay so they don't all
  * appear at once.
  *
- * Requirements: 1.5, 1.6, 11.3, 13.1, 14.2, 14.5
- *
  * @param {boolean} animate - true once the entrance animation should start
  */
 function FloatingElements({ animate }) {

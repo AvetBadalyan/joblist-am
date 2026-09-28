@@ -28,7 +28,6 @@ import { supabase } from "../../../utils/supabase";
  * 6. Prevents editing jobs not owned by current employer (via RLS)
  * 7. Redirects to /employer dashboard with success message on submit
  *
- * Requirements: 12.1, 12.2, 12.3, 12.4, 12.5
  */
 const EditJob = () => {
   const dispatch = useDispatch();
@@ -219,9 +218,7 @@ const EditJob = () => {
       <Wrapper>
         <div className="form">
           <h3>Error</h3>
-          <p style={{ color: "var(--red-dark)", marginBottom: "1rem" }}>
-            {fetchError}
-          </p>
+          <p className="fetch-error">{fetchError}</p>
           <button
             type="button"
             className="btn btn-block"
@@ -240,7 +237,7 @@ const EditJob = () => {
         <h3>Edit Job</h3>
 
         {/* Display company name from profile (read-only) */}
-        <p style={{ marginBottom: "1.5rem", color: "var(--grey-600)" }}>
+        <p className="form-subtitle">
           Editing job for:{" "}
           <strong>{user?.company_name || "Your Company"}</strong>
         </p>

@@ -224,16 +224,7 @@ function Register() {
           onBlur={handleEmailBlur}
         />
         {emailError && (
-          <p
-            className="form-row"
-            style={{
-              color: "var(--red-dark)",
-              marginBottom: "0.5rem",
-              fontSize: "0.875rem",
-            }}
-          >
-            {emailError}
-          </p>
+          <p className="form-error">{emailError}</p>
         )}
 
         {/* Password field */}
@@ -323,16 +314,7 @@ function Register() {
               onBlur={handleCompanyNameBlur}
             />
             {companyNameError && (
-              <p
-                style={{
-                  color: "var(--red-dark)",
-                  marginBottom: "0.5rem",
-                  fontSize: "0.875rem",
-                  marginTop: "-0.5rem",
-                }}
-              >
-                {companyNameError}
-              </p>
+              <p className="form-error">{companyNameError}</p>
             )}
             <p className="fields-note">Optional: Additional company info</p>
             <FormRow

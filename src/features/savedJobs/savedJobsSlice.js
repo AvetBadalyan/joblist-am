@@ -15,7 +15,6 @@ import {
  * - savedJobs: array of saved job objects with joined job data
  * - savedJobIds: array of job IDs for quick lookup (bookmark UI)
  *
- * Requirements: 8.1, 8.4
  */
 
 const initialState = {

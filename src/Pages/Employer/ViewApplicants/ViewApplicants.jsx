@@ -25,7 +25,6 @@ import { supabase } from "../../../utils/supabase";
  * - Show empty state "No applications received yet"
  * - Handle status updates via StatusDropdown in ApplicantCard
  *
- * @see Requirements: 14.1, 14.2, 14.3, 14.4, 14.5, 14.6, 15.1, 15.2, 15.3, 15.4, 15.5
  */
 const ViewApplicants = () => {
   const dispatch = useDispatch();
@@ -147,13 +146,13 @@ const ViewApplicants = () => {
   if (jobError || !jobDetails) {
     return (
       <Wrapper>
-        <div className="error-container">
-          <h3>Unable to Load Applicants</h3>
-          <p>
+        <div>
+          <h2 className="page-title">Unable to Load Applicants</h2>
+          <p className="applicants-count">
             {jobError ||
               "Job not found or you don't have permission to view it."}
           </p>
-          <Link to="/employer" className="back-btn">
+          <Link to="/employer" className="back-link">
             <FaArrowLeft />
             Back to Dashboard
           </Link>
