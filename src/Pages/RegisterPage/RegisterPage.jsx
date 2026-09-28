@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 import Wrapper from "../../assets/wrappers/RegisterPage";
 import FormRow from "../../components/FormRow/FormRow";
 import Logo from "../../components/Logo/Logo";
@@ -32,6 +31,8 @@ function Register() {
   const [values, setValues] = useState(initialState);
   const [emailError, setEmailError] = useState("");
   const [companyNameError, setCompanyNameError] = useState("");
+  // Persistent auth error (login/register) shown inline with next-step actions
+  const [authError, setAuthError] = useState("");
   const { user, isLoading } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,6 +40,8 @@ function Register() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
+    // Editing any field clears a previous auth error
+    if (authError) setAuthError("");
     // Clear email error as soon as the field becomes valid
     if (name === "email" && emailError && EMAIL_REGEX.test(value)) {
       setEmailError("");
@@ -74,8 +77,9 @@ function Register() {
     }
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    setAuthError("");
     const {
       name,
       email,
@@ -92,7 +96,7 @@ function Register() {
 
     // Basic validation for all modes
     if (!email || !password || (!isMember && !name)) {
-      toast.error("Please fill out all required fields");
+      setAuthError("Please fill out all required fields");
       return;
     }
 
@@ -106,20 +110,22 @@ function Register() {
     if (!isMember) {
       // Password strength validation (minimum 6 characters)
       if (password.length < 6) {
-        toast.error("Password must be at least 6 characters");
+        setAuthError("Password must be at least 6 characters");
         return;
       }
 
       // Employer must have company name
       if (role === "employer" && !company_name.trim()) {
         setCompanyNameError("Company name is required for employers");
-        toast.error("Company name is required for employers");
         return;
       }
     }
 
     if (isMember) {
-      dispatch(loginUser({ email, password }));
+      const result = await dispatch(loginUser({ email, password }));
+      if (loginUser.rejected.match(result)) {
+        setAuthError(result.payload || "Invalid email or password");
+      }
     } else {
       // Build registration payload with role-specific fields
       const registrationData = {
@@ -141,7 +147,12 @@ function Register() {
         registrationData.company_logo_url = company_logo_url || null;
       }
 
-      dispatch(registerUser(registrationData));
+      const result = await dispatch(registerUser(registrationData));
+      if (registerUser.rejected.match(result)) {
+        setAuthError(
+          result.payload || "Registration failed. Please try again.",
+        );
+      }
     }
   };
 
@@ -152,6 +163,7 @@ function Register() {
     });
     setEmailError("");
     setCompanyNameError("");
+    setAuthError("");
   };
 
   useEffect(() => {
@@ -168,6 +180,30 @@ function Register() {
       <form className="form" onSubmit={onSubmit}>
         <Logo />
         <h3>{values.isMember ? "Login" : "Register"}</h3>
+
+        {/* Persistent auth error with contextual next steps */}
+        {authError && (
+          <div className="auth-error" role="alert">
+            <p>{authError}</p>
+            <div className="auth-error-actions">
+              {values.isMember ? (
+                <>
+                  <Link to="/forgot-password">Forgot password?</Link>
+                  <button type="button" onClick={toggleMember}>
+                    Create an account
+                  </button>
+                </>
+              ) : /already exists/i.test(authError) ? (
+                <>
+                  <button type="button" onClick={toggleMember}>
+                    Log in instead
+                  </button>
+                  <Link to="/forgot-password">Reset password</Link>
+                </>
+              ) : null}
+            </div>
+          </div>
+        )}
 
         {/* Name field (registration only) */}
         {!values.isMember && (
@@ -208,6 +244,15 @@ function Register() {
           handleChange={handleChange}
         />
         {!values.isMember && <PasswordStrength password={values.password} />}
+
+        {/* Forgot password link (login only) */}
+        {values.isMember && (
+          <div className="forgot-password-row">
+            <Link to="/forgot-password" className="forgot-password-link">
+              Forgot password?
+            </Link>
+          </div>
+        )}
 
         {/* Role selection (registration only) */}
         {!values.isMember && (

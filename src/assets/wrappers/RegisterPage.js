@@ -115,6 +115,89 @@ const Wrapper = styled.section`
     font-weight: 500;
   }
 
+  /* Intro hint text on the reset pages */
+  .auth-hint {
+    margin: 0 0 var(--space-4);
+    text-align: center;
+    color: var(--grey-600);
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+  }
+
+  /* Inline validation error under a field / on reset pages */
+  .form-error {
+    margin: calc(var(--space-2) * -1) 0 var(--space-2);
+    text-align: left;
+    color: var(--red-dark);
+    font-size: var(--fs-sm);
+  }
+
+  /* Persistent auth error banner with next-step actions */
+  .auth-error {
+    margin-bottom: var(--space-5);
+    padding: var(--space-3) var(--space-4);
+    background: color-mix(in srgb, var(--red-dark) 8%, var(--white));
+    border: 1px solid color-mix(in srgb, var(--red-dark) 25%, var(--white));
+    border-radius: var(--radius-lg);
+
+    p {
+      margin: 0;
+      text-align: left;
+      color: var(--red-dark);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+    }
+  }
+
+  .auth-error-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+
+    a,
+    button {
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: var(--primary-600);
+      font-size: var(--fs-sm);
+      font-weight: 600;
+
+      &:hover {
+        color: var(--primary-700);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* "Forgot password?" link under the password field (login mode) */
+  .forgot-password-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--space-2);
+  }
+
+  .forgot-password-link {
+    color: var(--primary-600);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+
+    &:hover {
+      color: var(--primary-700);
+      text-decoration: underline;
+    }
+  }
+
+  /* Alt action row on the reset pages ("Back to Login") */
+  .auth-alt {
+    margin-top: var(--space-6);
+    text-align: center;
+    color: var(--grey-500);
+    font-size: var(--fs-sm);
+  }
+
   @media (max-width: 575.98px) {
     .role-selection {
       flex-direction: column;

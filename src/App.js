@@ -4,8 +4,10 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import ProtectedRoute from "./Pages/ProtectedRoute/ProtectedRoute";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
+import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import { setupAuthListener } from "./utils/authListener";
 // Public pages
 import BrowseJobs from "./Pages/BrowseJobs/BrowseJobs";
@@ -45,6 +47,8 @@ function App() {
           <Route path="/jobs" element={<BrowseJobs />} />
           <Route path="/jobs/:jobId" element={<JobDetail />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* Candidate Routes */}
           <Route

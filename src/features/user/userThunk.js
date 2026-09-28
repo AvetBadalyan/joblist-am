@@ -48,6 +48,16 @@ export const registerUserThunk = async (user, thunkAPI) => {
     return thunkAPI.rejectWithValue("Registration failed. Please try again.");
   }
 
+  // signUp returns no session when the email is already registered (Supabase
+  // obfuscates this to prevent account enumeration) or when email confirmation
+  // is required. Either way we can't insert the profile (RLS needs auth.uid()),
+  // so surface a clear message instead of hitting an RLS error.
+  if (!authData.session) {
+    return thunkAPI.rejectWithValue(
+      "An account with this email already exists. Try logging in or resetting your password.",
+    );
+  }
+
   // Step 2: Insert profile record with role and role-specific fields
   const profileData = {
     id: authUser.id,
@@ -177,6 +187,40 @@ export const updateUserThunk = async (user, thunkAPI) => {
   } catch (error) {
     return handleSupabaseError(error, thunkAPI);
   }
+};
+
+/**
+ * Send a password-reset email. Supabase emails a link that returns the user
+ * to /reset-password with a recovery session, where they set a new password.
+ *
+ * @param {string} email
+ */
+export const requestPasswordResetThunk = async (email, thunkAPI) => {
+  const redirectTo = `${window.location.origin}/reset-password`;
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo,
+  });
+
+  if (error) return handleSupabaseError(error, thunkAPI);
+
+  // Note: Supabase returns success even if the email isn't registered
+  // (prevents account enumeration), so the UI shows a neutral "check your
+  // inbox" message either way.
+  return { email };
+};
+
+/**
+ * Set a new password for the currently-authenticated (recovery) session.
+ * Used on the /reset-password page after the user follows the email link.
+ *
+ * @param {string} password - The new password
+ */
+export const updatePasswordThunk = async (password, thunkAPI) => {
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) return handleSupabaseError(error, thunkAPI);
+
+  return true;
 };
 
 /**

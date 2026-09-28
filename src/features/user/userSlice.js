@@ -9,6 +9,8 @@ import {
   clearStoreThunk,
   loginUserThunk,
   registerUserThunk,
+  requestPasswordResetThunk,
+  updatePasswordThunk,
   updateUserThunk,
 } from "./userThunk";
 
@@ -54,6 +56,20 @@ export const updateUser = createAsyncThunk(
     return updateUserThunk(user, thunkAPI);
   },
 );
+export const requestPasswordReset = createAsyncThunk(
+  "user/requestPasswordReset",
+  async (email, thunkAPI) => {
+    return requestPasswordResetThunk(email, thunkAPI);
+  },
+);
+
+export const updatePassword = createAsyncThunk(
+  "user/updatePassword",
+  async (password, thunkAPI) => {
+    return updatePasswordThunk(password, thunkAPI);
+  },
+);
+
 export const clearStore = createAsyncThunk("user/clearStore", clearStoreThunk);
 const userSlice = createSlice({
   name: "user",
@@ -134,6 +150,26 @@ const userSlice = createSlice({
       .addCase(updateUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
+      })
+      .addCase(requestPasswordReset.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(requestPasswordReset.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(requestPasswordReset.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload || "Couldn't send reset email. Please try again.");
+      })
+      .addCase(updatePassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePassword.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updatePassword.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload || "Couldn't update password. Please try again.");
       })
       .addCase(clearStore.rejected, () => {
         toast.error("There was an error..");
