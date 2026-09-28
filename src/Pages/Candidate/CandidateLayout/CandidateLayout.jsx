@@ -1,35 +1,26 @@
 import { Outlet } from "react-router-dom";
-import Wrapper from "../../../assets/wrappers/SharedLayout";
-import SmallSidebar from "../../../components/SmallSidebar/SmallSidebar";
-import BigSidebar from "../../../components/BigSliderBar/BigSliderBar";
-import Navbar from "../../../components/Navbar/Navbar";
+import PublicNav from "../../../components/PublicNav/PublicNav";
 
 /**
- * CandidateLayout Component
- * Wraps all candidate routes (/candidate/*) with shared layout components
- * 
- * Structure:
- * - Navbar with candidate-specific links (via role-based NavLinks)
- * - SmallSidebar for mobile navigation
- * - BigSidebar for desktop navigation
- * - Outlet for rendering nested candidate routes
- * 
- * @see Requirements: 17.2 - Proper link paths and layout for candidates
+ * CandidateLayout
+ *
+ * Wraps every /candidate/* route in the single app shell used across the whole
+ * site (public + authenticated): the shared top nav plus one centered
+ * container. Keeping the same shell as the public pages means there is no
+ * layout shift when moving between Browse Jobs and the dashboard.
+ *
+ * Role-based navigation lives in the header (PublicNav) itself.
  */
 const CandidateLayout = () => {
   return (
-    <Wrapper>
+    <>
+      <PublicNav />
       <main className="dashboard">
-        <SmallSidebar />
-        <BigSidebar />
-        <div>
-          <Navbar />
-          <div className="dashboard-page">
-            <Outlet />
-          </div>
+        <div className="dashboard-page">
+          <Outlet />
         </div>
       </main>
-    </Wrapper>
+    </>
   );
 };
 

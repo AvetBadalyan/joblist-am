@@ -110,6 +110,13 @@ const Wrapper = styled.nav`
     }
   }
 
+  /* Active route: filled pill so the current page reads clearly */
+  .nav-link.active {
+    color: var(--primary-600);
+    background: var(--primary-50);
+    font-weight: 600;
+  }
+
   .nav-btn {
     display: flex;
     align-items: center;
@@ -119,6 +126,51 @@ const Wrapper = styled.nav`
     font-size: var(--fs-sm);
     text-decoration: none;
     box-shadow: var(--shadow-2);
+  }
+
+  /* User menu (logged-in): button that toggles a logout dropdown */
+  .user-menu {
+    position: relative;
+  }
+
+  .user-btn {
+    gap: var(--space-2);
+    width: 100%;
+  }
+
+  .user-name {
+    text-transform: capitalize;
+  }
+
+  .dropdown {
+    display: none;
+    margin-top: var(--space-2);
+  }
+
+  .dropdown.show {
+    display: block;
+  }
+
+  .dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: var(--space-2) var(--space-4);
+    background: var(--grey-100);
+    color: var(--grey-700);
+    border: none;
+    border-radius: var(--borderRadius);
+    cursor: pointer;
+    text-transform: capitalize;
+    letter-spacing: var(--letterSpacing);
+    transition: var(--transition);
+
+    &:hover {
+      background: var(--red-light);
+      color: var(--red-dark);
+    }
   }
 
   /* Desktop (>=576px): show inline links, hide the toggle and scrim */
@@ -138,6 +190,26 @@ const Wrapper = styled.nav`
       background: transparent;
       box-shadow: none;
       border-top: none;
+    }
+
+    .user-btn {
+      width: auto;
+    }
+
+    /* Float the logout dropdown below the user button instead of pushing
+       the row, so the header height never changes */
+    .dropdown {
+      position: absolute;
+      top: calc(100% + var(--space-2));
+      right: 0;
+      min-width: 10rem;
+      margin-top: 0;
+      padding: var(--space-2);
+      background: var(--white);
+      box-shadow: var(--shadow-3);
+      border: 1px solid var(--grey-100);
+      border-radius: var(--borderRadius);
+      z-index: 120;
     }
   }
 `;

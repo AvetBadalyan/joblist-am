@@ -32,7 +32,6 @@ import {
 // Session management is handled by Supabase client — no token stored here.
 const initialState = {
   isLoading: false,
-  isSidebarOpen: false,
   user: getUserFromLocalStorage(),
 };
 
@@ -75,12 +74,8 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    toggleSidebar: (state) => {
-      state.isSidebarOpen = !state.isSidebarOpen;
-    },
     logoutUser: (state, { payload }) => {
       state.user = null;
-      state.isSidebarOpen = false;
       // Supabase session is managed by the Supabase client;
       // here we only clear the cached user profile from localStorage.
       removeUserFromLocalStorage();
@@ -177,6 +172,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { toggleSidebar, logoutUser, setUser, updateUserProfile } =
-  userSlice.actions;
+export const { logoutUser, setUser, updateUserProfile } = userSlice.actions;
 export default userSlice.reducer;
