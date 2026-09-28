@@ -11,7 +11,7 @@ const Wrapper = styled.section`
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-    padding: var(--space-6) var(--space-4);
+    padding: var(--space-6) var(--container-padding);
     padding-bottom: var(--space-12);
   }
 
@@ -21,14 +21,15 @@ const Wrapper = styled.section`
     }
 
     .dashboard-page {
-      padding: var(--space-8) var(--space-6);
+      padding: var(--space-8) var(--container-padding);
       padding-bottom: var(--space-16);
     }
   }
 
   @media (min-width: 1024px) {
     .dashboard-page {
-      padding: var(--space-10) var(--space-8);
+      padding: var(--space-10) var(--container-padding);
+      padding-bottom: var(--space-16);
     }
   }
 `;

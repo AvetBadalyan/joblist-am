@@ -13,12 +13,14 @@ const Wrapper = styled.nav`
 
   /* Match .dashboard-page container: same max-width and side padding so the
      nav (logo / actions) lines up with the page content below it. */
+  /* Same container geometry as page sections (see .container in index.css)
+     so the logo and actions align with the content below on every width. */
   .nav-center {
     position: relative;
     width: 100%;
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 var(--space-4);
+    padding: 0 var(--container-padding);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -139,18 +141,6 @@ const Wrapper = styled.nav`
       background: transparent;
       box-shadow: none;
       border-top: none;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .nav-center {
-      padding: 0 var(--space-6);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .nav-center {
-      padding: 0 var(--space-8);
     }
   }
 `;

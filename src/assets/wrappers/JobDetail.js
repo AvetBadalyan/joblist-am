@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Wrapper = styled.main`
-  padding: var(--space-6) var(--space-4);
+  padding: var(--space-6) var(--container-padding);
   max-width: var(--max-width);
   margin: 0 auto;
   min-height: 100vh;
@@ -279,7 +279,7 @@ const Wrapper = styled.main`
   }
 
   @media (min-width: 576px) {
-    padding: var(--space-8) var(--space-6);
+    padding: var(--space-8) var(--container-padding);
 
     .job-header {
       flex-direction: row;
