@@ -9,8 +9,8 @@ export const FinalCTAWrapper = styled.section`
     var(--primary-600) 60%,
     var(--primary-800) 100%
   );
-  padding-top: calc(var(--space-20) + 4rem);
-  padding-bottom: var(--space-20);
+  padding-top: calc(var(--space-16) + 4rem);
+  padding-bottom: var(--space-16);
   overflow: hidden;
   text-align: center;
   color: var(--white);
@@ -86,7 +86,7 @@ export const CTAContent = styled.div`
     font-weight: 400;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.82);
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-12);
     max-width: 52ch;
     margin-inline: auto;
   }

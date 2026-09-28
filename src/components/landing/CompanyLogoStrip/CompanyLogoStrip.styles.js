@@ -7,7 +7,7 @@ export const LogoStripWrapper = styled.section`
 
   .logo-strip-header {
     text-align: center;
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-12);
   }
 
   .logo-strip-heading {

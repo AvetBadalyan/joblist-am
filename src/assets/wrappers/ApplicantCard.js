@@ -162,7 +162,7 @@ const Wrapper = styled.article`
   }
 
   .status-badge {
-    padding: var(--space-1-5) var(--space-3);
+    padding: var(--space-2) var(--space-3);
     border-radius: var(--borderRadius);
     font-size: var(--fs-xs);
     font-weight: 500;

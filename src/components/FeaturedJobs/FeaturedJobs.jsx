@@ -110,7 +110,7 @@ const FeaturedJobs = ({ showBookmark = false }) => {
 
 // Styled wrapper for the FeaturedJobs component
 const Wrapper = styled.section`
-  padding: var(--space-20) 0;
+  padding: var(--space-16) 0;
   background: var(--white);
   position: relative;
   overflow: hidden;
@@ -217,7 +217,7 @@ const Wrapper = styled.section`
   .view-all-container {
     display: flex;
     justify-content: center;
-    margin-top: var(--space-10);
+    margin-top: var(--space-12);
   }
 
   /* Req 7.5: matches Hero CTA hover animation */

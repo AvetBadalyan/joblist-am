@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const HowItWorksWrapper = styled.section`
-  padding: var(--space-20) 0;
+  padding: var(--space-16) 0;
   background: var(--grey-50);
   position: relative;
   overflow: hidden;

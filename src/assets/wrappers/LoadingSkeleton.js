@@ -8,7 +8,7 @@ const pulse = keyframes`
 export const SkeletonBase = styled.div`
   animation: ${pulse} 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   background: var(--grey-200);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
 `;
 
 export const SkeletonLine = styled(SkeletonBase)`

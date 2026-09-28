@@ -4,7 +4,7 @@ const Wrapper = styled.section`
   background: var(--white);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-card);
-  padding: var(--space-5);
+  padding: var(--space-6);
   margin-bottom: var(--space-6);
   border: 1px solid var(--grey-100);
 

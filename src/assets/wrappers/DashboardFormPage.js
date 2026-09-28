@@ -89,7 +89,7 @@ const Wrapper = styled.section`
   }
 
   @media (min-width: 768px) {
-    padding: var(--space-10);
+    padding: var(--space-12);
 
     h3 {
       margin-bottom: var(--space-8);

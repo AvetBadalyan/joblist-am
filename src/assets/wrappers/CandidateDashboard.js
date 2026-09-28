@@ -51,7 +51,7 @@ const Wrapper = styled.section`
     margin-bottom: var(--space-8);
 
     h4 {
-      margin-bottom: var(--space-5);
+      margin-bottom: var(--space-6);
     }
   }
 
@@ -112,7 +112,7 @@ const Wrapper = styled.section`
   /* ===== QUICK ACTIONS ===== */
   .quick-actions {
     h4 {
-      margin-bottom: var(--space-5);
+      margin-bottom: var(--space-6);
     }
   }
 

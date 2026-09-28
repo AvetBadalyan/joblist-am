@@ -107,17 +107,13 @@ html {
 
   /* ===== SPACING ===== */
   --space-1: 0.25rem;
-  --space-1-5: 0.375rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
-  --space-5: 1.25rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
-  --space-10: 2.5rem;
   --space-12: 3rem;
   --space-16: 4rem;
-  --space-20: 5rem;
 
   /* ===== LAYOUT ===== */
   --max-width: 1200px;
@@ -130,8 +126,6 @@ html {
   --container-padding: var(--space-4);
 
   /* ===== BORDERS ===== */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
@@ -380,7 +374,7 @@ ul {
   background: var(--white);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-card);
-  padding: var(--space-10);
+  padding: var(--space-12);
   margin: var(--space-12) auto;
   transition: var(--transition);
 }
@@ -441,7 +435,7 @@ ul {
 }
 
 .form-row {
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
 }
 
 .form-textarea {
@@ -604,13 +598,13 @@ ul {
 @media (min-width: 768px) {
   .dashboard-page {
     padding: var(--space-8) var(--container-padding);
-    padding-bottom: var(--space-20);
+    padding-bottom: var(--space-16);
   }
 }
 
 @media (min-width: 1024px) {
   .dashboard-page {
-    padding: var(--space-10) var(--container-padding);
+    padding: var(--space-12) var(--container-padding);
     padding-bottom: var(--space-16);
   }
 }

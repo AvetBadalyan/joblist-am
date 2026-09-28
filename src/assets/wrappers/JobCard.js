@@ -38,13 +38,13 @@ const Wrapper = styled.article`
   }
 
   header {
-    padding: var(--space-5);
+    padding: var(--space-6);
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
     gap: var(--space-3);
     /* Leave room for the absolutely-positioned bookmark button */
-    padding-right: calc(var(--space-5) + 44px);
+    padding-right: calc(var(--space-6) + 44px);
   }
 
   .company-icon {
@@ -132,7 +132,7 @@ const Wrapper = styled.article`
   }
 
   .content {
-    padding: 0 var(--space-5) var(--space-5);
+    padding: 0 var(--space-6) var(--space-6);
   }
 
   .job-details {

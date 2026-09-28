@@ -134,7 +134,7 @@ const Wrapper = styled.section`
 
   /* Persistent auth error banner with next-step actions */
   .auth-error {
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
     padding: var(--space-3) var(--space-4);
     background: color-mix(in srgb, var(--red-dark) 8%, var(--white));
     border: 1px solid color-mix(in srgb, var(--red-dark) 25%, var(--white));

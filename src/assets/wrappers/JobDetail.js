@@ -71,7 +71,7 @@ const Wrapper = styled.main`
   }
 
   .job-header {
-    padding: var(--space-5);
+    padding: var(--space-6);
     background: linear-gradient(135deg, var(--grey-50) 0%, var(--white) 100%);
     border-bottom: 1px solid var(--grey-100);
     display: flex;
@@ -113,7 +113,7 @@ const Wrapper = styled.main`
   }
 
   .job-meta {
-    padding: var(--space-5);
+    padding: var(--space-6);
     border-bottom: 1px solid var(--grey-100);
     display: flex;
     flex-wrap: wrap;
@@ -173,7 +173,7 @@ const Wrapper = styled.main`
   }
 
   .job-content {
-    padding: var(--space-5);
+    padding: var(--space-6);
   }
 
   .content-section {
@@ -201,13 +201,13 @@ const Wrapper = styled.main`
     background: var(--white);
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-card);
-    padding: var(--space-5);
+    padding: var(--space-6);
     border: 1px solid var(--grey-100);
     order: -1;
   }
 
   .sidebar-header {
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
 
     h3 {
       font-size: var(--fs-md);

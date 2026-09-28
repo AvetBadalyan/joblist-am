@@ -17,7 +17,7 @@ export const HeroWrapper = styled.section`
     width: 100%;
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: var(--space-20) var(--container-padding);
+    padding: var(--space-16) var(--container-padding);
     position: relative;
     z-index: 1;
   }
@@ -69,7 +69,7 @@ export const HeroWrapper = styled.section`
     font-weight: 500;
     line-height: 1.6;
     color: var(--grey-600);
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-12);
     max-width: 56ch;
     opacity: 0;
   }

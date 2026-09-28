@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const TestimonialWrapper = styled.section`
-  padding: var(--space-20) 0;
+  padding: var(--space-16) 0;
   background: var(--grey-50);
   position: relative;
 
@@ -153,7 +153,7 @@ export const TestimonialWrapper = styled.section`
     }
 
     .section-header {
-      margin-bottom: var(--space-10);
+      margin-bottom: var(--space-12);
     }
 
     .carousel-slide {
@@ -183,7 +183,7 @@ export const TestimonialCardWrapper = styled.article`
   padding: var(--space-8);
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-6);
   position: relative;
   transition:
     transform var(--transition-base),
@@ -197,7 +197,7 @@ export const TestimonialCardWrapper = styled.article`
   /* ── Quote icon ── */
   .quote-icon {
     position: absolute;
-    top: var(--space-5);
+    top: var(--space-6);
     right: var(--space-6);
     font-size: var(--space-16);
     line-height: 1;

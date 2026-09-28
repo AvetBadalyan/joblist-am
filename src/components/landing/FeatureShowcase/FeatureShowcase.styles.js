@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const FeatureWrapper = styled.section`
-  padding: var(--space-20) 0;
+  padding: var(--space-16) 0;
   background: var(--grey-50);
   position: relative;
 
@@ -108,7 +108,7 @@ export const FeatureWrapper = styled.section`
     }
 
     .section-header {
-      margin-bottom: var(--space-10);
+      margin-bottom: var(--space-12);
     }
   }
 `;
