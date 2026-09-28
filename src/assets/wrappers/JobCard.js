@@ -157,7 +157,7 @@ const Wrapper = styled.article`
     align-items: center;
     padding: var(--space-1) var(--space-3);
     border-radius: var(--radius-full);
-    font-size: 0.6875rem;
+    font-size: var(--fs-xs);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;

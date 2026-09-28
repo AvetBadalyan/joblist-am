@@ -92,7 +92,12 @@ html {
 
   /* ===== GRADIENTS ===== */
   --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-header: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+  --gradient-header: linear-gradient(
+    135deg,
+    #1e293b 0%,
+    #334155 50%,
+    #1e293b 100%
+  );
   --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
   --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
   --gradient-success: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
@@ -101,7 +106,7 @@ html {
   /* ===== TYPOGRAPHY ===== */
   --font-heading: "Plus Jakarta Sans", sans-serif;
   --font-body: "Inter", sans-serif;
-  
+
   /* Type Scale */
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;
@@ -146,10 +151,16 @@ html {
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-1: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-2: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-3: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-4: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-card: 0 0 0 1px rgb(0 0 0 / 0.03), 0 2px 4px rgb(0 0 0 / 0.05), 0 12px 24px rgb(0 0 0 / 0.05);
-  --shadow-card-hover: 0 0 0 1px rgb(0 0 0 / 0.03), 0 4px 8px rgb(0 0 0 / 0.08), 0 24px 48px rgb(0 0 0 / 0.08);
+  --shadow-3:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-4:
+    0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-card:
+    0 0 0 1px rgb(0 0 0 / 0.03), 0 2px 4px rgb(0 0 0 / 0.05),
+    0 12px 24px rgb(0 0 0 / 0.05);
+  --shadow-card-hover:
+    0 0 0 1px rgb(0 0 0 / 0.03), 0 4px 8px rgb(0 0 0 / 0.08),
+    0 24px 48px rgb(0 0 0 / 0.08);
   --shadow-glow: 0 0 20px rgb(99 102 241 / 0.3);
 
   /* ===== TRANSITIONS ===== */
@@ -182,7 +193,11 @@ p {
   max-width: 65ch;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   margin: 0;
   margin-bottom: 1rem;
   font-family: var(--font-heading);
@@ -192,13 +207,26 @@ h1, h2, h3, h4, h5 {
   letter-spacing: -0.02em;
 }
 
-h1 { font-size: var(--fs-4xl); }
-h2 { font-size: var(--fs-3xl); }
-h3 { font-size: var(--fs-2xl); }
-h4 { font-size: var(--fs-xl); }
-h5 { font-size: var(--fs-lg); }
+h1 {
+  font-size: var(--fs-4xl);
+}
+h2 {
+  font-size: var(--fs-3xl);
+}
+h3 {
+  font-size: var(--fs-2xl);
+}
+h4 {
+  font-size: var(--fs-xl);
+}
+h5 {
+  font-size: var(--fs-lg);
+}
 
-small, .text-small { font-size: var(--fs-sm); }
+small,
+.text-small {
+  font-size: var(--fs-sm);
+}
 
 a {
   text-decoration: none;
@@ -252,10 +280,14 @@ ul {
 }
 
 .btn::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 100%
+  );
   opacity: 0;
   transition: var(--transition-fast);
 }
@@ -361,11 +393,12 @@ ul {
 .form-textarea,
 .form-select {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: var(--radius-lg);
   background: var(--grey-50);
   border: 2px solid var(--grey-200);
   font-size: var(--fs-base);
+  line-height: 1.4;
   color: var(--grey-800);
   transition: all var(--transition-fast);
 }
@@ -413,12 +446,19 @@ ul {
 
 /* ===== LOADING SPINNER ===== */
 @keyframes spinner {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .loading {

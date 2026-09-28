@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -15,7 +15,8 @@ import Logo from "../Logo/Logo";
  * - Logged out: Login / Register
  * - Logged in: a single link to the role-appropriate dashboard
  *
- * On narrow screens the links collapse behind a hamburger toggle.
+ * On narrow screens the links collapse behind a hamburger toggle, backed by a
+ * scrim that dims the page and closes the menu on tap or Escape.
  */
 const PublicNav = () => {
   const { user } = useSelector((store) => store.user);
@@ -23,6 +24,16 @@ const PublicNav = () => {
   const dashboardPath = user?.role === "employer" ? "/employer" : "/candidate";
 
   const closeMenu = () => setIsOpen(false);
+
+  // Close on Escape for keyboard users
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
 
   return (
     <Wrapper>
@@ -66,6 +77,16 @@ const PublicNav = () => {
           )}
         </div>
       </div>
+
+      {/* Backdrop scrim (mobile only): dims the page and closes on tap */}
+      {isOpen && (
+        <button
+          type="button"
+          className="nav-scrim"
+          aria-label="Close menu"
+          onClick={closeMenu}
+        />
+      )}
     </Wrapper>
   );
 };

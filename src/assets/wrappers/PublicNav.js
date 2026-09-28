@@ -52,6 +52,26 @@ const Wrapper = styled.nav`
     }
   }
 
+  /* Backdrop scrim behind the mobile menu (mobile only) */
+  .nav-scrim {
+    position: fixed;
+    inset: var(--nav-height) 0 0;
+    background: rgba(15, 23, 42, 0.45);
+    border: none;
+    cursor: pointer;
+    z-index: 90;
+    animation: nav-fade-in var(--transition-fast);
+  }
+
+  @keyframes nav-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   /* Mobile: links collapse into a dropdown panel below the navbar */
   .nav-links {
     display: none;
@@ -62,6 +82,7 @@ const Wrapper = styled.nav`
     top: var(--nav-height);
     left: 0;
     right: 0;
+    z-index: 110;
     background: var(--white);
     padding: var(--space-4);
     box-shadow: var(--shadow-3);
@@ -101,9 +122,10 @@ const Wrapper = styled.nav`
     box-shadow: var(--shadow-2);
   }
 
-  /* Desktop (>=576px): show inline links, hide the toggle */
+  /* Desktop (>=576px): show inline links, hide the toggle and scrim */
   @media (min-width: 576px) {
-    .menu-toggle {
+    .menu-toggle,
+    .nav-scrim {
       display: none;
     }
 
