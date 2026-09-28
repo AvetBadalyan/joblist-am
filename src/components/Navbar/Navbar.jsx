@@ -49,7 +49,12 @@ const Navbar = () => {
       <div className="nav-center">
         {/* Toggle button - only show for authenticated users (sidebars are for authenticated users) */}
         {user && (
-          <button type="button" className="toggle-btn" onClick={toggle}>
+          <button
+            type="button"
+            className="toggle-btn"
+            onClick={toggle}
+            aria-label="Toggle navigation sidebar"
+          >
             <FaAlignLeft />
           </button>
         )}

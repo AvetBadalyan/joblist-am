@@ -30,7 +30,12 @@ const SmallSidebar = () => {
         }
       >
         <div className="content">
-          <button className="close-btn" onClick={toggle}>
+          <button
+            type="button"
+            className="close-btn"
+            onClick={toggle}
+            aria-label="Close navigation sidebar"
+          >
             <FaTimes />
           </button>
           <header>

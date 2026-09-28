@@ -15,7 +15,7 @@ const FormRowTextArea = ({
         name={name}
         value={value}
         onChange={handleChange}
-        className="form-input"
+        className="form-textarea"
         required={required}
       />
     </div>

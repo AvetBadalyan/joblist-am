@@ -86,6 +86,18 @@ const JobCard = ({
 
   return (
     <Wrapper>
+      {/* Bookmark sits outside the card Link so we don't nest a button in an
+          anchor (invalid HTML); it's absolutely positioned over the card. */}
+      {showBookmark && (
+        <button
+          type="button"
+          className={`bookmark-btn ${isSaved ? "saved" : ""}`}
+          onClick={handleBookmarkClick}
+          aria-label={isSaved ? "Remove from saved jobs" : "Save job"}
+        >
+          {isSaved ? <FaBookmark /> : <FaRegBookmark />}
+        </button>
+      )}
       <Link to={`/jobs/${id}`} className="card-link">
         <header>
           <div className="company-icon">{company_name?.charAt(0) || "?"}</div>
@@ -93,28 +105,22 @@ const JobCard = ({
             <h4>{title}</h4>
             <p>{company_name}</p>
           </div>
-          {showBookmark && (
-            <button
-              type="button"
-              className={`bookmark-btn ${isSaved ? "saved" : ""}`}
-              onClick={handleBookmarkClick}
-              aria-label={isSaved ? "Remove from saved jobs" : "Save job"}
-            >
-              {isSaved ? <FaBookmark /> : <FaRegBookmark />}
-            </button>
-          )}
         </header>
         <div className="content">
           <div className="job-details">
-            <div className="detail-item">
-              <FaLocationArrow />
-              <span className="text">{location}</span>
+            {/* Row 1: location + job type */}
+            <div className="detail-row">
+              <div className="detail-item">
+                <FaLocationArrow />
+                <span className="text">{location}</span>
+              </div>
+              <div className="detail-item">
+                <span className={`job-type ${job_type}`}>
+                  {job_type?.replace("-", " ")}
+                </span>
+              </div>
             </div>
-            <div className="detail-item">
-              <span className={`job-type ${job_type}`}>
-                {job_type?.replace("-", " ")}
-              </span>
-            </div>
+            {/* Row 2: salary always on its own line for a consistent layout */}
             {salary && (
               <div className="detail-item salary">
                 <FaMoneyBillWave />

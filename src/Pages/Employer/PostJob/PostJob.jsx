@@ -69,7 +69,7 @@ const PostJob = () => {
       const maxSalary = Number(salary_max);
       if (maxSalary < minSalary) {
         setSalaryError(
-          "Maximum salary must be greater than or equal to minimum salary"
+          "Maximum salary must be greater than or equal to minimum salary",
         );
         return false;
       }
@@ -106,7 +106,7 @@ const PostJob = () => {
         salary_max,
         description,
         requirements,
-      })
+      }),
     );
 
     // On success, redirect to employer dashboard
@@ -125,7 +125,7 @@ const PostJob = () => {
 
   return (
     <Wrapper>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <h3>Post a Job</h3>
 
         {/* Display company name from profile (read-only) */}
@@ -219,7 +219,6 @@ const PostJob = () => {
             <button
               type="submit"
               className="btn btn-block submit-btn"
-              onClick={handleSubmit}
               disabled={isLoading}
             >
               {isLoading ? "Posting..." : "Post Job"}

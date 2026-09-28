@@ -236,7 +236,7 @@ const EditJob = () => {
 
   return (
     <Wrapper>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <h3>Edit Job</h3>
 
         {/* Display company name from profile (read-only) */}
@@ -340,7 +340,6 @@ const EditJob = () => {
             <button
               type="submit"
               className="btn btn-block submit-btn"
-              onClick={handleSubmit}
               disabled={isLoading}
             >
               {isLoading ? "Saving..." : "Save Changes"}

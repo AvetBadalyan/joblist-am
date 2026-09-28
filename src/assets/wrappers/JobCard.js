@@ -40,9 +40,11 @@ const Wrapper = styled.article`
   header {
     padding: var(--space-5);
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr;
     align-items: center;
     gap: var(--space-3);
+    /* Leave room for the absolutely-positioned bookmark button */
+    padding-right: calc(var(--space-5) + 44px);
   }
 
   .company-icon {
@@ -87,6 +89,10 @@ const Wrapper = styled.article`
   }
 
   .bookmark-btn {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    z-index: 1;
     background: var(--grey-100);
     border: none;
     cursor: pointer;
@@ -96,8 +102,8 @@ const Wrapper = styled.article`
     justify-content: center;
     border-radius: var(--radius-full);
     transition: var(--transition);
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
 
     &:hover {
@@ -131,9 +137,17 @@ const Wrapper = styled.article`
 
   .job-details {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
     gap: var(--space-2);
     margin-bottom: var(--space-4);
+  }
+
+  /* Row 1: location + job type share a line (wrap only on very narrow cards) */
+  .detail-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
   }
 
   .detail-item {
@@ -206,6 +220,7 @@ const Wrapper = styled.article`
   @media (min-width: 576px) {
     header {
       padding: var(--space-6);
+      padding-right: calc(var(--space-6) + 44px);
       gap: var(--space-4);
     }
 
@@ -226,14 +241,8 @@ const Wrapper = styled.article`
       }
     }
 
-    .bookmark-btn {
-      width: 44px;
-      height: 44px;
-      padding: var(--space-3);
-
-      svg {
-        font-size: var(--fs-lg);
-      }
+    .bookmark-btn svg {
+      font-size: var(--fs-lg);
     }
 
     .content {
@@ -241,6 +250,10 @@ const Wrapper = styled.article`
     }
 
     .job-details {
+      gap: var(--space-3);
+    }
+
+    .detail-row {
       gap: var(--space-3);
     }
 
