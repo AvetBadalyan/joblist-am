@@ -1,28 +1,22 @@
 import styled from "styled-components";
 
 const Wrapper = styled.section`
-  margin-top: var(--space-8);
-
   h5 {
     font-weight: 700;
-    margin-bottom: var(--space-6);
-  }
-
-  & > h5 {
+    font-size: var(--fs-lg);
+    color: var(--grey-900);
     margin-bottom: var(--space-6);
   }
 
   .jobs {
     display: grid;
     grid-template-columns: 1fr;
-    row-gap: var(--space-8);
+    gap: var(--space-6);
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: 768px) {
     .jobs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-4);
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 `;

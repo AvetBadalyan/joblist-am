@@ -1,15 +1,19 @@
 import styled from "styled-components";
 
 const Wrapper = styled.section`
-  border-radius: var(--borderRadius);
+  border-radius: var(--radius-2xl);
   width: 100%;
   background: var(--white);
-  padding: var(--space-12) var(--space-8);
-  box-shadow: var(--shadow-2);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--grey-100);
 
   h3 {
     margin-top: 0;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    color: var(--grey-900);
   }
 
   .form {
@@ -21,13 +25,17 @@ const Wrapper = styled.section`
     width: 100%;
   }
 
+  .form:hover {
+    box-shadow: none;
+  }
+
   .form-row {
     margin-bottom: var(--space-4);
   }
 
   .form-center {
     display: grid;
-    row-gap: var(--space-2);
+    row-gap: var(--space-4);
   }
 
   .field-error {
@@ -39,35 +47,55 @@ const Wrapper = styled.section`
 
   .form-center button {
     align-self: end;
-    height: 35px;
+    height: 44px;
     margin-top: var(--space-4);
   }
 
   .btn-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
     align-self: flex-end;
-    margin-top: var(--space-2);
+    margin-top: var(--space-4);
 
     button {
-      height: 35px;
+      height: 44px;
+      min-height: 44px;
     }
   }
 
   .clear-btn {
-    background: var(--grey-500);
+    background: var(--grey-200);
+    color: var(--grey-700);
+    box-shadow: none;
+    
+    &:hover {
+      background: var(--grey-300);
+      color: var(--grey-800);
+    }
   }
 
-  .clear-btn:hover {
-    background: var(--black);
+  @media (min-width: 576px) {
+    padding: var(--space-8);
+
+    .btn-container {
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 768px) {
+    padding: var(--space-10);
+    
+    h3 {
+      margin-bottom: var(--space-8);
+    }
   }
 
   @media (min-width: 992px) {
     .form-center {
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      column-gap: var(--space-4);
+      column-gap: var(--space-6);
     }
 
     .btn-container {

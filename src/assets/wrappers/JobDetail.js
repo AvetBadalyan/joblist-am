@@ -1,28 +1,33 @@
 import styled from "styled-components";
 
 const Wrapper = styled.main`
-  padding: var(--space-8) var(--space-4);
+  padding: var(--space-6) var(--space-4);
   max-width: var(--max-width);
   margin: 0 auto;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--grey-50) 0%, var(--white) 100%);
 
   .back-link {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    color: var(--primary-500);
+    color: var(--grey-600);
     font-size: var(--fs-sm);
+    font-weight: 500;
     margin-bottom: var(--space-6);
     text-decoration: none;
     transition: var(--transition);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-lg);
     min-height: 44px;
-    min-width: 44px;
 
     &:hover {
-      color: var(--primary-700);
+      background: var(--grey-100);
+      color: var(--grey-900);
     }
 
     svg {
-      font-size: var(--fs-md);
+      font-size: var(--fs-base);
     }
   }
 
@@ -37,8 +42,8 @@ const Wrapper = styled.main`
     text-align: center;
     padding: var(--space-12);
     background: var(--white);
-    border-radius: var(--borderRadius);
-    box-shadow: var(--shadow-2);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-card);
 
     h3 {
       color: var(--grey-800);
@@ -52,48 +57,41 @@ const Wrapper = styled.main`
   }
 
   .job-detail-container {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: var(--space-6);
-
-    @media (min-width: 768px) {
-      grid-template-columns: 1fr 300px;
-    }
   }
 
   .job-main {
     background: var(--white);
-    border-radius: var(--borderRadius);
-    box-shadow: var(--shadow-2);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-card);
     overflow: hidden;
+    border: 1px solid var(--grey-100);
   }
 
   .job-header {
-    padding: var(--space-6);
+    padding: var(--space-5);
+    background: linear-gradient(135deg, var(--grey-50) 0%, var(--white) 100%);
     border-bottom: 1px solid var(--grey-100);
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: var(--space-4);
   }
 
   .company-icon {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     display: grid;
     place-items: center;
-    background: var(--primary-500);
-    border-radius: var(--borderRadius);
-    font-size: var(--fs-xl);
+    background: var(--gradient-accent);
+    border-radius: var(--radius-xl);
+    font-size: var(--fs-lg);
     font-weight: 700;
     text-transform: uppercase;
     color: var(--white);
     flex-shrink: 0;
-
-    @media (min-width: 576px) {
-      width: 70px;
-      height: 70px;
-      font-size: var(--fs-2xl);
-    }
+    box-shadow: var(--shadow-2);
   }
 
   .job-title-section {
@@ -102,67 +100,56 @@ const Wrapper = styled.main`
     h2 {
       margin: 0 0 var(--space-2) 0;
       font-size: var(--fs-lg);
-      letter-spacing: 0;
+      font-weight: 800;
       color: var(--grey-900);
-
-      @media (min-width: 576px) {
-        font-size: var(--fs-xl);
-      }
     }
 
     .company-name {
       margin: 0;
       color: var(--grey-500);
-      font-size: var(--fs-base);
+      font-size: var(--fs-sm);
+      font-weight: 500;
     }
   }
 
-  .bookmark-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
-  }
-
   .job-meta {
-    padding: var(--space-6);
+    padding: var(--space-5);
     border-bottom: 1px solid var(--grey-100);
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-4);
+    gap: var(--space-2);
     align-items: center;
   }
 
   .meta-item {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: var(--space-2);
     color: var(--grey-600);
     font-size: var(--fs-sm);
+    background: var(--grey-50);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-full);
 
     svg {
       color: var(--grey-400);
-      font-size: var(--fs-base);
-    }
-
-    .text {
-      text-transform: capitalize;
+      font-size: var(--fs-sm);
     }
 
     .salary {
-      color: var(--primary-600);
-      font-weight: 600;
+      color: var(--green-dark);
+      font-weight: 700;
     }
   }
 
   .job-type-badge {
-    display: inline-block;
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--borderRadius);
+    display: inline-flex;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
     font-size: var(--fs-xs);
-    font-weight: 500;
-    text-transform: capitalize;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 
     &.full-time {
       background: var(--job-fulltime-bg);
@@ -186,45 +173,46 @@ const Wrapper = styled.main`
   }
 
   .job-content {
-    padding: var(--space-6);
+    padding: var(--space-5);
   }
 
   .content-section {
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
 
     &:last-child {
       margin-bottom: 0;
     }
 
     h3 {
-      font-size: var(--fs-lg);
-      color: var(--grey-800);
-      margin-bottom: var(--space-4);
+      font-size: var(--fs-md);
+      font-weight: 700;
+      color: var(--grey-900);
+      margin-bottom: var(--space-3);
     }
 
     p {
       color: var(--grey-600);
-      line-height: 1.7;
+      line-height: 1.8;
       margin: 0;
     }
   }
 
   .job-sidebar {
     background: var(--white);
-    border-radius: var(--borderRadius);
-    box-shadow: var(--shadow-2);
-    padding: var(--space-6);
-    height: fit-content;
-    position: sticky;
-    top: var(--space-8);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-5);
+    border: 1px solid var(--grey-100);
+    order: -1;
   }
 
   .sidebar-header {
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-5);
 
     h3 {
-      font-size: var(--fs-lg);
-      color: var(--grey-800);
+      font-size: var(--fs-md);
+      font-weight: 700;
+      color: var(--grey-900);
       margin: 0;
     }
   }
@@ -233,8 +221,16 @@ const Wrapper = styled.main`
     width: 100%;
     padding: var(--space-4);
     font-size: var(--fs-base);
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: var(--space-4);
+    border-radius: var(--radius-xl);
+    background: var(--gradient-accent);
+    min-height: 48px;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-3), var(--shadow-glow);
+    }
   }
 
   .applied-badge {
@@ -245,8 +241,8 @@ const Wrapper = styled.main`
     padding: var(--space-4);
     background: var(--green-light);
     color: var(--green-dark);
-    border-radius: var(--borderRadius);
-    font-weight: 500;
+    border-radius: var(--radius-xl);
+    font-weight: 600;
     margin-bottom: var(--space-4);
 
     svg {
@@ -262,8 +258,8 @@ const Wrapper = styled.main`
     padding: var(--space-4);
     background: var(--grey-100);
     color: var(--grey-600);
-    border-radius: var(--borderRadius);
-    font-weight: 500;
+    border-radius: var(--radius-xl);
+    font-weight: 600;
     margin-bottom: var(--space-4);
 
     svg {
@@ -277,8 +273,83 @@ const Wrapper = styled.main`
 
   .posted-date {
     font-size: var(--fs-sm);
-    color: var(--grey-400);
+    color: var(--grey-500);
     text-align: center;
+    font-weight: 500;
+  }
+
+  @media (min-width: 576px) {
+    padding: var(--space-8) var(--space-6);
+
+    .job-header {
+      flex-direction: row;
+      align-items: center;
+      padding: var(--space-6);
+    }
+
+    .company-icon {
+      width: 64px;
+      height: 64px;
+      font-size: var(--fs-xl);
+    }
+
+    .job-title-section h2 {
+      font-size: var(--fs-xl);
+    }
+
+    .job-meta {
+      padding: var(--space-6);
+      gap: var(--space-3);
+    }
+
+    .job-content {
+      padding: var(--space-6);
+    }
+
+    .content-section h3 {
+      font-size: var(--fs-lg);
+      margin-bottom: var(--space-4);
+    }
+
+    .job-sidebar {
+      padding: var(--space-6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .job-detail-container {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+    }
+
+    .job-sidebar {
+      height: fit-content;
+      position: sticky;
+      top: calc(var(--nav-height) + var(--space-6));
+      order: 0;
+    }
+
+    .job-header {
+      padding: var(--space-8);
+    }
+
+    .company-icon {
+      width: 72px;
+      height: 72px;
+      font-size: var(--fs-2xl);
+    }
+
+    .job-meta {
+      padding: var(--space-6) var(--space-8);
+    }
+
+    .job-content {
+      padding: var(--space-8);
+    }
+
+    .content-section {
+      margin-bottom: var(--space-8);
+    }
   }
 `;
 
