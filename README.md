@@ -8,9 +8,23 @@ A full-stack two-sided job marketplace connecting talented professionals with to
 
 ---
 
-## Preview
+## Screenshots
 
-![JobList.am landing page](https://joblist-am.vercel.app/preview.png)
+### Desktop
+
+| Homepage                                     | Browse Jobs                                        |
+| -------------------------------------------- | -------------------------------------------------- |
+| ![Homepage](public/screenshots/homepage.png) | ![Browse Jobs](public/screenshots/jobs-browse.png) |
+
+| Register                                     | Login                                  |
+| -------------------------------------------- | -------------------------------------- |
+| ![Register](public/screenshots/register.png) | ![Login](public/screenshots/login.png) |
+
+### Mobile
+
+| Mobile Home                                            | Mobile Jobs                                        |
+| ------------------------------------------------------ | -------------------------------------------------- |
+| ![Mobile Homepage](public/screenshots/mobile-home.png) | ![Mobile Jobs](public/screenshots/mobile-jobs.png) |
 
 > See the full app at [joblist-am.vercel.app](https://joblist-am.vercel.app)
 
