@@ -10,7 +10,7 @@ A full-stack two-sided job marketplace connecting talented professionals with to
 
 ## Preview
 
-![JobList.am landing page](https://joblist-am.vercel.app/logo512.png)
+![JobList.am landing page](https://joblist-am.vercel.app/preview.png)
 
 > See the full app at [joblist-am.vercel.app](https://joblist-am.vercel.app)
 
