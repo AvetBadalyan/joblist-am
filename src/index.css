@@ -167,7 +167,9 @@ html {
   --duration-entrance: 600ms;
   --duration-spinner: 800ms;
   --duration-pulse: 800ms;
+  /* Logo-strip marquee: shorter loop on mobile since fewer logos are visible. */
   --duration-scroll: 30s;
+  --duration-scroll-mobile: 20s;
   /* Ready-made `transition` values (duration + easing). */
   --transition-fast: var(--duration-fast) var(--ease);
   --transition-base: var(--duration-base) var(--ease);
@@ -182,6 +184,9 @@ html {
 
   /* ===== MISC ===== */
   --letterSpacing: -0.01em;
+  /* Positive tracking for uppercase eyebrow labels / status badges, where
+     extra spacing improves legibility of all-caps text. */
+  --tracking-wide: 0.05em;
   --backgroundColor: var(--grey-50);
   --textColor: var(--grey-800);
 }
@@ -570,6 +575,12 @@ ul {
 }
 
 *:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* #main-content is only focused programmatically via the skip link, so it
+   shouldn't paint a focus ring like an interactive control. */
+#main-content:focus {
   outline: none;
 }
 

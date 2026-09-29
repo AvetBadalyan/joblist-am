@@ -15,7 +15,7 @@ const CandidateLayout = () => {
   return (
     <>
       <PublicNav />
-      <main className="dashboard">
+      <main id="main-content" tabIndex={-1} className="dashboard">
         <div className="dashboard-page">
           <Outlet />
         </div>

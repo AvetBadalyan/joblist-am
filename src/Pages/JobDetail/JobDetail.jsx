@@ -196,7 +196,7 @@ const JobDetail = () => {
     return (
       <>
         <PublicNav />
-        <Wrapper>
+        <Wrapper as="main" id="main-content" tabIndex={-1}>
           <div className="loading-container">
             <Loading center />
           </div>
@@ -210,9 +210,9 @@ const JobDetail = () => {
     return (
       <>
         <PublicNav />
-        <Wrapper>
+        <Wrapper as="main" id="main-content" tabIndex={-1}>
           <Link to="/jobs" className="back-link">
-            <FaArrowLeft />
+            <FaArrowLeft aria-hidden="true" />
             <span>Back to Jobs</span>
           </Link>
           <div className="error-container">
@@ -247,10 +247,10 @@ const JobDetail = () => {
   return (
     <>
       <PublicNav />
-      <Wrapper>
+      <Wrapper as="main" id="main-content" tabIndex={-1}>
         {/* Back navigation */}
         <Link to="/jobs" className="back-link">
-          <FaArrowLeft />
+          <FaArrowLeft aria-hidden="true" />
           <span>Back to Jobs</span>
         </Link>
 
@@ -278,7 +278,7 @@ const JobDetail = () => {
             {/* Job Meta Info */}
             <div className="job-meta">
               <div className="meta-item">
-                <FaMapMarkerAlt />
+                <FaMapMarkerAlt aria-hidden="true" />
                 <span className="text">{location}</span>
               </div>
               <div className="meta-item">
@@ -286,13 +286,13 @@ const JobDetail = () => {
               </div>
               {salaryDisplay && (
                 <div className="meta-item">
-                  <FaMoneyBillWave />
+                  <FaMoneyBillWave aria-hidden="true" />
                   <span className="salary">{salaryDisplay}</span>
                 </div>
               )}
               {status === "closed" && (
                 <div className="meta-item">
-                  <FaBriefcase />
+                  <FaBriefcase aria-hidden="true" />
                   <span className="text closed-text">Closed</span>
                 </div>
               )}
@@ -332,7 +332,6 @@ const JobDetail = () => {
               !hasApplied && (
                 <div className="application-section">
                   <ApplicationForm
-                    jobId={jobId}
                     onSubmit={handleApplicationSubmit}
                     onCancel={handleApplicationCancel}
                     isLoading={isSubmitting}

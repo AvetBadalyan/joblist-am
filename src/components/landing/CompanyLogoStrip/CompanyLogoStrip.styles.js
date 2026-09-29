@@ -62,7 +62,7 @@ export const LogoStripWrapper = styled.section`
     }
 
     @media (max-width: 767px) {
-      animation-duration: 20s;
+      animation-duration: var(--duration-scroll-mobile);
     }
   }
 `;

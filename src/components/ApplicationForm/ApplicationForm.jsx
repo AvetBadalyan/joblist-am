@@ -1,49 +1,48 @@
-import { useState } from "react"
-import Wrapper from "../../assets/wrappers/ApplicationForm"
-import FormRow from "../FormRow/FormRow"
-import FormRowTextArea from "../FormRowTextArea/FormRowTextArea"
+import { useState } from "react";
+import Wrapper from "../../assets/wrappers/ApplicationForm";
+import FormRow from "../FormRow/FormRow";
+import FormRowTextArea from "../FormRowTextArea/FormRowTextArea";
 
 /**
  * ApplicationForm component for candidates to apply to job listings.
  *
  * @param {Object} props
- * @param {string} props.jobId - The ID of the job being applied to (for context)
  * @param {Function} props.onSubmit - Callback with form data { cover_letter, resume_url }
  * @param {Function} props.onCancel - Callback to close/cancel the form
  * @param {boolean} props.isLoading - Whether submission is in progress
  */
-const ApplicationForm = ({ jobId, onSubmit, onCancel, isLoading }) => {
-  const [coverLetter, setCoverLetter] = useState("")
-  const [resumeUrl, setResumeUrl] = useState("")
-  const [coverLetterError, setCoverLetterError] = useState("")
+const ApplicationForm = ({ onSubmit, onCancel, isLoading }) => {
+  const [coverLetter, setCoverLetter] = useState("");
+  const [resumeUrl, setResumeUrl] = useState("");
+  const [coverLetterError, setCoverLetterError] = useState("");
 
   const handleCoverLetterChange = (e) => {
-    setCoverLetter(e.target.value)
+    setCoverLetter(e.target.value);
     // Clear error when user starts typing
     if (coverLetterError && e.target.value.trim()) {
-      setCoverLetterError("")
+      setCoverLetterError("");
     }
-  }
+  };
 
   const handleResumeUrlChange = (e) => {
-    setResumeUrl(e.target.value)
-  }
+    setResumeUrl(e.target.value);
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // Validate cover letter is not empty
     if (!coverLetter.trim()) {
-      setCoverLetterError("Cover letter is required")
-      return
+      setCoverLetterError("Cover letter is required");
+      return;
     }
 
     // Call onSubmit with form data
     onSubmit({
       cover_letter: coverLetter.trim(),
       resume_url: resumeUrl.trim() || null,
-    })
-  }
+    });
+  };
 
   return (
     <Wrapper>
@@ -81,7 +80,7 @@ const ApplicationForm = ({ jobId, onSubmit, onCancel, isLoading }) => {
         </div>
       </form>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default ApplicationForm
+export default ApplicationForm;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Wrapper from "../../../assets/wrappers/DashboardFormPage";
 import FormRow from "../../../components/FormRow/FormRow";
@@ -23,7 +23,8 @@ const CandidateProfile = () => {
   const { isLoading, user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
-  // Initialize form state with current user data
+  // Seed the form from the current user, then keep it in sync if the store's
+  // user changes (e.g. profile refetch by the auth listener).
   const [userData, setUserData] = useState({
     name: user?.name || "",
     email: user?.email || "",
@@ -31,6 +32,16 @@ const CandidateProfile = () => {
     skills: user?.skills || "",
     resume_url: user?.resume_url || "",
   });
+
+  useEffect(() => {
+    setUserData({
+      name: user?.name || "",
+      email: user?.email || "",
+      location: user?.location || "",
+      skills: user?.skills || "",
+      resume_url: user?.resume_url || "",
+    });
+  }, [user]);
 
   // Track field-level validation errors
   const [fieldErrors, setFieldErrors] = useState({});

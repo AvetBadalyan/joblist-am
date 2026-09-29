@@ -5,7 +5,9 @@ const StatItem = ({ count, title, icon, color, bcg }) => {
     <Wrapper color={color} bcg={bcg}>
       <header>
         <span className="count">{count}</span>
-        <span className="icon">{icon}</span>
+        <span className="icon" aria-hidden="true">
+          {icon}
+        </span>
       </header>
       <h5 className="title">{title}</h5>
     </Wrapper>

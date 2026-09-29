@@ -99,7 +99,7 @@ const Wrapper = styled.section`
     font-size: var(--fs-sm);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-wide);
   }
 
   .status-count {

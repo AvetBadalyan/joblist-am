@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Backdrop, ModalBox } from "../../assets/wrappers/ConfirmModal";
 
 const ConfirmModal = ({
@@ -10,21 +10,51 @@ const ConfirmModal = ({
   confirmText = "Delete",
   cancelText = "Cancel",
 }) => {
-  // Close on Escape key
+  const modalRef = useRef(null);
+  const cancelBtnRef = useRef(null);
+
+  // Focus management: move focus into the dialog on open, keep Tab trapped
+  // inside it, and restore focus to the triggering element on close.
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) return undefined;
+
+    const previouslyFocused = document.activeElement;
+    cancelBtnRef.current?.focus();
+
     const handleKeyDown = (e) => {
-      if (e.key === "Escape") onCancel();
+      if (e.key === "Escape") {
+        onCancel();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const focusable = modalRef.current?.querySelectorAll("button");
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
+
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused?.focus?.();
+    };
   }, [isOpen, onCancel]);
 
   if (!isOpen) return null;
 
   return (
-    <Backdrop onClick={onCancel} aria-hidden="true">
+    <Backdrop onClick={onCancel}>
       <ModalBox
+        ref={modalRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
@@ -33,7 +63,12 @@ const ConfirmModal = ({
         <h4 id="modal-title">{title}</h4>
         <p>{message}</p>
         <div className="modal-actions">
-          <button type="button" className="cancel-btn" onClick={onCancel}>
+          <button
+            type="button"
+            className="cancel-btn"
+            onClick={onCancel}
+            ref={cancelBtnRef}
+          >
             {cancelText}
           </button>
           <button type="button" className="confirm-btn" onClick={onConfirm}>

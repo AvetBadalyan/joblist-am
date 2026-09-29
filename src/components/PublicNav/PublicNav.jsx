@@ -51,6 +51,9 @@ const PublicNav = () => {
 
   return (
     <Wrapper>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <div className="nav-center">
         <Link to="/" aria-label="Go to home page" onClick={closeMenu}>
           <Logo />

@@ -174,7 +174,7 @@ const Wrapper = styled.article`
     font-size: var(--fs-xs);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-wide);
   }
 
   .job-type.full-time {

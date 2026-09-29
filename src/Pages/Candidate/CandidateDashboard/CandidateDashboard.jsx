@@ -106,7 +106,7 @@ const CandidateDashboard = () => {
         {isLoading ? (
           <StatCardSkeleton count={3} />
         ) : (
-          statsCards.map((stat, index) => <StatItem key={index} {...stat} />)
+          statsCards.map((stat) => <StatItem key={stat.title} {...stat} />)
         )}
       </div>
 
@@ -128,11 +128,11 @@ const CandidateDashboard = () => {
         <h4>Quick Actions</h4>
         <div className="actions-container">
           <Link to="/jobs" className="action-link">
-            <FaSearch />
+            <FaSearch aria-hidden="true" />
             Browse Jobs
           </Link>
           <Link to="/candidate/applications" className="action-link secondary">
-            <FaClipboardList />
+            <FaClipboardList aria-hidden="true" />
             My Applications
           </Link>
         </div>

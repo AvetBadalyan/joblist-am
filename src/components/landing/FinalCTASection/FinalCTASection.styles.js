@@ -124,7 +124,7 @@ const ctaBtnBase = `
 export const CTABtnPrimary = styled.a`
   ${ctaBtnBase}
   background: var(--white);
-  color: var(--primary-700, #3730a3);
+  color: var(--primary-700);
   border: 2px solid transparent;
   font-weight: 700;
   box-shadow: var(--shadow-2);

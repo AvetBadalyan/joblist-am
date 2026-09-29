@@ -167,12 +167,11 @@ function Register() {
   };
 
   useEffect(() => {
-    if (user) {
-      // Redirect based on user role
-      const redirectPath =
-        user.role === "employer" ? "/employer" : "/candidate";
-      setTimeout(() => navigate(redirectPath), 2000);
-    }
+    if (!user) return undefined;
+    // Brief pause lets the success toast register before redirecting
+    const redirectPath = user.role === "employer" ? "/employer" : "/candidate";
+    const timer = setTimeout(() => navigate(redirectPath), 2000);
+    return () => clearTimeout(timer);
   }, [user, navigate]);
 
   return (
@@ -223,9 +222,7 @@ function Register() {
           handleChange={handleChange}
           onBlur={handleEmailBlur}
         />
-        {emailError && (
-          <p className="form-error">{emailError}</p>
-        )}
+        {emailError && <p className="form-error">{emailError}</p>}
 
         {/* Password field */}
         <FormRow

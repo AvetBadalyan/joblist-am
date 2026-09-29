@@ -152,7 +152,7 @@ export const HeroWrapper = styled.section`
 
   .btn-hero-secondary:hover {
     transform: scale(1.05);
-    background: var(--primary-50, #eef2ff);
+    background: var(--primary-50);
     box-shadow: var(--shadow-2);
     color: var(--primary-600);
   }

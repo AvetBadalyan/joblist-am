@@ -110,7 +110,7 @@ const Wrapper = styled.section`
     font-size: var(--fs-xs);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--tracking-wide);
     white-space: nowrap;
   }
 

@@ -40,17 +40,17 @@ const MyApplications = () => {
   const getStatusIcon = (status) => {
     switch (status) {
       case "applied":
-        return <FaPaperPlane />;
+        return <FaPaperPlane aria-hidden="true" />;
       case "reviewing":
-        return <FaSearch />;
+        return <FaSearch aria-hidden="true" />;
       case "interview":
-        return <FaComments />;
+        return <FaComments aria-hidden="true" />;
       case "offer":
-        return <FaHandshake />;
+        return <FaHandshake aria-hidden="true" />;
       case "rejected":
-        return <FaTimesCircle />;
+        return <FaTimesCircle aria-hidden="true" />;
       default:
-        return <FaPaperPlane />;
+        return <FaPaperPlane aria-hidden="true" />;
     }
   };
 
@@ -135,7 +135,7 @@ const MyApplications = () => {
               </span>
             </div>
             <div className="card-details">
-              <FaCalendarAlt />
+              <FaCalendarAlt aria-hidden="true" />
               <span>Applied {formatDate(application.applied_at)}</span>
             </div>
           </article>

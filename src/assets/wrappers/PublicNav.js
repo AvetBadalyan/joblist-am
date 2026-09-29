@@ -11,6 +11,30 @@ const Wrapper = styled.nav`
   top: 0;
   z-index: var(--z-sticky);
 
+  /* Skip link: off-screen until focused, then reveals above the nav so
+     keyboard users can jump straight to #main-content. */
+  .skip-link {
+    position: absolute;
+    top: var(--space-2);
+    left: var(--space-2);
+    z-index: var(--z-nav-dropdown);
+    padding: var(--space-2) var(--space-4);
+    background: var(--primary-600);
+    color: var(--white);
+    border-radius: var(--radius-lg);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    box-shadow: var(--shadow-2);
+    transform: translateY(-150%);
+    transition: transform var(--transition-fast);
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+  }
+
   /* Match .dashboard-page container: same max-width and side padding so the
      nav (logo / actions) lines up with the page content below it. */
   /* Same container geometry as page sections (see .container in index.css)

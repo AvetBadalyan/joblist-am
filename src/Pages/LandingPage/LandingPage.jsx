@@ -14,7 +14,7 @@ const LandingPage = () => {
     <>
       {/* PublicNav renders as <nav> — must live outside <main> (req 13.7) */}
       <PublicNav />
-      <Wrapper>
+      <Wrapper as="main" id="main-content" tabIndex={-1}>
         <HeroSection />
         <StatsSection />
         <FeatureShowcase />
