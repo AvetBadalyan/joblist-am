@@ -27,7 +27,6 @@ export const getSavedJobsThunk = async (_, thunkAPI) => {
       );
     }
 
-    // Fetch saved jobs with joined job data
     const { data, error } = await supabase
       .from("saved_jobs")
       .select(
@@ -61,7 +60,6 @@ export const getSavedJobsThunk = async (_, thunkAPI) => {
       return thunkAPI.rejectWithValue("Failed to load saved jobs");
     }
 
-    // Map the data using the mapper function
     const savedJobs = data.map(mapSavedJobFromDB);
 
     return { savedJobs };
@@ -92,7 +90,6 @@ export const saveJobThunk = async (jobId, thunkAPI) => {
       return thunkAPI.rejectWithValue("Only candidates can save jobs");
     }
 
-    // Insert the saved job record
     const { data, error } = await supabase
       .from("saved_jobs")
       .insert({
@@ -125,15 +122,13 @@ export const saveJobThunk = async (jobId, thunkAPI) => {
       .single();
 
     if (error) {
-      // Check for duplicate error (already saved)
-      if (error.code === "23505") {
+        if (error.code === "23505") {
         return thunkAPI.rejectWithValue("You have already saved this job");
       }
       console.error("Error saving job:", error);
       return thunkAPI.rejectWithValue("Failed to save job");
     }
 
-    // Return the saved job with joined data for the slice to store
     const savedJob = mapSavedJobFromDB(data);
 
     return { jobId, savedJob };
@@ -159,7 +154,6 @@ export const unsaveJobThunk = async (jobId, thunkAPI) => {
       return thunkAPI.rejectWithValue("You must be logged in to unsave jobs");
     }
 
-    // Delete the saved job record
     const { error } = await supabase
       .from("saved_jobs")
       .delete()
@@ -195,7 +189,6 @@ export const getSavedJobIdsThunk = async (_, thunkAPI) => {
       return thunkAPI.rejectWithValue("You must be logged in");
     }
 
-    // Fetch only job_id column for lightweight initialization
     const { data, error } = await supabase
       .from("saved_jobs")
       .select("job_id")
@@ -206,7 +199,6 @@ export const getSavedJobIdsThunk = async (_, thunkAPI) => {
       return thunkAPI.rejectWithValue("Failed to load saved job IDs");
     }
 
-    // Extract just the job_id values into an array
     const savedJobIds = data.map((item) => item.job_id);
 
     return { savedJobIds };

@@ -1,6 +1,5 @@
 /**
  * employerJobsThunk - Async thunks for employer job management
- * Implementation: Task 3.10
  */
 
 import { handleSupabaseError } from "../../utils/errorHandler";
@@ -24,7 +23,6 @@ export const getEmployerJobsThunk = async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue("User not authenticated");
   }
 
-  // Fetch jobs for the current employer with total count
   const {
     data: jobs,
     count,
@@ -40,12 +38,10 @@ export const getEmployerJobsThunk = async (_, thunkAPI) => {
     return handleSupabaseError(jobsError, thunkAPI);
   }
 
-  // If no jobs, return early
   if (!jobs || jobs.length === 0) {
     return { jobs: [], totalJobs: 0, numOfPages: 1 };
   }
 
-  // Get application counts for each job
   const jobIds = jobs.map((job) => job.id);
   const { data: applicationCounts, error: countsError } = await supabase
     .from("applications")
@@ -56,13 +52,11 @@ export const getEmployerJobsThunk = async (_, thunkAPI) => {
     return handleSupabaseError(countsError, thunkAPI);
   }
 
-  // Count applications per job
   const countMap = {};
   (applicationCounts || []).forEach((app) => {
     countMap[app.job_id] = (countMap[app.job_id] || 0) + 1;
   });
 
-  // Map jobs and add application count
   const mappedJobs = jobs.map((job) => ({
     ...mapJobFromDB(job),
     application_count: countMap[job.id] || 0,
@@ -87,7 +81,6 @@ export const getJobApplicantsThunk = async (jobId, thunkAPI) => {
     return thunkAPI.rejectWithValue("Job ID is required");
   }
 
-  // Fetch applications with joined profile data (candidate name and email)
   // RLS will automatically prevent access if the employer doesn't own the job
   const { data: applications, error } = await supabase
     .from("applications")
@@ -107,7 +100,6 @@ export const getJobApplicantsThunk = async (jobId, thunkAPI) => {
     return handleSupabaseError(error, thunkAPI);
   }
 
-  // Map applications to include joined candidate data
   const mappedApplicants = (applications || []).map((app) => {
     // Use the mapper but also add the joined profile fields
     const mapped = mapApplicationFromDB({
@@ -115,8 +107,7 @@ export const getJobApplicantsThunk = async (jobId, thunkAPI) => {
       // mapApplicationFromDB expects profiles nested under 'profiles' key
     });
 
-    // Override with actual joined data from the query
-    return {
+      return {
       ...mapped,
       candidate_name: app.profiles?.name || "Unknown",
       candidate_email: app.profiles?.email || "Unknown",
@@ -128,7 +119,6 @@ export const getJobApplicantsThunk = async (jobId, thunkAPI) => {
 
 /**
  * Updates the status of an application
- * Also records updated_at timestamp per requirement 15.5
  * RLS ensures employer can only update applications for their own jobs
  * @param {Object} params - { applicationId, status }
  * @param {Object} thunkAPI - Redux Toolkit thunk API
@@ -153,7 +143,6 @@ export const updateApplicationStatusThunk = async (
     return thunkAPI.rejectWithValue("Invalid application status");
   }
 
-  // Update the application status and set updated_at timestamp
   const { error } = await supabase
     .from("applications")
     .update({

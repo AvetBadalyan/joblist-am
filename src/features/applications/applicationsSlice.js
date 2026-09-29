@@ -49,16 +49,6 @@ const applicationsSlice = createSlice({
      * Clears all application state - used on logout or when switching users
      */
     clearApplicationsState: () => initialState,
-
-    /**
-     * Adds a job ID to the list of applied jobs (for optimistic UI updates)
-     * Used when a user successfully submits an application
-     */
-    addAppliedJobId: (state, { payload }) => {
-      if (!state.appliedJobIds.includes(payload)) {
-        state.appliedJobIds.push(payload);
-      }
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -115,7 +105,6 @@ const applicationsSlice = createSlice({
   },
 });
 
-export const { clearApplicationsState, addAppliedJobId } =
-  applicationsSlice.actions;
+export const { clearApplicationsState } = applicationsSlice.actions;
 
 export default applicationsSlice.reducer;

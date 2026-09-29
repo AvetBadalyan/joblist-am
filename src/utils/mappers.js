@@ -1,22 +1,6 @@
 /**
- * Job Mappers for Supabase Database
- *
- * These mappers handle the conversion between database schema (snake_case)
- * and Redux state (camelCase/snake_case as used in the new job marketplace).
- *
- * New Schema Fields:
- * - employer_id: UUID of the employer who posted the job
- * - title: Job title (was 'position')
- * - company_name: Denormalized from employer profile at creation time
- * - location: Job location
- * - job_type: full-time | part-time | remote | internship
- * - salary_min: Minimum salary (optional)
- * - salary_max: Maximum salary (optional)
- * - description: Full job description
- * - requirements: Job requirements (optional)
- * - status: open | closed
- * - created_at: Timestamp
- * - updated_at: Timestamp
+ * Mappers convert raw Supabase rows (snake_case) to the Redux state shape
+ * used throughout the app, and back again for writes.
  */
 
 /**
@@ -92,21 +76,6 @@ export const mapApplicationFromDB = (application) => ({
   // Joined fields for employer view
   candidate_name: application.profiles?.name,
   candidate_email: application.profiles?.email,
-});
-
-/**
- * Maps an application for creation to Supabase format.
- * @param {Object} application - Application object from form
- * @param {string} jobId - The job ID being applied to
- * @param {string} candidateId - The candidate's user ID
- * @returns {Object} Application record ready for Supabase insert
- */
-export const mapApplicationToDB = (application, jobId, candidateId) => ({
-  job_id: jobId,
-  candidate_id: candidateId,
-  cover_letter: application.cover_letter,
-  resume_url: application.resume_url || null,
-  status: "applied",
 });
 
 /**

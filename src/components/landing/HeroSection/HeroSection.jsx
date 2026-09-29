@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useReducedMotion from "../../../hooks/useReducedMotion";
 import { HeroWrapper } from "./HeroSection.styles";
@@ -75,7 +75,6 @@ function FloatingElements({ animate }) {
 function HeroSection() {
   const prefersReducedMotion = useReducedMotion();
   const [started, setStarted] = useState(false);
-  const sectionRef = useRef(null);
 
   // Kick off entrance animations on mount (hero is always above the fold,
   // so we don't need IntersectionObserver here — just a single rAF trigger).
@@ -96,19 +95,15 @@ function HeroSection() {
   }, [prefersReducedMotion]);
 
   return (
-    <HeroWrapper ref={sectionRef} aria-label="Hero section">
-      {/* ── 1.5 / 1.6  Floating decorative shapes ── */}
+    <HeroWrapper aria-label="Hero section">
       <FloatingElements animate={started} />
 
-      {/* ── 14.1  Decorative blob behind content ── */}
       <div className="hero-blob" aria-hidden="true" />
 
       <div className="hero-container">
         <div className="hero-content">
-          {/* ── 1.1  Animated headline ── */}
           <AnimatedHeadline words={HEADLINE_WORDS} animate={started} />
 
-          {/* ── 1.2  Gradient-text tagline ── */}
           <p className={`hero-tagline${started ? " animate" : ""}`}>
             Armenia&rsquo;s job platform for{" "}
             <span className="gradient-text">ambitious professionals</span> and{" "}

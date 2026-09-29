@@ -1,6 +1,5 @@
 /**
  * publicJobsThunk - Async thunks for public job browsing
- * Implementation: Task 3.4
  */
 
 import { mapJobFromDB } from "../../utils/mappers";
@@ -111,7 +110,6 @@ export const getAllPublicJobsThunk = async (_, thunkAPI) => {
  * Fetch a single job by ID for the job detail page
  *
  * Requirements implemented:
- *        salary_min, salary_max, description, requirements)
  *
  * @param {string} jobId - The job ID to fetch
  * @param {Object} thunkAPI - Redux Toolkit thunk API

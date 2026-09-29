@@ -29,7 +29,7 @@ const formatDate = (dateString) => {
  *
  * Features:
  * - Displays candidate name, email, applied date, and status
- * - StatusDropdown for changing application status (task 15.6)
+ * - StatusDropdown for changing application status
  * - View/hide cover letter functionality
  * - Resume link when available
  *

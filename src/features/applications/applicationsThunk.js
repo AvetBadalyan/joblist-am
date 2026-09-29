@@ -16,14 +16,12 @@ import { mapApplicationFromDB } from "../../utils/mappers";
  * @param {Object} thunkAPI - Redux Toolkit thunk API
  * @returns {Object} { application } - The created application
  *
- * Requirements:
  */
 export const submitApplicationThunk = async (
   { jobId, cover_letter, resume_url },
   thunkAPI
 ) => {
   try {
-    // Get current authenticated user
     const {
       data: { user },
       error: authError,
@@ -33,7 +31,6 @@ export const submitApplicationThunk = async (
       return thunkAPI.rejectWithValue("Please log in to apply for jobs");
     }
 
-    // Insert application with status 'applied'
     const { data, error } = await supabase
       .from("applications")
       .insert({
@@ -66,7 +63,6 @@ export const submitApplicationThunk = async (
       return handleSupabaseError(error, thunkAPI);
     }
 
-    // Map the application from DB format
     const application = mapApplicationFromDB(data);
 
     return { application };
@@ -81,11 +77,9 @@ export const submitApplicationThunk = async (
  * @param {Object} thunkAPI - Redux Toolkit thunk API
  * @returns {Object} { applications, totalApplications }
  *
- * Requirements:
  */
 export const getMyApplicationsThunk = async (_, thunkAPI) => {
   try {
-    // Get current authenticated user
     const {
       data: { user },
       error: authError,
@@ -95,7 +89,6 @@ export const getMyApplicationsThunk = async (_, thunkAPI) => {
       return thunkAPI.rejectWithValue("Please log in to view your applications");
     }
 
-    // Fetch applications for current user with joined job data
     const { data, error, count } = await supabase
       .from("applications")
       .select(
@@ -115,7 +108,6 @@ export const getMyApplicationsThunk = async (_, thunkAPI) => {
       return handleSupabaseError(error, thunkAPI);
     }
 
-    // Map applications from DB format
     const applications = (data || []).map(mapApplicationFromDB);
 
     return {
@@ -134,22 +126,18 @@ export const getMyApplicationsThunk = async (_, thunkAPI) => {
  * @param {Object} thunkAPI - Redux Toolkit thunk API
  * @returns {Object} { appliedJobIds }
  *
- * Requirements:
  */
 export const checkAppliedJobsThunk = async (_, thunkAPI) => {
   try {
-    // Get current authenticated user
     const {
       data: { user },
       error: authError,
     } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      // Silent failure - user might not be logged in
-      return { appliedJobIds: [] };
+        return { appliedJobIds: [] };
     }
 
-    // Fetch only job_id column for efficiency
     const { data, error } = await supabase
       .from("applications")
       .select("job_id")
@@ -159,7 +147,6 @@ export const checkAppliedJobsThunk = async (_, thunkAPI) => {
       return handleSupabaseError(error, thunkAPI);
     }
 
-    // Extract job IDs into an array
     const appliedJobIds = (data || []).map((app) => app.job_id);
 
     return { appliedJobIds };

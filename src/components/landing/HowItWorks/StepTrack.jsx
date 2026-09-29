@@ -17,7 +17,7 @@ const ICON_MAP = {
  * STEP_DELAY_MS
  *
  * Sequential delay applied to each step item's entrance animation.
- * Step 1 → 0 ms, step 2 → 300 ms, step 3 → 600 ms (requirement 5.4).
+ * Step 1 → 0 ms, step 2 → 300 ms, step 3 → 600 ms.
  */
 const STEP_DELAY_MS = 300;
 
@@ -28,7 +28,7 @@ const STEP_DELAY_MS = 300;
  * list of numbered steps. Each step shows a gradient badge with the step
  * number, an icon, a title, and a short description.
  *
- * Animation (requirement 5.4):
+ * Animation:
  * - The whole track is observed via a single Intersection Observer.
  * - When the track enters the viewport each step item slides up sequentially
  *   (0 ms / 300 ms / 600 ms delays).

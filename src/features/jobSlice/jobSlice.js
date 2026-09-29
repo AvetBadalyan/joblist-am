@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { getUserFromLocalStorage } from "../../utils/localStorage";
 import { createJobThunk, deleteJobThunk, editJobThunk } from "./jobThunk";
 
 /**
@@ -46,16 +45,7 @@ const jobSlice = createSlice({
     handleChange: (state, { payload: { name, value } }) => {
       state[name] = value;
     },
-    /**
-     * Clears all form values and resets to initial state
-     * Sets default location from user profile if available
-     */
-    clearValues: () => {
-      return {
-        ...initialState,
-        location: getUserFromLocalStorage()?.location || "",
-      };
-    },
+    clearValues: () => initialState,
     /**
      * Populates form with existing job data for editing
      * @param {Object} payload - The job data to edit

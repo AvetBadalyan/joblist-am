@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import useReducedMotion from './useReducedMotion';
+import { useCallback, useEffect, useRef, useState } from "react";
+import useReducedMotion from "./useReducedMotion";
 
 /**
  * Easing function: easeOutExpo
@@ -25,30 +25,24 @@ function easeOutExpo(t) {
  * @param {number} [options.duration=2000]  - Animation duration in milliseconds
  * @param {boolean} [options.startOnVisible=true] - Start animation when element enters viewport
  *
- * @returns {{ ref: React.RefObject, count: number, isAnimating: boolean }}
+ * @returns {{ ref: React.RefObject, count: number }}
  */
 function useStatsCounter({ end, duration = 2000, startOnVisible = true }) {
   const ref = useRef(null);
   const [count, setCount] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
-  // Track whether the animation has already run (triggerOnce behavior)
   const hasStarted = useRef(false);
-  // Hold a reference to the active rAF handle so we can cancel on unmount
   const rafHandle = useRef(null);
 
   const startAnimation = useCallback(() => {
     if (hasStarted.current) return;
     hasStarted.current = true;
 
-    // Respect reduced-motion: skip straight to the end value
     if (prefersReducedMotion) {
       setCount(end);
       return;
     }
-
-    setIsAnimating(true);
 
     const startTime = performance.now();
 
@@ -56,15 +50,11 @@ function useStatsCounter({ end, duration = 2000, startOnVisible = true }) {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const easedProgress = easeOutExpo(progress);
-
       setCount(Math.round(easedProgress * end));
-
       if (progress < 1) {
         rafHandle.current = requestAnimationFrame(tick);
       } else {
-        // Ensure we land exactly on the target value
         setCount(end);
-        setIsAnimating(false);
       }
     };
 
@@ -79,7 +69,7 @@ function useStatsCounter({ end, duration = 2000, startOnVisible = true }) {
     }
 
     // Guard: if IntersectionObserver is not available, start immediately
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+    if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
       startAnimation();
       return;
     }
@@ -117,7 +107,7 @@ function useStatsCounter({ end, duration = 2000, startOnVisible = true }) {
     };
   }, []);
 
-  return { ref, count, isAnimating };
+  return { ref, count };
 }
 
 export default useStatsCounter;

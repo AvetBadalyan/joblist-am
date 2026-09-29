@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -12,17 +12,6 @@ import {
   handleChange,
 } from "../../../features/jobSlice/jobSlice";
 
-/**
- * PostJob page - Form for employers to create new job listings
- *
- * Features:
- * 1. Required fields: title, location, job_type, description
- * 2. Optional fields: salary_min, salary_max, requirements
- * 3. Auto-populates company_name from employer profile (read-only display)
- * 4. Validates salary_max >= salary_min before submission
- * 5. Redirects to /employer dashboard with success message on submit
- *
- */
 const PostJob = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,8 +30,17 @@ const PostJob = () => {
 
   const { user } = useSelector((store) => store.user);
 
-  // Local state for validation error
   const [salaryError, setSalaryError] = useState("");
+
+  // Pre-fill location from the employer's profile on first mount
+  useEffect(() => {
+    if (user?.location) {
+      dispatch(handleChange({ name: "location", value: user.location }));
+    }
+    return () => {
+      dispatch(clearValues());
+    };
+  }, [dispatch, user?.location]);
 
   /**
    * Handle form field changes and dispatch to Redux store

@@ -29,7 +29,6 @@ import { logoutUser } from "./userSlice";
  * @param {string} [user.company_logo_url] - Company logo URL (employer)
  */
 export const registerUserThunk = async (user, thunkAPI) => {
-  // Step 1: Sign up with Supabase Auth
   const { data: authData, error: authError } = await supabase.auth.signUp({
     email: user.email,
     password: user.password,
@@ -58,7 +57,6 @@ export const registerUserThunk = async (user, thunkAPI) => {
     );
   }
 
-  // Step 2: Insert profile record with role and role-specific fields
   const profileData = {
     id: authUser.id,
     email: user.email,
@@ -89,7 +87,6 @@ export const registerUserThunk = async (user, thunkAPI) => {
     return handleSupabaseError(profileError, thunkAPI);
   }
 
-  // Step 3: Return user with profile data
   return {
     user: mapProfileFromDB(profileInsert),
   };
@@ -108,7 +105,6 @@ export const registerUserThunk = async (user, thunkAPI) => {
  * @param {string} user.password - User password
  */
 export const loginUserThunk = async (user, thunkAPI) => {
-  // Step 1: Sign in with Supabase Auth
   const { data: authData, error: authError } =
     await supabase.auth.signInWithPassword({
       email: user.email,
@@ -122,7 +118,6 @@ export const loginUserThunk = async (user, thunkAPI) => {
     return thunkAPI.rejectWithValue("Login failed. Please try again.");
   }
 
-  // Step 2: Fetch the user's profile from profiles table
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("*")
@@ -135,7 +130,6 @@ export const loginUserThunk = async (user, thunkAPI) => {
     return handleSupabaseError(profileError, thunkAPI);
   }
 
-  // Step 3: Return user with profile data
   return {
     user: mapProfileFromDB(profile),
   };
@@ -148,7 +142,8 @@ export const loginUserThunk = async (user, thunkAPI) => {
  */
 export const updateUserThunk = async (user, thunkAPI) => {
   try {
-    // Get the current user ID
+    // Read the auth user directly from Supabase so the ID comes from
+    // the live session token, not a potentially stale Redux cache.
     const {
       data: { user: authUser },
     } = await supabase.auth.getUser();
@@ -237,13 +232,10 @@ export const updatePasswordThunk = async (password, thunkAPI) => {
  */
 export const clearStoreThunk = async (message, thunkAPI) => {
   try {
-    // Step 1: Clear Supabase session
     await supabase.auth.signOut();
 
-    // Step 2: Clear user state and localStorage
     thunkAPI.dispatch(logoutUser(message));
 
-    // Step 3: Clear all user-specific Redux state
     thunkAPI.dispatch(clearValues());
     thunkAPI.dispatch(clearApplicationsState());
     thunkAPI.dispatch(clearSavedJobsState());
