@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import Wrapper from '../../assets/wrappers/ApplicationForm'
-import FormRow from '../FormRow/FormRow'
-import FormRowTextArea from '../FormRowTextArea/FormRowTextArea'
+import { useState } from "react"
+import Wrapper from "../../assets/wrappers/ApplicationForm"
+import FormRow from "../FormRow/FormRow"
+import FormRowTextArea from "../FormRowTextArea/FormRowTextArea"
 
 /**
  * ApplicationForm component for candidates to apply to job listings.
@@ -13,15 +13,15 @@ import FormRowTextArea from '../FormRowTextArea/FormRowTextArea'
  * @param {boolean} props.isLoading - Whether submission is in progress
  */
 const ApplicationForm = ({ jobId, onSubmit, onCancel, isLoading }) => {
-  const [coverLetter, setCoverLetter] = useState('')
-  const [resumeUrl, setResumeUrl] = useState('')
-  const [coverLetterError, setCoverLetterError] = useState('')
+  const [coverLetter, setCoverLetter] = useState("")
+  const [resumeUrl, setResumeUrl] = useState("")
+  const [coverLetterError, setCoverLetterError] = useState("")
 
   const handleCoverLetterChange = (e) => {
     setCoverLetter(e.target.value)
     // Clear error when user starts typing
     if (coverLetterError && e.target.value.trim()) {
-      setCoverLetterError('')
+      setCoverLetterError("")
     }
   }
 
@@ -34,7 +34,7 @@ const ApplicationForm = ({ jobId, onSubmit, onCancel, isLoading }) => {
 
     // Validate cover letter is not empty
     if (!coverLetter.trim()) {
-      setCoverLetterError('Cover letter is required')
+      setCoverLetterError("Cover letter is required")
       return
     }
 
@@ -76,7 +76,7 @@ const ApplicationForm = ({ jobId, onSubmit, onCancel, isLoading }) => {
             Cancel
           </button>
           <button type="submit" className="btn" disabled={isLoading}>
-            {isLoading ? 'Submitting...' : 'Submit Application'}
+            {isLoading ? "Submitting..." : "Submit Application"}
           </button>
         </div>
       </form>

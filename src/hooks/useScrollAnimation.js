@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import useReducedMotion from './useReducedMotion';
+import { useCallback, useEffect, useRef, useState } from "react";
+import useReducedMotion from "./useReducedMotion";
 
 /**
  * useScrollAnimation
@@ -23,7 +23,7 @@ import useReducedMotion from './useReducedMotion';
 function useScrollAnimation({
   threshold = 0.2,
   triggerOnce = true,
-  rootMargin = '0px',
+  rootMargin = "0px",
 } = {}) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -31,7 +31,7 @@ function useScrollAnimation({
   // treat everything as already visible so content renders immediately.
   const noObserver =
     prefersReducedMotion ||
-    typeof window === 'undefined' ||
+    typeof window === "undefined" ||
     !window.IntersectionObserver;
 
   const [isVisible, setIsVisible] = useState(noObserver);

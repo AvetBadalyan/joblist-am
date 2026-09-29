@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 /**
  * useReducedMotion
@@ -9,10 +9,10 @@ import { useState, useEffect } from 'react';
  * @returns {boolean} true if the user prefers reduced motion, false otherwise
  */
 function useReducedMotion() {
-  const query = '(prefers-reduced-motion: reduce)';
+  const query = "(prefers-reduced-motion: reduce)";
 
   const getInitialValue = () => {
-    if (typeof window === 'undefined' || !window.matchMedia) {
+    if (typeof window === "undefined" || !window.matchMedia) {
       return false;
     }
     return window.matchMedia(query).matches;
@@ -21,7 +21,7 @@ function useReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(getInitialValue);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) {
+    if (typeof window === "undefined" || !window.matchMedia) {
       return;
     }
 
@@ -33,8 +33,8 @@ function useReducedMotion() {
 
     // Modern browsers support addEventListener on MediaQueryList
     if (mediaQueryList.addEventListener) {
-      mediaQueryList.addEventListener('change', handleChange);
-      return () => mediaQueryList.removeEventListener('change', handleChange);
+      mediaQueryList.addEventListener("change", handleChange);
+      return () => mediaQueryList.removeEventListener("change", handleChange);
     }
 
     // Fallback for older browsers (Safari < 14)

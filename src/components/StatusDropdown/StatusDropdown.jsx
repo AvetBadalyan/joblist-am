@@ -1,6 +1,6 @@
-import Wrapper from '../../assets/wrappers/StatusDropdown';
+import Wrapper from "../../assets/wrappers/StatusDropdown";
 
-const STATUS_OPTIONS = ['applied', 'reviewing', 'interview', 'offer', 'rejected'];
+const STATUS_OPTIONS = ["applied", "reviewing", "interview", "offer", "rejected"];
 
 const StatusDropdown = ({ value, onChange, disabled = false }) => {
   const handleChange = (e) => {
