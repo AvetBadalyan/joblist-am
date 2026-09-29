@@ -14,6 +14,10 @@ html {
 
 :root {
   /* ===== MODERN COLOR PALETTE ===== */
+  /* Ramps run 50 (lightest) → 900 (darkest). Steps are picked by role:
+     50–200 for tints/backgrounds, 300–400 for borders, 500–700 for text and
+     interactive fills, 800–900 for the deepest accents. Some steps are used
+     rarely on purpose — a complete ramp keeps the palette coherent. */
   /* Primary - Vibrant Blue */
   --primary-50: #eef2ff;
   --primary-100: #e0e7ff;
@@ -92,7 +96,8 @@ html {
   --font-heading: "Plus Jakarta Sans", sans-serif;
   --font-body: "Inter", sans-serif;
 
-  /* Type Scale */
+  /* Type Scale — xs→2xl carry body/UI text; 3xl→stat are display sizes
+     for headings, the hero, and the animated stat counters. */
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;
   --fs-base: 1rem;
@@ -132,6 +137,9 @@ html {
   --borderRadius: var(--radius-lg);
 
   /* ===== SHADOWS ===== */
+  /* Neutral elevation scale sm→4 (each level lifts higher). card/card-hover
+     are a matched pair for the resting/hover states of cards; glow and
+     focus-ring are the coloured (indigo) shadows for emphasis and focus. */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-1: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-2: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -151,7 +159,9 @@ html {
   /* ===== MOTION ===== */
   /* One shared easing curve for the whole app (Material "standard"). */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  /* Raw durations — use with the `animation` shorthand. */
+  /* Raw durations — use with the `animation` shorthand. spinner and pulse
+     share a value today but stay separate so each animation can be tuned
+     independently; scroll is the slow marquee for the logo strip. */
   --duration-fast: 150ms;
   --duration-base: 300ms;
   --duration-entrance: 600ms;
