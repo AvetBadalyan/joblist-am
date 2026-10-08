@@ -56,7 +56,7 @@ const PublicNav = () => {
       </a>
       <div className="nav-center">
         <Link to="/" aria-label="Go to home page" onClick={closeMenu}>
-          <Logo />
+          <Logo priority={true} />
         </Link>
 
         <button

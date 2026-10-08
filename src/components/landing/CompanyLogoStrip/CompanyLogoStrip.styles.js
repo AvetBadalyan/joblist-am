@@ -15,7 +15,7 @@ export const LogoStripWrapper = styled.section`
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--grey-400);
+    color: var(--grey-600);
     /* Reset h2 margins so the element-type change doesn't shift layout */
     margin: 0;
     line-height: 1.4;

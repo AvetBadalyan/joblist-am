@@ -64,7 +64,7 @@ const Wrapper = styled.article`
   .header-info {
     min-width: 0;
 
-    h4 {
+    h3 {
       margin: 0 0 var(--space-1) 0;
       font-size: var(--fs-sm);
       font-weight: 700;
@@ -232,7 +232,7 @@ const Wrapper = styled.article`
     }
 
     .header-info {
-      h4 {
+      h3 {
         font-size: var(--fs-md);
       }
 

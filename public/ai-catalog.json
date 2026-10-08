@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "name": "JobList.am",
+  "description": "Armenia's premier job marketplace connecting talented professionals with top employers",
+  "url": "https://joblist-am.vercel.app",
+  "provider": {
+    "name": "JobList.am",
+    "url": "https://joblist-am.vercel.app"
+  },
+  "resources": [
+    {
+      "id": "browse-jobs",
+      "type": "webpage",
+      "name": "Browse Jobs",
+      "description": "Browse all available job listings in Armenia",
+      "url": "https://joblist-am.vercel.app/all-jobs"
+    },
+    {
+      "id": "register",
+      "type": "webpage",
+      "name": "Register",
+      "description": "Register as a job seeker or employer",
+      "url": "https://joblist-am.vercel.app/register"
+    },
+    {
+      "id": "homepage",
+      "type": "webpage",
+      "name": "Homepage",
+      "description": "JobList.am homepage with features and information",
+      "url": "https://joblist-am.vercel.app"
+    }
+  ],
+  "capabilities": [
+    "job-search",
+    "job-posting",
+    "application-tracking",
+    "profile-management"
+  ],
+  "categories": [
+    "employment",
+    "job-board",
+    "recruitment"
+  ]
+}

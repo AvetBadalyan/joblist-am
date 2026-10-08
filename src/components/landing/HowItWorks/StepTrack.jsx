@@ -88,7 +88,7 @@ function StepTrack({ title, trackIcon, steps }) {
                   <span className="step-icon" aria-hidden="true">
                     {iconEmoji}
                   </span>
-                  <h4 className="step-title">{step.title}</h4>
+                  <h3 className="step-title">{step.title}</h3>
                 </div>
                 <p className="step-description">{step.description}</p>
               </div>

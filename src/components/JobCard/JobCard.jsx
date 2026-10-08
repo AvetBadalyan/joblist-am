@@ -102,7 +102,7 @@ const JobCard = ({
         <header>
           <div className="company-icon">{company_name?.charAt(0) || "?"}</div>
           <div className="header-info">
-            <h4>{title}</h4>
+            <h3>{title}</h3>
             <p>{company_name}</p>
           </div>
         </header>

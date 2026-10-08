@@ -99,13 +99,13 @@ export const TestimonialWrapper = styled.section`
   .carousel-dots {
     display: flex;
     justify-content: center;
-    gap: var(--space-2);
+    gap: var(--space-4);
     margin-top: var(--space-6);
   }
 
   .dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: var(--radius-full);
     background: var(--grey-300);
     border: none;
@@ -122,7 +122,7 @@ export const TestimonialWrapper = styled.section`
   .dot::before {
     content: "";
     position: absolute;
-    inset: -18px;
+    inset: -17px;
   }
 
   .dot.active {
