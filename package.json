@@ -17,7 +17,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run optimize:images && react-scripts build",
+    "optimize:images": "node scripts/optimize-images.js",
+    "validate:performance": "node scripts/validate-performance.js",
+    "prebuild": "npm run validate:performance",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -36,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
   }
 }

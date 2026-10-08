@@ -30,9 +30,9 @@ JobList.am is Armenia's premier two-sided job marketplace connecting talented pr
 
 ## Important Links
 
-> Homepage: https://joblist-am.vercel.app
-> Browse Jobs: https://joblist-am.vercel.app/all-jobs
-> Register: https://joblist-am.vercel.app/register
+- [Homepage](https://joblist-am.vercel.app)
+- [Browse Jobs](https://joblist-am.vercel.app/all-jobs)
+- [Register](https://joblist-am.vercel.app/register)
 
 ## Contact
 
