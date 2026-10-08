@@ -1,0 +1,40 @@
+CRITICAL: Your logo is 500x500 (10KB) but displays at 98x98
+
+You MUST resize it to fix Performance score!
+
+=== METHOD 1: Squoosh.app (EASIEST - 2 minutes) ===
+
+1. Go to: https://squoosh.app/
+2. Drag src/assets/images/logo.webp into the browser
+3. On the RIGHT side:
+   - Resize: Change to 112 x 112 (2x for retina displays)
+   - Format: Keep as WebP
+   - Quality: Set to 85
+   - Effort: 4 (default)
+4. Click the download arrow icon (bottom right)
+5. Save the downloaded file
+6. Replace src/assets/images/logo.webp with the new file
+
+Expected result: 10KB → 2KB (saves 8KB, fixes Lighthouse warning)
+
+=== METHOD 2: Online Image Resizer ===
+
+1. Go to: https://www.iloveimg.com/resize-image/resize-webp
+2. Upload src/assets/images/logo.webp
+3. Select "By pixels" → Width: 112, Height: 112
+4. Keep quality at 85%
+5. Download and replace the file
+
+=== METHOD 3: If you have ImageMagick installed ===
+
+cd src/assets/images/
+convert logo.webp -resize 112x112 -strip -quality 85 logo-optimized.webp
+mv logo-optimized.webp logo.webp
+
+===================================================
+
+After resizing, run:
+npm run build
+vercel --prod
+
+This single change will push Performance from 88 to 90+!

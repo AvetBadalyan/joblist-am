@@ -24,7 +24,7 @@ export const TestimonialWrapper = styled.section`
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--primary-500);
+    color: var(--primary-700);
     margin-bottom: var(--space-3);
   }
 
