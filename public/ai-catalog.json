@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "specVersion": "1.0",
   "name": "JobList.am",
   "description": "Armenia's premier job marketplace connecting talented professionals with top employers",
   "url": "https://joblist-am.vercel.app",
@@ -7,26 +7,26 @@
     "name": "JobList.am",
     "url": "https://joblist-am.vercel.app"
   },
-  "resources": [
+  "entries": [
     {
-      "id": "browse-jobs",
-      "type": "webpage",
-      "name": "Browse Jobs",
+      "identifier": "browse-jobs",
+      "displayName": "Browse Jobs",
       "description": "Browse all available job listings in Armenia",
+      "mediaType": "text/html",
       "url": "https://joblist-am.vercel.app/jobs"
     },
     {
-      "id": "register",
-      "type": "webpage",
-      "name": "Register",
+      "identifier": "register",
+      "displayName": "Register",
       "description": "Register as a job seeker or employer",
+      "mediaType": "text/html",
       "url": "https://joblist-am.vercel.app/register"
     },
     {
-      "id": "homepage",
-      "type": "webpage",
-      "name": "Homepage",
+      "identifier": "homepage",
+      "displayName": "Homepage",
       "description": "JobList.am homepage with features and information",
+      "mediaType": "text/html",
       "url": "https://joblist-am.vercel.app"
     }
   ],
@@ -36,9 +36,5 @@
     "application-tracking",
     "profile-management"
   ],
-  "categories": [
-    "employment",
-    "job-board",
-    "recruitment"
-  ]
+  "categories": ["employment", "job-board", "recruitment"]
 }
