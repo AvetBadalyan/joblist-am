@@ -11,28 +11,32 @@ if (!fs.existsSync(htmlPath)) {
 let html = fs.readFileSync(htmlPath, "utf8");
 let inlinedCount = 0;
 
-html = html.replace(
-  /<link href="([^"]+\.css)" rel="stylesheet">/g,
-  (link, assetPath) => {
-    const relativePath = assetPath.replace(/^\/+/, "");
-    const cssPath = path.resolve(buildDir, relativePath);
+html = html.replace(/<link\b[^>]*>/gi, (link) => {
+  const rel = link.match(/\brel=["']([^"']+)["']/i)?.[1];
+  const href = link.match(/\bhref=["']([^"']+\.css(?:\?[^"']*)?)["']/i)?.[1];
 
-    if (!cssPath.startsWith(`${buildDir}${path.sep}`)) {
-      throw new Error(`CSS asset is outside the build directory: ${assetPath}`);
-    }
-    if (!fs.existsSync(cssPath)) {
-      throw new Error(`CSS asset referenced by build output is missing: ${cssPath}`);
-    }
+  if (!rel?.split(/\s+/).includes("stylesheet") || !href) {
+    return link;
+  }
 
-    const css = fs.readFileSync(cssPath, "utf8");
-    if (/<\/style/i.test(css)) {
-      throw new Error(`Cannot safely inline CSS containing a closing style tag: ${cssPath}`);
-    }
+  const relativePath = href.split("?")[0].replace(/^\/+/, "");
+  const cssPath = path.resolve(buildDir, relativePath);
 
-    inlinedCount += 1;
-    return `<style>${css}</style>`;
-  },
-);
+  if (!cssPath.startsWith(`${buildDir}${path.sep}`)) {
+    throw new Error(`CSS asset is outside the build directory: ${href}`);
+  }
+  if (!fs.existsSync(cssPath)) {
+    throw new Error(`CSS asset referenced by build output is missing: ${cssPath}`);
+  }
+
+  const css = fs.readFileSync(cssPath, "utf8");
+  if (/<\/style/i.test(css)) {
+    throw new Error(`Cannot safely inline CSS containing a closing style tag: ${cssPath}`);
+  }
+
+  inlinedCount += 1;
+  return `<style>${css}</style>`;
+});
 
 if (inlinedCount === 0) {
   throw new Error("No production stylesheet links were found to inline.");

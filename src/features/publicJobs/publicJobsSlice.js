@@ -21,6 +21,7 @@ const initialFiltersState = {
 const initialState = {
   isLoading: false,
   isError: false,
+  currentRequestId: undefined,
   jobs: [],
   totalJobs: 0,
   numOfPages: 1,
@@ -81,21 +82,29 @@ const publicJobsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // getAllPublicJobs cases
-      .addCase(getAllPublicJobs.pending, (state) => {
+      .addCase(getAllPublicJobs.pending, (state, action) => {
         state.isLoading = true;
         state.isError = false;
+        state.currentRequestId = action.meta.requestId;
       })
-      .addCase(getAllPublicJobs.fulfilled, (state, { payload }) => {
+      .addCase(getAllPublicJobs.fulfilled, (state, action) => {
+        if (state.currentRequestId !== action.meta.requestId) return;
         state.isLoading = false;
         state.isError = false;
-        state.jobs = payload.jobs;
-        state.totalJobs = payload.totalJobs;
-        state.numOfPages = payload.numOfPages;
+        state.currentRequestId = undefined;
+        state.jobs = action.payload.jobs;
+        state.totalJobs = action.payload.totalJobs;
+        state.numOfPages = action.payload.numOfPages;
       })
-      .addCase(getAllPublicJobs.rejected, (state, { payload }) => {
+      .addCase(getAllPublicJobs.rejected, (state, action) => {
+        if (state.currentRequestId !== action.meta.requestId) return;
         state.isLoading = false;
+        state.currentRequestId = undefined;
+        if (action.meta.aborted) return;
         state.isError = true;
-        toast.error(payload || "Failed to load jobs. Please try again.");
+        toast.error(
+          action.payload || "Failed to load jobs. Please try again.",
+        );
       })
       // getJobById cases
       .addCase(getJobById.pending, (state) => {

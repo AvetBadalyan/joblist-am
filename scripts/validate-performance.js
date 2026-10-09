@@ -116,17 +116,17 @@ checkFileContent(
 
 // Check index.html optimizations
 checkFileContentAbsent(
-  'public/index.html',
+  'index.html',
   'https://lhyygqlwwttmqghdrvlh.supabase.co',
   'Unused Supabase preconnect removed'
 );
 checkFileContent(
-  'public/index.html',
+  'index.html',
   'fonts.googleapis.com',
   'Google Fonts preconnect added'
 );
 checkFileContent(
-  'public/index.html',
+  'index.html',
   'dns-prefetch',
   'DNS prefetch hints added'
 );
@@ -157,9 +157,9 @@ checkFile(
   'Production CSS inlining script exists'
 );
 checkFileContent(
-  '.env.production',
-  'GENERATE_SOURCEMAP=false',
-  'Production build omits inaccessible source maps'
+  'vite.config.mjs',
+  'sourcemap: false',
+  'Production build omits source maps'
 );
 
 // Check optimization script exists

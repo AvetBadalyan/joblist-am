@@ -58,10 +58,11 @@ const ConfirmModal = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
+        aria-describedby="modal-description"
         onClick={(e) => e.stopPropagation()}
       >
         <h4 id="modal-title">{title}</h4>
-        <p>{message}</p>
+        <p id="modal-description">{message}</p>
         <div className="modal-actions">
           <button
             type="button"

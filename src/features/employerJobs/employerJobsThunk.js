@@ -150,7 +150,6 @@ export const updateApplicationStatusThunk = async (
     .from("applications")
     .update({
       status,
-      updated_at: new Date().toISOString(),
     })
     .eq("id", applicationId);
 

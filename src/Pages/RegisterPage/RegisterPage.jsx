@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Wrapper from "../../assets/wrappers/RegisterPage";
 import FormRow from "../../components/FormRow/FormRow";
 import Logo from "../../components/Logo/Logo";
@@ -36,6 +36,7 @@ function Register() {
   const { user, isLoading } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -169,10 +170,17 @@ function Register() {
   useEffect(() => {
     if (!user) return undefined;
     // Brief pause lets the success toast register before redirecting
-    const redirectPath = user.role === "employer" ? "/employer" : "/candidate";
+    const returnUrl = searchParams.get("returnUrl");
+    const isSafeJobReturnUrl = /^\/jobs\/[^/?#]+$/.test(returnUrl || "");
+    const redirectPath =
+      user.role === "candidate" && isSafeJobReturnUrl
+        ? returnUrl
+        : user.role === "employer"
+          ? "/employer"
+          : "/candidate";
     const timer = setTimeout(() => navigate(redirectPath), 2000);
     return () => clearTimeout(timer);
-  }, [user, navigate]);
+  }, [user, navigate, searchParams]);
 
   return (
     <Wrapper className="full-page">

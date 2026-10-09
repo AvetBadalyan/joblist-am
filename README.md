@@ -67,6 +67,7 @@ A full-stack two-sided job marketplace connecting talented professionals with to
 | styled-components | Component-scoped CSS-in-JS |
 | React Router v6   | Client-side routing        |
 | React Toastify    | Toast notifications        |
+| Vite              | Development server and build tool |
 
 ---
 
@@ -74,7 +75,7 @@ A full-stack two-sided job marketplace connecting talented professionals with to
 
 ### Prerequisites
 
-- Node.js 16+
+- Node.js 20.19.x or 22.12+
 - [Supabase](https://supabase.com) account (free tier works)
 
 ### 1. Clone and install
@@ -94,9 +95,13 @@ cp .env.example .env
 Edit `.env` with your Supabase credentials (found in Supabase Dashboard → Settings → API):
 
 ```
-REACT_APP_SUPABASE_URL=your_supabase_project_url
-REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
+
+Existing deployments can continue using `REACT_APP_SUPABASE_URL` and
+`REACT_APP_SUPABASE_ANON_KEY` temporarily. Update those environment variables
+to the `VITE_` names in Vercel before removing the legacy values.
 
 ### 3. Set up database
 
@@ -115,7 +120,9 @@ To load demo data (optional), first create the 5 demo users in **Authentication 
 npm start
 ```
 
-App runs at [http://localhost:3000](http://localhost:3000)
+App runs at [http://localhost:5173](http://localhost:5173). In Vercel project
+settings, select the Vite framework preset, use `npm run build` as the build
+command, and set `build` as the output directory.
 
 ---
 

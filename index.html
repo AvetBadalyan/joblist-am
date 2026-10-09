@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="%BASE_URL%favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#3b82f6" />
     <!-- DNS prefetch for faster resolution -->
@@ -89,28 +89,17 @@
       rel="preload"
       as="image"
       fetchpriority="high"
-      href="%PUBLIC_URL%/logo-200.webp"
-      imagesrcset="%PUBLIC_URL%/logo-100.webp 100w, %PUBLIC_URL%/logo-200.webp 200w"
+      href="%BASE_URL%logo-200.webp"
+      imagesrcset="%BASE_URL%logo-100.webp 100w, %BASE_URL%logo-200.webp 200w"
       imagesizes="(max-width: 768px) 100px, 200px"
     />
     <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Async load Google Fonts -->
     <link
-      rel="preload"
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
-      as="style"
-      onload="
-        this.onload = null;
-        this.rel = 'stylesheet';
-      "
     />
-    <noscript
-      ><link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
-    /></noscript>
     <meta
       name="description"
       content="JobList.am - Armenia's two-sided job marketplace connecting talented professionals with top employers. Browse jobs, apply with ease, and track your applications."
@@ -127,7 +116,7 @@
     />
     <meta property="og:site_name" content="JobList.am" />
     <meta property="og:url" content="https://joblist-am.vercel.app" />
-    <meta property="og:image" content="%PUBLIC_URL%/preview.webp" />
+    <meta property="og:image" content="%BASE_URL%preview.webp" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -138,9 +127,9 @@
       name="twitter:description"
       content="Armenia's job marketplace for candidates and employers."
     />
-    <meta name="twitter:image" content="%PUBLIC_URL%/preview.webp" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.webp" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <meta name="twitter:image" content="%BASE_URL%preview.webp" />
+    <link rel="apple-touch-icon" href="%BASE_URL%logo192.webp" />
+    <link rel="manifest" href="%BASE_URL%manifest.json" />
     <title>JobList.am - Connect Talent with Opportunity</title>
   </head>
   <body>
@@ -151,10 +140,10 @@
           <a href="/" aria-label="JobList.am home">
             <img
               class="shell-logo"
-              src="%PUBLIC_URL%/logo-200.webp"
+              src="%BASE_URL%logo-200.webp"
               srcset="
-                %PUBLIC_URL%/logo-100.webp 100w,
-                %PUBLIC_URL%/logo-200.webp 200w
+                %BASE_URL%logo-100.webp 100w,
+                %BASE_URL%logo-200.webp 200w
               "
               sizes="(max-width: 768px) 100px, 200px"
               alt="JobList.am"
@@ -167,5 +156,6 @@
         </div>
       </header>
     </div>
+    <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>

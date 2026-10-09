@@ -56,7 +56,7 @@ function TestimonialSection() {
         <TestimonialGrid>
           {testimonialsData.map((testimonial, index) => (
             <TestimonialCard
-              key={testimonial.author}
+              key={`${testimonial.author}-${index}`}
               testimonial={testimonial}
               delay={index * 150}
             />
@@ -84,7 +84,10 @@ function TestimonialSection() {
             {testimonialsData.map((testimonial, index) => (
               <div
                 className="carousel-slide"
-                key={testimonial.author}
+                key={`${testimonial.author}-${index}`}
+                id={`testimonial-slide-${index}`}
+                role="group"
+                aria-roledescription="slide"
                 aria-label={`Slide ${index + 1} of ${testimonialsData.length}`}
               >
                 <TestimonialCard
@@ -98,14 +101,15 @@ function TestimonialSection() {
           {/* Dot indicators */}
           <div
             className="carousel-dots"
-            role="tablist"
+            role="group"
             aria-label="Testimonial slides"
           >
             {testimonialsData.map((_, index) => (
               <button
                 key={index}
-                role="tab"
-                aria-selected={currentIndex === index}
+                type="button"
+                aria-controls={`testimonial-slide-${index}`}
+                aria-pressed={currentIndex === index}
                 aria-label={`Go to slide ${index + 1}`}
                 className={`dot${currentIndex === index ? " active" : ""}`}
                 onClick={() => scrollToSlide(index)}

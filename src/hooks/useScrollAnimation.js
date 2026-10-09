@@ -68,8 +68,13 @@ function useScrollAnimation({
   }, []);
 
   useEffect(() => {
-    // Already in "show everything" mode — no observer needed.
-    if (noObserver) return;
+    // If reduced motion is enabled while the page is open, reveal content
+    // immediately rather than leaving previously-observed elements hidden.
+    if (noObserver) {
+      setIsVisible(true);
+      setHasAnimated(true);
+      return;
+    }
 
     const element = ref.current;
     if (!element) return;

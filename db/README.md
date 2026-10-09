@@ -27,6 +27,7 @@ This directory contains SQL migration files for setting up the Supabase database
 | `003_applications.sql` | Creates applications table               | Req 19.3     |
 | `004_saved_jobs.sql`   | Creates saved_jobs table                 | Req 19.4     |
 | `005_seed.sql`         | Seed data for testing (see note below)   | Req 20       |
+| `006_security_hardening.sql` | Restricts profile access and write permissions across tables | Security |
 
 ### Seeding (005_seed.sql)
 
@@ -54,6 +55,7 @@ DROP TABLE IF EXISTS profiles;
 ## Notes
 
 - All migrations enable Row Level Security (RLS) by default
+- Run `006_security_hardening.sql` after migrations `001`–`004` for least-privilege RLS and grants. It is required for existing projects too; applying the source changes alone does not update the live Supabase database.
 - Timestamps (`created_at`, `updated_at`) are automatically managed
 - Foreign keys reference Supabase Auth's `auth.users` table
 - Make sure you have the necessary permissions before running migrations

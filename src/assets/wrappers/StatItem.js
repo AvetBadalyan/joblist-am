@@ -7,7 +7,7 @@ const Wrapper = styled.article`
   transition: var(--transition);
   box-shadow: var(--shadow-card);
   border: 1px solid var(--grey-100);
-  border-bottom: 5px solid ${(props) => props.color};
+  border-bottom: 5px solid ${(props) => props.$color};
 
   &:hover {
     transform: translateY(-4px);
@@ -26,7 +26,7 @@ const Wrapper = styled.article`
     font-family: var(--font-heading);
     font-weight: 800;
     font-size: var(--fs-3xl);
-    color: ${(props) => props.color};
+    color: ${(props) => props.$color};
     line-height: 1;
   }
 
@@ -44,7 +44,7 @@ const Wrapper = styled.article`
   .icon {
     width: 56px;
     height: 56px;
-    background: ${(props) => props.bcg};
+    background: ${(props) => props.$bcg};
     border-radius: var(--radius-xl);
     display: flex;
     align-items: center;
@@ -53,7 +53,7 @@ const Wrapper = styled.article`
 
     svg {
       font-size: var(--fs-2xl);
-      color: ${(props) => props.color};
+      color: ${(props) => props.$color};
     }
   }
 

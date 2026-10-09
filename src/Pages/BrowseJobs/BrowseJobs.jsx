@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import Wrapper from "../../assets/wrappers/JobsContainer";
@@ -45,6 +45,7 @@ const BrowseJobs = () => {
 
   const { user } = useSelector((store) => store.user);
   const { savedJobIds } = useSelector((store) => store.savedJobs);
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
 
   // Only authenticated candidates can bookmark jobs
   const canBookmark = useMemo(() => user && user.role === "candidate", [user]);
@@ -52,10 +53,23 @@ const BrowseJobs = () => {
   // Set for O(1) saved-job lookup
   const savedJobIdsSet = useMemo(() => new Set(savedJobIds), [savedJobIds]);
 
-  // Re-fetch whenever filters or page change
   useEffect(() => {
-    dispatch(getAllPublicJobs());
-  }, [dispatch, page, search, searchType]);
+    if (!search) {
+      setDebouncedSearch("");
+      return undefined;
+    }
+
+    const timeoutId = setTimeout(() => setDebouncedSearch(search), 300);
+    return () => clearTimeout(timeoutId);
+  }, [search]);
+
+  // Debounce text input; apply type and pagination changes immediately.
+  useEffect(() => {
+    if (search !== debouncedSearch) return undefined;
+
+    const request = dispatch(getAllPublicJobs());
+    return () => request.abort();
+  }, [dispatch, page, search, debouncedSearch, searchType]);
 
   const handleSearchChange = useCallback(
     (e) => {
@@ -72,6 +86,7 @@ const BrowseJobs = () => {
   );
 
   const handleClearFilters = useCallback(() => {
+    setDebouncedSearch("");
     dispatch(clearFilters());
   }, [dispatch]);
 
@@ -120,7 +135,7 @@ const BrowseJobs = () => {
       <main id="main-content" tabIndex={-1} className="dashboard">
         <div className="dashboard-page">
           <SearchWrapper>
-            <form className="form">
+            <form className="form" onSubmit={(event) => event.preventDefault()}>
               <h5>Search Jobs</h5>
               <div className="form-center">
                 <div className="form-row">
@@ -170,7 +185,7 @@ const BrowseJobs = () => {
           </SearchWrapper>
 
           <Wrapper>
-            <h5>
+            <h5 aria-live="polite" aria-busy={isLoading}>
               {totalJobs} job{totalJobs !== 1 ? "s" : ""} found
             </h5>
 

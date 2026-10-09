@@ -1,12 +1,10 @@
-import styled from "styled-components";
-
-const base = process.env.PUBLIC_URL;
-const logo100 = `${base}/logo-100.webp`;
-const logo200 = `${base}/logo-200.webp`;
+const base = import.meta.env.BASE_URL;
+const logo100 = `${base}logo-100.webp`;
+const logo200 = `${base}logo-200.webp`;
 
 const Logo = ({ priority = false }) => {
   return (
-    <Img
+    <img
       src={logo200}
       srcSet={`${logo100} 100w, ${logo200} 200w`}
       sizes="(max-width: 768px) 100px, 200px"
@@ -20,13 +18,5 @@ const Logo = ({ priority = false }) => {
     />
   );
 };
-
-const Img = styled.img`
-  height: 2.5rem;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  display: block;
-`;
 
 export default Logo;

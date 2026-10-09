@@ -86,7 +86,7 @@ export const getAllPublicJobsThunk = async (_, thunkAPI) => {
     query = query.range(from, to);
 
     // Execute query
-    const { data, count, error } = await query;
+    const { data, count, error } = await query.abortSignal(thunkAPI.signal);
 
     if (error) {
       throw error;

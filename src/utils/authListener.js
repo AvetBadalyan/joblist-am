@@ -16,23 +16,18 @@ import { supabase } from "./supabase";
  * @returns {Object|null} The mapped profile data or null if not found
  */
 const fetchUserProfile = async (userId) => {
-  try {
-    const { data: profile, error } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", userId)
-      .single();
+  const { data: profile, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .maybeSingle();
 
-    if (error) {
-      console.error("Failed to fetch user profile:", error);
-      return null;
-    }
-
-    return mapProfileFromDB(profile);
-  } catch (error) {
-    console.error("Error fetching profile:", error);
+  if (error) {
+    console.error("Failed to fetch user profile:", error);
     return null;
   }
+
+  return profile ? mapProfileFromDB(profile) : null;
 };
 
 /**
@@ -97,11 +92,7 @@ export const setupAuthListener = () => {
             // Initialize candidate-specific state (saved jobs, applied jobs)
             initializeCandidateState(profile);
           } else {
-            // Profile doesn't exist - this shouldn't happen with proper registration flow
-            // but handle gracefully by logging out
-            console.warn(
-              "No profile found for authenticated user - clearing session",
-            );
+            // Clear stale sessions whose account has no application profile.
             await supabase.auth.signOut();
             store.dispatch(logoutUser());
           }
@@ -132,9 +123,6 @@ export const setupAuthListener = () => {
           store.dispatch(setUser(profile));
           // Initialize candidate-specific state (saved jobs, applied jobs)
           initializeCandidateState(profile);
-        } else {
-          // Profile doesn't exist - shouldn't happen with proper registration
-          console.warn("No profile found for signed-in user");
         }
       } else {
         // User already in Redux state, still initialize candidate state for explicit logins
