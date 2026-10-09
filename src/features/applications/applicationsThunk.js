@@ -6,8 +6,8 @@
  * - checkAppliedJobsThunk: Get list of job IDs user has applied to
  */
 
-import { supabase } from "../../utils/supabase";
 import { handleSupabaseError } from "../../utils/errorHandler";
+import { loadSupabase } from "../../utils/loadSupabase";
 import { mapApplicationFromDB } from "../../utils/mappers";
 
 /**
@@ -22,6 +22,7 @@ export const submitApplicationThunk = async (
   thunkAPI
 ) => {
   try {
+    const supabase = await loadSupabase();
     const {
       data: { user },
       error: authError,
@@ -80,6 +81,7 @@ export const submitApplicationThunk = async (
  */
 export const getMyApplicationsThunk = async (_, thunkAPI) => {
   try {
+    const supabase = await loadSupabase();
     const {
       data: { user },
       error: authError,
@@ -129,6 +131,7 @@ export const getMyApplicationsThunk = async (_, thunkAPI) => {
  */
 export const checkAppliedJobsThunk = async (_, thunkAPI) => {
   try {
+    const supabase = await loadSupabase();
     const {
       data: { user },
       error: authError,

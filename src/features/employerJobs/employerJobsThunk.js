@@ -4,7 +4,7 @@
 
 import { handleSupabaseError } from "../../utils/errorHandler";
 import { mapApplicationFromDB, mapJobFromDB } from "../../utils/mappers";
-import { supabase } from "../../utils/supabase";
+import { loadSupabase } from "../../utils/loadSupabase";
 
 const PAGE_SIZE = 10;
 
@@ -23,6 +23,7 @@ export const getEmployerJobsThunk = async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue("User not authenticated");
   }
 
+  const supabase = await loadSupabase();
   const {
     data: jobs,
     count,
@@ -82,6 +83,7 @@ export const getJobApplicantsThunk = async (jobId, thunkAPI) => {
   }
 
   // RLS will automatically prevent access if the employer doesn't own the job
+  const supabase = await loadSupabase();
   const { data: applications, error } = await supabase
     .from("applications")
     .select(
@@ -143,6 +145,7 @@ export const updateApplicationStatusThunk = async (
     return thunkAPI.rejectWithValue("Invalid application status");
   }
 
+  const supabase = await loadSupabase();
   const { error } = await supabase
     .from("applications")
     .update({

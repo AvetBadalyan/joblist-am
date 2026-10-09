@@ -1,6 +1,6 @@
 import { handleSupabaseError } from "../../utils/errorHandler";
 import { mapJobToDB, mapJobToDBForCreate } from "../../utils/mappers";
-import { supabase } from "../../utils/supabase";
+import { loadSupabase } from "../../utils/loadSupabase";
 import { clearValues } from "./jobSlice";
 
 /**
@@ -45,6 +45,7 @@ export const createJobThunk = async (job, thunkAPI) => {
 
   const dbJob = mapJobToDBForCreate(job, user.id, user.company_name);
 
+  const supabase = await loadSupabase();
   const { error } = await supabase.from("jobs").insert(dbJob);
 
   if (error) return handleSupabaseError(error, thunkAPI);
@@ -73,6 +74,7 @@ export const deleteJobThunk = async (jobId, thunkAPI) => {
 
   // Note: RLS policies ensure employers can only delete their own jobs
   // The employer_id check in the query provides an additional layer of safety
+  const supabase = await loadSupabase();
   const { error } = await supabase
     .from("jobs")
     .delete()
@@ -116,6 +118,7 @@ export const editJobThunk = async ({ jobId, job }, thunkAPI) => {
   }
 
   // Note: RLS policies ensure employers can only update their own jobs
+  const supabase = await loadSupabase();
   const { error } = await supabase
     .from("jobs")
     .update({

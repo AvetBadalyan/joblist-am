@@ -48,6 +48,30 @@ function checkFileContent(filePath, searchString, description) {
   }
 }
 
+function checkFileContentAbsent(filePath, searchString, description) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const absent = !content.includes(searchString);
+    checks.push({
+      name: description,
+      status: absent ? '✅' : '❌',
+      passed: absent
+    });
+    if (absent) passedCount++;
+    else failedCount++;
+    return absent;
+  } catch (error) {
+    checks.push({
+      name: description,
+      status: '❌',
+      passed: false,
+      error: error.message
+    });
+    failedCount++;
+    return false;
+  }
+}
+
 function checkJSONValid(filePath, description) {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
@@ -91,10 +115,15 @@ checkFileContent(
 );
 
 // Check index.html optimizations
+checkFileContentAbsent(
+  'public/index.html',
+  'https://lhyygqlwwttmqghdrvlh.supabase.co',
+  'Unused Supabase preconnect removed'
+);
 checkFileContent(
   'public/index.html',
-  'preconnect" href="https://lhyygqlwwttmqghdrvlh.supabase.co',
-  'Supabase preconnect added'
+  'fonts.googleapis.com',
+  'Google Fonts preconnect added'
 );
 checkFileContent(
   'public/index.html',
@@ -102,11 +131,11 @@ checkFileContent(
   'DNS prefetch hints added'
 );
 
-// Check llms.txt has proper markdown links
+// Check llms.txt has proper markdown links and valid job listings URL
 checkFileContent(
   'public/llms.txt',
-  '- [Homepage]',
-  'llms.txt has proper markdown links'
+  'https://joblist-am.vercel.app/jobs',
+  'llms.txt links to the live jobs route'
 );
 
 // Check ai-catalog.json is valid
@@ -117,6 +146,20 @@ checkFileContent(
   'package.json',
   'optimize:images',
   'Build pipeline includes image optimization'
+);
+checkFileContent(
+  'package.json',
+  'inline-build-css.js',
+  'Production build inlines the generated stylesheet'
+);
+checkFile(
+  'scripts/inline-build-css.js',
+  'Production CSS inlining script exists'
+);
+checkFileContent(
+  '.env.production',
+  'GENERATE_SOURCEMAP=false',
+  'Production build omits inaccessible source maps'
 );
 
 // Check optimization script exists
@@ -140,12 +183,6 @@ if (failedCount > 0) {
   process.exit(1);
 } else {
   console.log('✅ All optimizations validated successfully!\n');
-  console.log('🚀 Ready to deploy with improved performance.\n');
-  console.log('Expected improvements:');
-  console.log('  • Performance Score: 88-92/100 (from 83)');
-  console.log('  • LCP: ~2.8s (from 3.3s, -0.5s)');
-  console.log('  • FCP: ~2.4s (from 2.9s, -0.5s)');
-  console.log('  • Logo Size: 1.6-3.9 KB (from 10.1 KB, 90% reduction)');
-  console.log('  • Agentic Browsing: 4/4 (from 2/4)\n');
+  console.log('These checks verify source configuration only; run Lighthouse after deployment to measure performance.\n');
   process.exit(0);
 }

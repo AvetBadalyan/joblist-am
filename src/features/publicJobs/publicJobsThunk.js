@@ -3,7 +3,7 @@
  */
 
 import { mapJobFromDB } from "../../utils/mappers";
-import { supabase } from "../../utils/supabase";
+import { loadSupabase } from "../../utils/loadSupabase";
 
 // Number of jobs per page for pagination
 const JOBS_PER_PAGE = 10;
@@ -17,6 +17,7 @@ const FEATURED_JOBS_COUNT = 6;
  */
 export const getFeaturedJobsThunk = async (_, thunkAPI) => {
   try {
+    const supabase = await loadSupabase();
     const { data, error } = await supabase
       .from("jobs")
       .select("*")
@@ -48,6 +49,7 @@ export const getFeaturedJobsThunk = async (_, thunkAPI) => {
  */
 export const getAllPublicJobsThunk = async (_, thunkAPI) => {
   try {
+    const supabase = await loadSupabase();
     // Get filter state from Redux store
     const { search, searchType, sort, page } = thunkAPI.getState().publicJobs;
 
@@ -117,6 +119,7 @@ export const getAllPublicJobsThunk = async (_, thunkAPI) => {
  */
 export const getJobByIdThunk = async (jobId, thunkAPI) => {
   try {
+    const supabase = await loadSupabase();
     // Fetch single job by ID
     const { data, error } = await supabase
       .from("jobs")

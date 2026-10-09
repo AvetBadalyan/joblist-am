@@ -4,7 +4,6 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "./components/Loading/Loading";
-import { setupAuthListener } from "./utils/authListener";
 
 // Routing primitives stay eager — they gate every route and are tiny.
 import RoleRedirect from "./components/RoleRedirect/RoleRedirect";
@@ -50,9 +49,25 @@ const ViewApplicants = lazy(
 
 function App() {
   useEffect(() => {
-    const subscription = setupAuthListener();
+    let cancelled = false;
+    let subscription;
+
+    import("./utils/authListener")
+      .then(({ setupAuthListener }) => {
+        const nextSubscription = setupAuthListener();
+        if (cancelled) {
+          nextSubscription.unsubscribe();
+          return;
+        }
+        subscription = nextSubscription;
+      })
+      .catch((error) => {
+        console.error("Failed to initialize the auth listener:", error);
+      });
+
     return () => {
-      subscription.unsubscribe();
+      cancelled = true;
+      subscription?.unsubscribe();
     };
   }, []);
 

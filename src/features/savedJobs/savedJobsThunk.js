@@ -7,7 +7,7 @@
  */
 
 import { mapSavedJobFromDB } from "../../utils/mappers";
-import { supabase } from "../../utils/supabase";
+import { loadSupabase } from "../../utils/loadSupabase";
 
 /**
  * Fetch all saved jobs for the current candidate with joined job data
@@ -27,6 +27,7 @@ export const getSavedJobsThunk = async (_, thunkAPI) => {
       );
     }
 
+    const supabase = await loadSupabase();
     const { data, error } = await supabase
       .from("saved_jobs")
       .select(
@@ -90,6 +91,7 @@ export const saveJobThunk = async (jobId, thunkAPI) => {
       return thunkAPI.rejectWithValue("Only candidates can save jobs");
     }
 
+    const supabase = await loadSupabase();
     const { data, error } = await supabase
       .from("saved_jobs")
       .insert({
@@ -154,6 +156,7 @@ export const unsaveJobThunk = async (jobId, thunkAPI) => {
       return thunkAPI.rejectWithValue("You must be logged in to unsave jobs");
     }
 
+    const supabase = await loadSupabase();
     const { error } = await supabase
       .from("saved_jobs")
       .delete()
@@ -189,6 +192,7 @@ export const getSavedJobIdsThunk = async (_, thunkAPI) => {
       return thunkAPI.rejectWithValue("You must be logged in");
     }
 
+    const supabase = await loadSupabase();
     const { data, error } = await supabase
       .from("saved_jobs")
       .select("job_id")

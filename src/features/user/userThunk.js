@@ -1,6 +1,6 @@
 import { handleSupabaseError } from "../../utils/errorHandler";
 import { mapProfileFromDB } from "../../utils/mappers";
-import { supabase } from "../../utils/supabase";
+import { loadSupabase } from "../../utils/loadSupabase";
 import { clearApplicationsState } from "../applications/applicationsSlice";
 import { clearEmployerJobsState } from "../employerJobs/employerJobsSlice";
 import { clearValues } from "../jobSlice/jobSlice";
@@ -29,6 +29,7 @@ import { logoutUser } from "./userSlice";
  * @param {string} [user.company_logo_url] - Company logo URL (employer)
  */
 export const registerUserThunk = async (user, thunkAPI) => {
+  const supabase = await loadSupabase();
   const { data: authData, error: authError } = await supabase.auth.signUp({
     email: user.email,
     password: user.password,
@@ -105,6 +106,7 @@ export const registerUserThunk = async (user, thunkAPI) => {
  * @param {string} user.password - User password
  */
 export const loginUserThunk = async (user, thunkAPI) => {
+  const supabase = await loadSupabase();
   const { data: authData, error: authError } =
     await supabase.auth.signInWithPassword({
       email: user.email,
@@ -142,6 +144,7 @@ export const loginUserThunk = async (user, thunkAPI) => {
  */
 export const updateUserThunk = async (user, thunkAPI) => {
   try {
+    const supabase = await loadSupabase();
     // Read the auth user directly from Supabase so the ID comes from
     // the live session token, not a potentially stale Redux cache.
     const {
@@ -191,6 +194,7 @@ export const updateUserThunk = async (user, thunkAPI) => {
  * @param {string} email
  */
 export const requestPasswordResetThunk = async (email, thunkAPI) => {
+  const supabase = await loadSupabase();
   const redirectTo = `${window.location.origin}/reset-password`;
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo,
@@ -211,6 +215,7 @@ export const requestPasswordResetThunk = async (email, thunkAPI) => {
  * @param {string} password - The new password
  */
 export const updatePasswordThunk = async (password, thunkAPI) => {
+  const supabase = await loadSupabase();
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) return handleSupabaseError(error, thunkAPI);
@@ -232,6 +237,7 @@ export const updatePasswordThunk = async (password, thunkAPI) => {
  */
 export const clearStoreThunk = async (message, thunkAPI) => {
   try {
+    const supabase = await loadSupabase();
     await supabase.auth.signOut();
 
     thunkAPI.dispatch(logoutUser(message));

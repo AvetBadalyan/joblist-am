@@ -26,7 +26,7 @@ export const HeroWrapper = styled.section`
     max-width: 720px;
   }
 
-  /* ── Animated headline ── */
+  /* ── Headline ── */
   .hero-headline {
     font-size: clamp(2.5rem, 5.5vw, var(--fs-4xl));
     font-family: var(--font-heading);
@@ -35,32 +35,16 @@ export const HeroWrapper = styled.section`
     letter-spacing: -0.03em;
     color: var(--grey-900);
     margin-bottom: var(--space-6);
-    /* Overflow hidden per-line for the text-reveal effect */
-    overflow: hidden;
   }
 
-  /*
-   * Each word is wrapped in a <span class="word"> so we can stagger
-   * the textReveal keyframe (defined in index.css) per-word.
-   * The wrapper uses overflow:hidden to create the "sliding up" reveal.
-   */
   .word-wrapper {
     display: inline-block;
-    overflow: hidden;
-    /* Tiny breathing room between words */
     margin-right: 0.25em;
     vertical-align: bottom;
   }
 
   .word {
     display: inline-block;
-    /* Hidden state before animation plays */
-    opacity: 0;
-    transform: translateY(100%);
-  }
-
-  .word.animate {
-    animation: textReveal var(--duration-entrance) var(--ease) forwards;
   }
 
   /* ── Gradient tagline ── */
@@ -71,11 +55,6 @@ export const HeroWrapper = styled.section`
     color: var(--grey-600);
     margin-bottom: var(--space-12);
     max-width: 56ch;
-    opacity: 0;
-  }
-
-  .hero-tagline.animate {
-    animation: fadeIn var(--duration-entrance) var(--ease) 400ms forwards;
   }
 
   .gradient-text {
@@ -92,11 +71,6 @@ export const HeroWrapper = styled.section`
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-4);
-    opacity: 0;
-  }
-
-  .hero-cta.animate {
-    animation: slideUp var(--duration-entrance) var(--ease) 600ms forwards;
   }
 
   /* ── CTA Buttons ── */
