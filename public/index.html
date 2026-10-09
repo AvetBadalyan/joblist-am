@@ -146,24 +146,26 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-      <div class="shell-nav" aria-hidden="true">
+      <header class="shell-nav">
         <div class="shell-nav-inner">
-          <img
-            class="shell-logo"
-            src="%PUBLIC_URL%/logo-200.webp"
-            srcset="
-              %PUBLIC_URL%/logo-100.webp 100w,
-              %PUBLIC_URL%/logo-200.webp 200w
-            "
-            sizes="(max-width: 768px) 100px, 200px"
-            alt=""
-            width="100"
-            height="100"
-            fetchpriority="high"
-            decoding="async"
-          />
+          <a href="/" aria-label="JobList.am home">
+            <img
+              class="shell-logo"
+              src="%PUBLIC_URL%/logo-200.webp"
+              srcset="
+                %PUBLIC_URL%/logo-100.webp 100w,
+                %PUBLIC_URL%/logo-200.webp 200w
+              "
+              sizes="(max-width: 768px) 100px, 200px"
+              alt="JobList.am"
+              width="100"
+              height="100"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </a>
         </div>
-      </div>
+      </header>
     </div>
   </body>
 </html>
