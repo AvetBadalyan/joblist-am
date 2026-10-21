@@ -101,7 +101,13 @@ export const getAllPublicJobsThunk = async (_, thunkAPI) => {
 
     return { jobs, totalJobs, numOfPages };
   } catch (error) {
-    console.error("Error fetching public jobs:", error);
+    // AbortError is expected when a fetch is cancelled (component unmount or
+    // React StrictMode double-invoke). The reducer already ignores aborted
+    // requests via action.meta.aborted; here we just skip the noisy console log.
+    if (error?.name === "AbortError") {
+      return thunkAPI.rejectWithValue(null);
+    }
+    console.error("Error fetching public jobs:", error?.message || error);
     return thunkAPI.rejectWithValue(
       error.message || "Failed to load jobs. Please try again.",
     );
