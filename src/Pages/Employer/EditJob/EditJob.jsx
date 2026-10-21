@@ -14,7 +14,7 @@ import {
   setEditJob,
 } from "../../../features/jobSlice/jobSlice";
 import { mapJobFromDB } from "../../../utils/mappers";
-import { supabase } from "../../../utils/supabase";
+import { loadSupabase } from "../../../utils/loadSupabase";
 
 /**
  * EditJob page - Form for employers to edit existing job listings
@@ -69,6 +69,7 @@ const EditJob = () => {
       }
 
       try {
+        const supabase = await loadSupabase();
         // Fetch job by ID - RLS ensures only owner can access for editing
         const { data, error } = await supabase
           .from("jobs")

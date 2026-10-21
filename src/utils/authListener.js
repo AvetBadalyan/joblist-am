@@ -8,14 +8,15 @@ import {
 } from "../features/user/userSlice";
 import { store } from "../store";
 import { mapProfileFromDB } from "./mappers";
-import { supabase } from "./supabase";
+import { loadSupabase } from "./loadSupabase";
 
 /**
  * Fetches the user's profile from the profiles table.
+ * @param {Object} supabase - The Supabase client instance
  * @param {string} userId - The authenticated user's ID
  * @returns {Object|null} The mapped profile data or null if not found
  */
-const fetchUserProfile = async (userId) => {
+const fetchUserProfile = async (supabase, userId) => {
   const { data: profile, error } = await supabase
     .from("profiles")
     .select("*")
@@ -51,7 +52,9 @@ const initializeCandidateState = (profile) => {
  *
  * @returns {Object} Subscription object with unsubscribe method
  */
-export const setupAuthListener = () => {
+export const setupAuthListener = async () => {
+  const supabase = await loadSupabase();
+  
   const {
     data: { subscription },
   } = supabase.auth.onAuthStateChange(async (event, session) => {
@@ -85,7 +88,7 @@ export const setupAuthListener = () => {
         // Only fetch profile if we don't have user data in Redux
         // (localStorage might have stale data, so we re-fetch to ensure consistency)
         if (!currentUser || currentUser.id !== session.user.id) {
-          const profile = await fetchUserProfile(session.user.id);
+          const profile = await fetchUserProfile(supabase, session.user.id);
 
           if (profile) {
             store.dispatch(setUser(profile));
@@ -117,7 +120,7 @@ export const setupAuthListener = () => {
       // Only fetch if we don't already have this user in state
       // (login thunk already handles setting user on explicit login)
       if (!currentUser || currentUser.id !== session.user.id) {
-        const profile = await fetchUserProfile(session.user.id);
+        const profile = await fetchUserProfile(supabase, session.user.id);
 
         if (profile) {
           store.dispatch(setUser(profile));

@@ -11,7 +11,7 @@ import {
   getJobApplicants,
   updateApplicationStatus,
 } from "../../../features/employerJobs/employerJobsSlice";
-import { supabase } from "../../../utils/supabase";
+import { loadSupabase } from "../../../utils/loadSupabase";
 
 /**
  * ViewApplicants Component
@@ -49,6 +49,7 @@ const ViewApplicants = () => {
       setJobError(null);
 
       try {
+        const supabase = await loadSupabase();
         const { data, error } = await supabase
           .from("jobs")
           .select("id, title, location, job_type, company_name")

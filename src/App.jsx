@@ -66,8 +66,8 @@ function App() {
     let subscription;
 
     import("./utils/authListener")
-      .then(({ setupAuthListener }) => {
-        const nextSubscription = setupAuthListener();
+      .then(async ({ setupAuthListener }) => {
+        const nextSubscription = await setupAuthListener();
         if (cancelled) {
           nextSubscription.unsubscribe();
           return;
