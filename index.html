@@ -5,9 +5,7 @@
     <link rel="icon" href="%BASE_URL%favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#3b82f6" />
-    <!-- DNS prefetch for faster resolution -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <!-- preconnect below covers DNS+TCP+TLS; no separate dns-prefetch needed -->
     <!-- Inline critical CSS for instant render -->
     <style>
       *,
@@ -93,8 +91,9 @@
       imagesrcset="%BASE_URL%logo-100.webp 100w, %BASE_URL%logo-200.webp 200w"
       imagesizes="(max-width: 768px) 100px, 200px"
     />
-    <!-- Preconnect to external resources -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Preconnect only to the font-file origin (gstatic). The CSS origin
+         (googleapis) is already connected via the stylesheet preload below,
+         so a separate preconnect for it is redundant. -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Load fonts without blocking first paint: preload as a style, then
          flip to a stylesheet once it arrives. The inline system-font stack
