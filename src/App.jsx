@@ -2,11 +2,18 @@ import { lazy, Suspense, useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Loading from "./components/Loading/Loading";
 import AppErrorBoundary from "./components/AppErrorBoundary/AppErrorBoundary";
 import { finishInitializing } from "./features/user/userSlice";
+
+// Lazy-load ToastContainer and its CSS - not needed until first toast
+const LazyToastContainer = lazy(() =>
+  import("react-toastify").then((mod) => {
+    // Import CSS only when ToastContainer is loaded
+    import("react-toastify/dist/ReactToastify.css");
+    return { default: mod.ToastContainer };
+  })
+);
 
 // Routing primitives stay eager — they gate every route and are tiny.
 import RoleRedirect from "./components/RoleRedirect/RoleRedirect";
@@ -82,7 +89,9 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
+      <Suspense fallback={null}>
+        <LazyToastContainer />
+      </Suspense>
       {authListenerFailed && (
         <div className="app-error-notice" role="alert">
           <p>We couldn’t initialize your secure session.</p>

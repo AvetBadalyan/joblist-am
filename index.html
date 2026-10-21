@@ -84,6 +84,102 @@
           padding: 0 2rem;
         }
       }
+      /* Critical hero shell for faster LCP. Mirrors the real React hero's
+         box model (spacing, font sizes, container, CTA footprint) so the
+         swap on mount causes no visible layout shift (low CLS). Values are
+         the literal equivalents of the design tokens the hero uses. */
+      .shell-hero {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(
+          160deg,
+          #f8fafc 0%,
+          #fff 60%,
+          #eff6ff 100%
+        );
+      }
+      .shell-hero-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 1rem; /* --space-16 --container-padding */
+      }
+      .shell-hero-content {
+        max-width: 720px;
+      }
+      .shell-headline {
+        font-size: clamp(2.5rem, 5.5vw, 3rem); /* matches --fs-4xl */
+        font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        color: #0f172a;
+        margin-bottom: 1.5rem; /* --space-6 */
+      }
+      .shell-tagline {
+        font-size: clamp(1.125rem, 2.5vw, 1.5rem); /* --fs-md .. --fs-xl */
+        font-weight: 500;
+        line-height: 1.6;
+        color: #475569;
+        max-width: 56ch;
+        margin-bottom: 3rem; /* --space-12: reserves space for CTA row */
+      }
+      .shell-gradient {
+        background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: #2563eb; /* fallback before gradient clip applies */
+      }
+      /* Placeholder CTA row: same footprint as the real buttons so the
+         vertical box height matches and nothing jumps on mount. */
+      .shell-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem; /* --space-4 */
+      }
+      .shell-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 2rem; /* --space-3 --space-8 */
+        min-height: 44px;
+        border-radius: 1rem; /* --radius-xl */
+        font-size: 1rem; /* --fs-base */
+        font-weight: 600;
+        line-height: 1.25;
+        border: 2px solid transparent;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .shell-btn-primary {
+        background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+        color: #fff;
+      }
+      .shell-btn-secondary {
+        background: transparent;
+        color: #2563eb;
+        border-color: #3b82f6;
+      }
+      @media (min-width: 768px) {
+        .shell-hero-container {
+          padding: 4rem 1.5rem; /* --container-padding grows at md */
+        }
+      }
+      @media (min-width: 1024px) {
+        .shell-hero-container {
+          padding: 4rem 2rem; /* --container-padding grows at lg */
+        }
+      }
+      @media (max-width: 767px) {
+        .shell-hero-content {
+          text-align: center;
+        }
+        .shell-cta {
+          justify-content: center;
+        }
+      }
     </style>
     <link
       rel="preload"
@@ -155,6 +251,23 @@
           </a>
         </div>
       </header>
+      <!-- Critical hero shell for fast LCP. React (createRoot) replaces #root
+           on mount; this shell mirrors the real hero's box model so there is
+           no layout shift when it does. -->
+      <main class="shell-hero">
+        <div class="shell-hero-container">
+          <div class="shell-hero-content">
+            <h1 class="shell-headline">Find Your Next Career Move</h1>
+            <p class="shell-tagline">
+              Armenia's job platform for <span class="shell-gradient">ambitious professionals</span> and <span class="shell-gradient">growing companies</span>
+            </p>
+            <div class="shell-cta" aria-hidden="true">
+              <span class="shell-btn shell-btn-primary">Browse Jobs</span>
+              <span class="shell-btn shell-btn-secondary">Post a Job</span>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
     <script type="module" src="/src/index.jsx"></script>
   </body>
