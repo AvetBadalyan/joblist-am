@@ -27,3 +27,5 @@ yarn-error.log*
 
 # editor / tooling
 .kiro/
+.vercel
+.env*
